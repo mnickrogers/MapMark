@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MMBagsView: UIView, NSFetchedResultsControllerDelegate, UITableViewDelegate, UITableViewDataSource, MMTextInputViewDelegate, UITextFieldDelegate
+class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate
 {
     // MARK: Private Types and Variables
     
@@ -22,19 +22,8 @@ class MMBagsView: UIView, NSFetchedResultsControllerDelegate, UITableViewDelegat
     }()
     private var bags : [Bag]?
     private var mainHeader : MMHeaderView!
-    private var mainTableView : UITableView!
+    private var mainTableView : MMBagsTableView!
     private var currentNewBag : Bag?
-    private lazy var fetchedResultsController : NSFetchedResultsController =
-    {
-        let fetchRequest = NSFetchRequest(entityName: "Bag")
-        let fetchSort = NSSortDescriptor(key: "date_created", ascending: false)
-        fetchRequest.sortDescriptors = [fetchSort]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.moc!, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        
-        return fetchedResultsController
-    }()
     
     private let rowHeight : CGFloat = 100
     
@@ -45,17 +34,6 @@ class MMBagsView: UIView, NSFetchedResultsControllerDelegate, UITableViewDelegat
         super.init(frame: frame)
         
         backgroundColor = MM_COLOR_BASE
-        
-        // MARK: Core Data Fetch
-        do
-        {
-            try fetchedResultsController.performFetch()
-        }
-        catch
-        {
-            let fetchError = error as NSError
-            print("Error: \(fetchError.localizedDescription)")
-        }
         
         // MARK: Header
         mainHeader = MMHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50))
@@ -75,17 +53,16 @@ class MMBagsView: UIView, NSFetchedResultsControllerDelegate, UITableViewDelegat
         mainHeader.addSubview(addButton)
         
         // MARK: Table View
-        mainTableView = UITableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height), style: .Plain)
-        mainTableView.scrollEnabled = true
-        mainTableView.alwaysBounceVertical = true
-        mainTableView.alwaysBounceHorizontal = false
-        mainTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell_id")
-        mainTableView.delegate = self
-        mainTableView.dataSource = self
-        mainTableView.clipsToBounds = false
-        mainTableView.backgroundColor = UIColor.clearColor()
-        mainTableView.allowsSelectionDuringEditing = false
-        mainTableView.separatorColor = MM_COLOR_BLUE_DIV
+        let fetchRequest = NSFetchRequest(entityName: "Bag")
+        let fetchSort = NSSortDescriptor(key: "date_created", ascending: false)
+        fetchRequest.sortDescriptors = [fetchSort]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.moc!, sectionNameKeyPath: nil, cacheName: nil)
+        
+        mainTableView = MMBagsTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height),
+                                        fetchedResultsController: fetchedResultsController,
+                                        managedObjectContext: moc!)
+        mainTableView.selectionDelegate = self
         self.addSubview(mainTableView)
         
         self.addSubview(mainHeader)
@@ -93,21 +70,6 @@ class MMBagsView: UIView, NSFetchedResultsControllerDelegate, UITableViewDelegat
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: Core Data
-    private func getBags() -> [Bag]?
-    {
-        if moc == nil { return nil }
-        let fetchRequest = NSFetchRequest()
-        let entityDescription = NSEntityDescription.entityForName("Bag", inManagedObjectContext: moc!)
-        let fetchSort = NSSortDescriptor(key: "date_created", ascending: false)
-        fetchRequest.entity = entityDescription
-        fetchRequest.sortDescriptors = [fetchSort]
-        
-        guard let results = try? moc!.executeFetchRequest(fetchRequest) as? [Bag]
-            else { return nil }
-        return results
     }
     
     // MARK: Handle New Bags
@@ -149,141 +111,49 @@ class MMBagsView: UIView, NSFetchedResultsControllerDelegate, UITableViewDelegat
         {
             print("Could not save Core Data, \(error.localizedDescription)")
         }
-        tableViewRowSelected(NSIndexPath(forRow: 0, inSection: 0))
+//        tableViewRowSelected(NSIndexPath(forRow: 0, inSection: 0))
     }
     
-    // MARK: Fetched Results Controller
-    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    // MARK: Table View Methods
+    func tableViewRowSelected(tableView: MMBagsTableView, indexPath: NSIndexPath)
     {
-        mainTableView.beginUpdates()
+        rowSelected(indexPath)
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    private func rowSelected(indexPath : NSIndexPath)
     {
-        mainTableView.endUpdates()
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch (type) {
-        case .Insert:
-            if let indexPath = newIndexPath {
-                mainTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
-            break;
-        case .Delete:
-            if let indexPath = indexPath {
-                mainTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
-            break;
-        case .Update:
-            if let indexPath = indexPath {
-                guard let cell = mainTableView.cellForRowAtIndexPath(indexPath) // Add cast to custom UITableViewCell here
-                    else { return }
-                configureCell(cell, atIndexPath: indexPath)
-            }
-            break;
-        case .Move:
-            if let indexPath = indexPath {
-                mainTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
-            
-            if let newIndexPath = newIndexPath {
-                mainTableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
-            }
-            break;
-        }
-    }
-    
-    // MARK: Table View
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-    {
-        if editingStyle == .Delete
-        {
-            guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
-                else { return }
-            moc?.deleteObject(record)
-            do
-            {
-                try moc?.save()
-            }
-            catch let error as NSError
-            {
-                print("Failed to delete record: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-    {
-        return true
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
-    {
-        if let sections = fetchedResultsController.sections
-        {
-            return sections.count
-        }
-        
-        return 0
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    {
-        return rowHeight
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if let sections = fetchedResultsController.sections
-        {
-            let sectionInfo = sections[section]
-            return sectionInfo.numberOfObjects
-        }
-        return 0
-    }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
-    {
-        return 0.01
-    }
-    
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
-    {
-        return UIView()
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier("cell_id")
-            else { return UITableViewCell() }
-        
-        configureCell(cell, atIndexPath: indexPath)
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        tableViewRowSelected(indexPath)
-    }
-    
-    private func tableViewRowSelected(indexPath : NSIndexPath)
-    {
-    }
-    
-    func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
-    {
-        guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
-            else { return }
-        
-        cell.backgroundColor = UIColor.clearColor()
-        cell.textLabel?.font = UIFont(name: MM_FONT_REGULAR, size: 25)
-        cell.textLabel?.textColor = MM_COLOR_BLUE_TEXT
-        cell.textLabel?.text = record.name
+        print("Selected: \(indexPath)")
     }
     
     // MARK: Single Bag View
     
+}
+
+protocol MMBagsTableViewDelegate
+{
+    func tableViewRowSelected(tableView: MMBagsTableView, indexPath: NSIndexPath)
+}
+
+final class MMBagsTableView: MMDefaultFetchedResultsTableView
+{
+    internal var selectionDelegate : MMBagsTableViewDelegate?
+    
+    override func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
+    {
+        super.configureCell(cell, atIndexPath: indexPath)
+        guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+            else { return }
+        cell.textLabel?.text = record.name
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        return 100
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+        selectionDelegate?.tableViewRowSelected(self, indexPath: indexPath)
+    }
 }

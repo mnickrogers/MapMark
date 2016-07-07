@@ -11,14 +11,123 @@ import CoreData
 
 class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsControllerDelegate
 {
-    private var fetchedResultsController : NSFetchedResultsController!
+    internal var moc : NSManagedObjectContext?
+    internal var fetchedResultsController : NSFetchedResultsController!
     
-    convenience init(frame: CGRect, fetchedResultsController: NSFetchedResultsController)
+    // MARK: Initialization
+    init(frame: CGRect, fetchedResultsController: NSFetchedResultsController, managedObjectContext: NSManagedObjectContext)
     {
-        self.init(frame: frame, style: .Plain)
+        super.init(frame: frame, style: .Plain)
+        moc = managedObjectContext
+        self.fetchedResultsController = fetchedResultsController
+        self.fetchedResultsController.delegate = self
+        
+        // MARK: Core Data Fetch
+        do
+        {
+            try fetchedResultsController.performFetch()
+        }
+        catch
+        {
+            let fetchError = error as NSError
+            print("Error: \(fetchError.localizedDescription)")
+        }
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    // MARK: Fetched Results Controller
+    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    {
+        self.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
+        self.endUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch (type) {
+        case .Insert:
+            if let indexPath = newIndexPath {
+                self.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break;
+        case .Delete:
+            if let indexPath = indexPath {
+                self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break;
+        case .Update:
+            if let indexPath = indexPath {
+                guard let cell = self.cellForRowAtIndexPath(indexPath) // Add cast to custom UITableViewCell here
+                    else { return }
+                self.configureCell(cell, atIndexPath: indexPath)
+            }
+            break;
+        case .Move:
+            if let indexPath = indexPath {
+                self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                self.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+            }
+            break;
+        }
+    }
+    
+    // MARK: Table View
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if editingStyle == .Delete
+        {
+            guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+                else { return }
+            moc?.deleteObject(record)
+            do
+            {
+                try moc?.save()
+            }
+            catch let error as NSError
+            {
+                print("Failed to delete record: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
+        if let sections = fetchedResultsController.sections
+        {
+            return sections.count
+        }
+        
+        return 0
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        return rowHeight
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        if let sections = fetchedResultsController.sections
+        {
+            let sectionInfo = sections[section]
+            return sectionInfo.numberOfObjects
+        }
+        return 0
+    }
 }
 
 class MMDefaultTableView: UITableView, UITableViewDelegate, UITableViewDataSource
