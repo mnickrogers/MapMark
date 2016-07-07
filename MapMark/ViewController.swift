@@ -9,10 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle
+    {
+        return .LightContent
+    }
+    
+    override func viewDidAppear(animated: Bool)
+    {
+        super.viewDidAppear(animated)
+//        let vc = MMRootViewController()
+//        self.presentViewController(vc, animated: false, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let bagsView = MMBagsView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+        self.view.addSubview(bagsView)
     }
 
     override func didReceiveMemoryWarning() {

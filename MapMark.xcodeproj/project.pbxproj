@@ -13,6 +13,30 @@
 		1E6145E31D2CDEF200B06169 /* MapMark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145E11D2CDEF200B06169 /* MapMark.xcdatamodeld */; };
 		1E6145E51D2CDEF200B06169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6145E41D2CDEF200B06169 /* Assets.xcassets */; };
 		1E6145E81D2CDEF200B06169 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6145E61D2CDEF200B06169 /* LaunchScreen.storyboard */; };
+		1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F21D2CE45500B06169 /* MMRootViewController.swift */; };
+		1E6145F81D2CE62B00B06169 /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F41D2CE62B00B06169 /* Pin+CoreDataProperties.swift */; };
+		1E6145F91D2CE62B00B06169 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F51D2CE62B00B06169 /* Pin.swift */; };
+		1E6145FA1D2CE62B00B06169 /* Bag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F61D2CE62B00B06169 /* Bag+CoreDataProperties.swift */; };
+		1E6145FB1D2CE62B00B06169 /* Bag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F71D2CE62B00B06169 /* Bag.swift */; };
+		1E6145FE1D2CE75C00B06169 /* MMBagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145FD1D2CE75C00B06169 /* MMBagsView.swift */; };
+		1E6146001D2CE77900B06169 /* MMSingleBagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145FF1D2CE77900B06169 /* MMSingleBagView.swift */; };
+		1E6146031D2CE7EC00B06169 /* MMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6146021D2CE7EC00B06169 /* MMConstants.swift */; };
+		1E6146111D2CE85700B06169 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E6146051D2CE85700B06169 /* Roboto-Black.ttf */; };
+		1E6146121D2CE85700B06169 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E6146061D2CE85700B06169 /* Roboto-BlackItalic.ttf */; };
+		1E6146131D2CE85700B06169 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E6146071D2CE85700B06169 /* Roboto-Bold.ttf */; };
+		1E6146141D2CE85700B06169 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E6146081D2CE85700B06169 /* Roboto-BoldItalic.ttf */; };
+		1E6146151D2CE85700B06169 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E6146091D2CE85700B06169 /* Roboto-Italic.ttf */; };
+		1E6146161D2CE85700B06169 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E61460A1D2CE85700B06169 /* Roboto-Light.ttf */; };
+		1E6146171D2CE85700B06169 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E61460B1D2CE85700B06169 /* Roboto-LightItalic.ttf */; };
+		1E6146181D2CE85700B06169 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E61460C1D2CE85700B06169 /* Roboto-Medium.ttf */; };
+		1E6146191D2CE85700B06169 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E61460D1D2CE85700B06169 /* Roboto-MediumItalic.ttf */; };
+		1E61461A1D2CE85700B06169 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E61460E1D2CE85700B06169 /* Roboto-Regular.ttf */; };
+		1E61461B1D2CE85700B06169 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E61460F1D2CE85700B06169 /* Roboto-Thin.ttf */; };
+		1E61461C1D2CE85700B06169 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E6146101D2CE85700B06169 /* Roboto-ThinItalic.ttf */; };
+		1E61461E1D2CF9E200B06169 /* MMHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E61461D1D2CF9E200B06169 /* MMHeaderView.swift */; };
+		1E6146201D2D748300B06169 /* MMTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E61461F1D2D748300B06169 /* MMTextInput.swift */; };
+		1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6146221D2D7D6D00B06169 /* MMExtensions.swift */; };
+		1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9B31671D2DE60B0092200D /* MMBagViewClasses.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +48,30 @@
 		1E6145E41D2CDEF200B06169 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E6145E71D2CDEF200B06169 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E6145E91D2CDEF200B06169 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E6145F21D2CE45500B06169 /* MMRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMRootViewController.swift; sourceTree = "<group>"; };
+		1E6145F41D2CE62B00B06169 /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Pin+CoreDataProperties.swift"; path = "../Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1E6145F51D2CE62B00B06169 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pin.swift; path = ../Pin.swift; sourceTree = "<group>"; };
+		1E6145F61D2CE62B00B06169 /* Bag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Bag+CoreDataProperties.swift"; path = "../Bag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1E6145F71D2CE62B00B06169 /* Bag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bag.swift; path = ../Bag.swift; sourceTree = "<group>"; };
+		1E6145FD1D2CE75C00B06169 /* MMBagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMBagsView.swift; sourceTree = "<group>"; };
+		1E6145FF1D2CE77900B06169 /* MMSingleBagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSingleBagView.swift; sourceTree = "<group>"; };
+		1E6146021D2CE7EC00B06169 /* MMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMConstants.swift; sourceTree = "<group>"; };
+		1E6146051D2CE85700B06169 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		1E6146061D2CE85700B06169 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
+		1E6146071D2CE85700B06169 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		1E6146081D2CE85700B06169 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		1E6146091D2CE85700B06169 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		1E61460A1D2CE85700B06169 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		1E61460B1D2CE85700B06169 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
+		1E61460C1D2CE85700B06169 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		1E61460D1D2CE85700B06169 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
+		1E61460E1D2CE85700B06169 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		1E61460F1D2CE85700B06169 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		1E6146101D2CE85700B06169 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		1E61461D1D2CF9E200B06169 /* MMHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMHeaderView.swift; sourceTree = "<group>"; };
+		1E61461F1D2D748300B06169 /* MMTextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTextInput.swift; sourceTree = "<group>"; };
+		1E6146221D2D7D6D00B06169 /* MMExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMExtensions.swift; sourceTree = "<group>"; };
+		1E9B31671D2DE60B0092200D /* MMBagViewClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMBagViewClasses.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +104,95 @@
 		1E6145D91D2CDEF100B06169 /* MapMark */ = {
 			isa = PBXGroup;
 			children = (
-				1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */,
-				1E6145DC1D2CDEF100B06169 /* ViewController.swift */,
+				1E6146211D2D7D5D00B06169 /* Input */,
+				1E6145FC1D2CE74F00B06169 /* Bags */,
+				1E6145F11D2CE43D00B06169 /* Root */,
+				1E6146011D2CE7D900B06169 /* Utilities */,
+				1E6145EF1D2CDF0100B06169 /* Resources */,
+			);
+			path = MapMark;
+			sourceTree = "<group>";
+		};
+		1E6145EF1D2CDF0100B06169 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1E6146041D2CE84400B06169 /* Fonts */,
 				1E6145DE1D2CDEF200B06169 /* Main.storyboard */,
 				1E6145E41D2CDEF200B06169 /* Assets.xcassets */,
 				1E6145E61D2CDEF200B06169 /* LaunchScreen.storyboard */,
 				1E6145E91D2CDEF200B06169 /* Info.plist */,
-				1E6145E11D2CDEF200B06169 /* MapMark.xcdatamodeld */,
 			);
-			path = MapMark;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1E6145F01D2CDF0B00B06169 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				1E6145E11D2CDEF200B06169 /* MapMark.xcdatamodeld */,
+				1E6145F41D2CE62B00B06169 /* Pin+CoreDataProperties.swift */,
+				1E6145F51D2CE62B00B06169 /* Pin.swift */,
+				1E6145F61D2CE62B00B06169 /* Bag+CoreDataProperties.swift */,
+				1E6145F71D2CE62B00B06169 /* Bag.swift */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		1E6145F11D2CE43D00B06169 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */,
+				1E6145DC1D2CDEF100B06169 /* ViewController.swift */,
+				1E6145F21D2CE45500B06169 /* MMRootViewController.swift */,
+				1E61461D1D2CF9E200B06169 /* MMHeaderView.swift */,
+			);
+			name = Root;
+			sourceTree = "<group>";
+		};
+		1E6145FC1D2CE74F00B06169 /* Bags */ = {
+			isa = PBXGroup;
+			children = (
+				1E6145FD1D2CE75C00B06169 /* MMBagsView.swift */,
+				1E6145FF1D2CE77900B06169 /* MMSingleBagView.swift */,
+				1E9B31671D2DE60B0092200D /* MMBagViewClasses.swift */,
+			);
+			name = Bags;
+			sourceTree = "<group>";
+		};
+		1E6146011D2CE7D900B06169 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1E6145F01D2CDF0B00B06169 /* Core Data */,
+				1E6146021D2CE7EC00B06169 /* MMConstants.swift */,
+				1E6146221D2D7D6D00B06169 /* MMExtensions.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		1E6146041D2CE84400B06169 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1E6146051D2CE85700B06169 /* Roboto-Black.ttf */,
+				1E6146061D2CE85700B06169 /* Roboto-BlackItalic.ttf */,
+				1E6146071D2CE85700B06169 /* Roboto-Bold.ttf */,
+				1E6146081D2CE85700B06169 /* Roboto-BoldItalic.ttf */,
+				1E6146091D2CE85700B06169 /* Roboto-Italic.ttf */,
+				1E61460A1D2CE85700B06169 /* Roboto-Light.ttf */,
+				1E61460B1D2CE85700B06169 /* Roboto-LightItalic.ttf */,
+				1E61460C1D2CE85700B06169 /* Roboto-Medium.ttf */,
+				1E61460D1D2CE85700B06169 /* Roboto-MediumItalic.ttf */,
+				1E61460E1D2CE85700B06169 /* Roboto-Regular.ttf */,
+				1E61460F1D2CE85700B06169 /* Roboto-Thin.ttf */,
+				1E6146101D2CE85700B06169 /* Roboto-ThinItalic.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		1E6146211D2D7D5D00B06169 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				1E61461F1D2D748300B06169 /* MMTextInput.swift */,
+			);
+			name = Input;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +253,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E61461C1D2CE85700B06169 /* Roboto-ThinItalic.ttf in Resources */,
+				1E61461B1D2CE85700B06169 /* Roboto-Thin.ttf in Resources */,
 				1E6145E81D2CDEF200B06169 /* LaunchScreen.storyboard in Resources */,
 				1E6145E51D2CDEF200B06169 /* Assets.xcassets in Resources */,
+				1E6146171D2CE85700B06169 /* Roboto-LightItalic.ttf in Resources */,
+				1E6146131D2CE85700B06169 /* Roboto-Bold.ttf in Resources */,
+				1E6146191D2CE85700B06169 /* Roboto-MediumItalic.ttf in Resources */,
+				1E6146121D2CE85700B06169 /* Roboto-BlackItalic.ttf in Resources */,
 				1E6145E01D2CDEF200B06169 /* Main.storyboard in Resources */,
+				1E6146151D2CE85700B06169 /* Roboto-Italic.ttf in Resources */,
+				1E6146141D2CE85700B06169 /* Roboto-BoldItalic.ttf in Resources */,
+				1E6146181D2CE85700B06169 /* Roboto-Medium.ttf in Resources */,
+				1E61461A1D2CE85700B06169 /* Roboto-Regular.ttf in Resources */,
+				1E6146111D2CE85700B06169 /* Roboto-Black.ttf in Resources */,
+				1E6146161D2CE85700B06169 /* Roboto-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +280,19 @@
 			files = (
 				1E6145DD1D2CDEF100B06169 /* ViewController.swift in Sources */,
 				1E6145E31D2CDEF200B06169 /* MapMark.xcdatamodeld in Sources */,
+				1E6145FE1D2CE75C00B06169 /* MMBagsView.swift in Sources */,
+				1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */,
+				1E6146001D2CE77900B06169 /* MMSingleBagView.swift in Sources */,
+				1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */,
+				1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */,
+				1E6145FA1D2CE62B00B06169 /* Bag+CoreDataProperties.swift in Sources */,
+				1E6146201D2D748300B06169 /* MMTextInput.swift in Sources */,
+				1E6145F91D2CE62B00B06169 /* Pin.swift in Sources */,
+				1E6145F81D2CE62B00B06169 /* Pin+CoreDataProperties.swift in Sources */,
+				1E6145FB1D2CE62B00B06169 /* Bag.swift in Sources */,
+				1E6146031D2CE7EC00B06169 /* MMConstants.swift in Sources */,
 				1E6145DB1D2CDEF100B06169 /* AppDelegate.swift in Sources */,
+				1E61461E1D2CF9E200B06169 /* MMHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +442,7 @@
 				1E6145EE1D2CDEF200B06169 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
