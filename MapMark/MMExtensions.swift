@@ -7,6 +7,19 @@
 //
 
 import UIKit
+import CoreData
+
+extension NSFetchedResultsController
+{
+    func copyWithZone(zone: NSZone) -> AnyObject
+    {
+        let copy = NSFetchedResultsController(fetchRequest: self.fetchRequest,
+                                              managedObjectContext: self.managedObjectContext,
+                                              sectionNameKeyPath: self.sectionNameKeyPath,
+                                              cacheName: self.cacheName)
+        return copy
+    }
+}
 
 extension CGRect
 {

@@ -16,6 +16,7 @@ extension Pin {
 
     @NSManaged var name:            String?
     @NSManaged var pin_description: String?
+    @NSManaged var pin_id:          String?
     @NSManaged var latitude:        Double
     @NSManaged var longitude:       Double
     @NSManaged var date_created:    Int64

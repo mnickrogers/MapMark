@@ -37,6 +37,7 @@
 		1E6146201D2D748300B06169 /* MMTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E61461F1D2D748300B06169 /* MMTextInput.swift */; };
 		1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6146221D2D7D6D00B06169 /* MMExtensions.swift */; };
 		1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9B31671D2DE60B0092200D /* MMBagViewClasses.swift */; };
+		1E9B316A1D2E367C0092200D /* MMSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9B31691D2E367C0092200D /* MMSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		1E61461F1D2D748300B06169 /* MMTextInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTextInput.swift; sourceTree = "<group>"; };
 		1E6146221D2D7D6D00B06169 /* MMExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMExtensions.swift; sourceTree = "<group>"; };
 		1E9B31671D2DE60B0092200D /* MMBagViewClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMBagViewClasses.swift; sourceTree = "<group>"; };
+		1E9B31691D2E367C0092200D /* MMSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 				1E6145DC1D2CDEF100B06169 /* ViewController.swift */,
 				1E6145F21D2CE45500B06169 /* MMRootViewController.swift */,
 				1E61461D1D2CF9E200B06169 /* MMHeaderView.swift */,
+				1E9B31691D2E367C0092200D /* MMSession.swift */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */,
 				1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */,
 				1E6145FA1D2CE62B00B06169 /* Bag+CoreDataProperties.swift in Sources */,
+				1E9B316A1D2E367C0092200D /* MMSession.swift in Sources */,
 				1E6146201D2D748300B06169 /* MMTextInput.swift in Sources */,
 				1E6145F91D2CE62B00B06169 /* Pin.swift in Sources */,
 				1E6145F81D2CE62B00B06169 /* Pin+CoreDataProperties.swift in Sources */,

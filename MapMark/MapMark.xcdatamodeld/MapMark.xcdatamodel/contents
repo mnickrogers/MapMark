@@ -12,10 +12,11 @@
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="pin_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pin_id" attributeType="String" syncable="YES"/>
         <relationship name="bag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bag" inverseName="pins" inverseEntity="Bag" syncable="YES"/>
     </entity>
     <elements>
         <element name="Bag" positionX="-72" positionY="-18" width="128" height="103"/>
-        <element name="Pin" positionX="117" positionY="77" width="128" height="133"/>
+        <element name="Pin" positionX="117" positionY="77" width="128" height="148"/>
     </elements>
 </model>

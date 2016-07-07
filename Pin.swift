@@ -20,5 +20,10 @@ class Pin: NSManagedObject
         {
             date_created = Int64(NSDate().timeIntervalSince1970)
         }
+        
+        if pin_id == nil
+        {
+            pin_id = String().randomString(10, strong: false, restrictLowercase: false, permitSpaces: false)
+        }
     }
 }

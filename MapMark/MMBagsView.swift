@@ -115,7 +115,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     }
     
     // MARK: Table View Methods
-    func tableViewRowSelected(tableView: MMBagsTableView, indexPath: NSIndexPath)
+    func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
     {
         rowSelected(indexPath)
     }
@@ -123,6 +123,10 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     private func rowSelected(indexPath : NSIndexPath)
     {
         print("Selected: \(indexPath)")
+        guard let selectedBag = mainTableView.fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+            else { return }
+        let sbv = MMSingleBagView(frame: self.frame, bag: selectedBag, managedObjectContext: moc!)
+        self.addSubview(sbv)
     }
     
     // MARK: Single Bag View
@@ -131,7 +135,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
 
 protocol MMBagsTableViewDelegate
 {
-    func tableViewRowSelected(tableView: MMBagsTableView, indexPath: NSIndexPath)
+    func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
 }
 
 final class MMBagsTableView: MMDefaultFetchedResultsTableView

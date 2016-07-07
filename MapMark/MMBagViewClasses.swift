@@ -52,6 +52,7 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch (type) {
         case .Insert:
+            print("Insertion")
             if let indexPath = newIndexPath {
                 self.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
@@ -85,7 +86,7 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     {
         if editingStyle == .Delete
         {
-            guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+            guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? NSManagedObject
                 else { return }
             moc?.deleteObject(record)
             do
