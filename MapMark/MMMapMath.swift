@@ -9,6 +9,9 @@
 import Foundation
 import MapKit
 
+// MARK: Structures
+
+/// Struct representing longitude and latitude.
 public struct Coordinate
 {
     public var latitude: Double
@@ -32,16 +35,21 @@ public func ==(lhs: Coordinate, rhs: Coordinate) -> Bool
     return lhs.hashValue == rhs.hashValue
 }
 
+// MARK: Distance Calculations
+
+/// Calculate the greater circle distance between two points.
 public func haversine(coordinate1: CLLocationCoordinate2D, coordinate2: CLLocationCoordinate2D) -> Double
 {
     return haversine(coordinate1.latitude, longitude1: coordinate1.longitude, latitude2: coordinate2.latitude, longitude2: coordinate2.longitude)
 }
 
+/// Calculate the greater circle distance between two points.
 public func haversine(coordinate1: Coordinate, coordinate2: Coordinate) -> Double
 {
     return haversine(coordinate1.latitude, longitude1: coordinate1.longitude, latitude2: coordinate2.latitude, longitude2: coordinate2.longitude)
 }
 
+/// Calculate the greater circle distance between two points.
 public func haversine(latitude1: Double, longitude1: Double, latitude2: Double, longitude2: Double) -> Double
 {
     let coords = [latitude1, longitude1, latitude2, longitude2]
@@ -56,11 +64,15 @@ public func haversine(latitude1: Double, longitude1: Double, latitude2: Double, 
     return c * r
 }
 
+/// Convert degrees to radians.
 public func degreesToRadians(degrees: Double) -> Double
 {
     return degrees * (M_PI / 180.0)
 }
 
+// MARK: Routing
+
+/// Find the shortest path given a start and a set of coordinates.
 public func findShortestPath(start: Coordinate, points: [Coordinate]) -> [Coordinate]
 {
     var path = [Coordinate]()
