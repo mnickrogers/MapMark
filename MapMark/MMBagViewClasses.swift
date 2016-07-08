@@ -11,14 +11,13 @@ import CoreData
 
 class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsControllerDelegate
 {
-    internal var moc : NSManagedObjectContext?
+//    internal var moc : NSManagedObjectContext?
     internal var fetchedResultsController : NSFetchedResultsController!
     
     // MARK: Initialization
     init(frame: CGRect, fetchedResultsController: NSFetchedResultsController, managedObjectContext: NSManagedObjectContext)
     {
         super.init(frame: frame, style: .Plain)
-        moc = managedObjectContext
         self.fetchedResultsController = fetchedResultsController
         self.fetchedResultsController.delegate = self
         
@@ -49,32 +48,38 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
         self.endUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch (type) {
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
+    {
+        switch (type)
+        {
         case .Insert:
-            print("Insertion")
-            if let indexPath = newIndexPath {
+            if let indexPath = newIndexPath
+            {
                 self.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
             break;
         case .Delete:
-            if let indexPath = indexPath {
+            if let indexPath = indexPath
+            {
                 self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
             break;
         case .Update:
-            if let indexPath = indexPath {
+            if let indexPath = indexPath
+            {
                 guard let cell = self.cellForRowAtIndexPath(indexPath) // Add cast to custom UITableViewCell here
                     else { return }
                 self.configureCell(cell, atIndexPath: indexPath)
             }
             break;
         case .Move:
-            if let indexPath = indexPath {
+            if let indexPath = indexPath
+            {
                 self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
             
-            if let newIndexPath = newIndexPath {
+            if let newIndexPath = newIndexPath
+            {
                 self.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
             }
             break;
@@ -88,10 +93,10 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
         {
             guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? NSManagedObject
                 else { return }
-            moc?.deleteObject(record)
+            MMSession.sharedSession.managedObjectContext.deleteObject(record)
             do
             {
-                try moc?.save()
+                try MMSession.sharedSession.managedObjectContext.save()
             }
             catch let error as NSError
             {
@@ -184,6 +189,8 @@ class MMDefaultTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
     
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
     {
+        cell.selectedBackgroundView = UIView()
+        cell.selectedBackgroundView?.backgroundColor = UIColor.darkGrayColor()
         cell.backgroundColor = UIColor.clearColor()
         cell.textLabel?.font = UIFont(name: MM_FONT_REGULAR, size: 25)
         cell.textLabel?.textColor = MM_COLOR_BLUE_TEXT

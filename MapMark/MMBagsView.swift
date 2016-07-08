@@ -9,17 +9,11 @@
 import UIKit
 import CoreData
 
-class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate
+class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate, MMNavigationDelegate
 {
     // MARK: Private Types and Variables
     
-    private lazy var moc : NSManagedObjectContext? =
-    {
-        guard let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
-            else { return nil }
-        let context = delegate.managedObjectContext
-        return context
-    }()
+    private var contentView : UIView!
     private var bags : [Bag]?
     private var mainHeader : MMHeaderView!
     private var mainTableView : MMBagsTableView!
@@ -34,6 +28,8 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         super.init(frame: frame)
         
         backgroundColor = MM_COLOR_BASE
+        
+        contentView = UIView(frame: CGRect().zeroBoundedRect(self.frame))
         
         // MARK: Header
         mainHeader = MMHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50))
@@ -57,15 +53,29 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         let fetchSort = NSSortDescriptor(key: "date_created", ascending: false)
         fetchRequest.sortDescriptors = [fetchSort]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.moc!, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MMSession.sharedSession.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
         mainTableView = MMBagsTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height),
                                         fetchedResultsController: fetchedResultsController,
-                                        managedObjectContext: moc!)
+                                        managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView.selectionDelegate = self
-        self.addSubview(mainTableView)
+        mainTableView.separatorColor = MM_COLOR_BLUE_DIV
+        contentView.addSubview(mainTableView)
         
-        self.addSubview(mainHeader)
+        contentView.addSubview(mainHeader)
+        self.addSubview(contentView)
+        
+        let initialTableViewFrame = mainTableView.frame
+        mainTableView.frame = CGRect(x: 0, y: mainTableView.frame.origin.y + 40, width: mainTableView.frame.size.width, height: mainTableView.frame.size.height)
+        mainTableView.alpha = 0
+        UIView.animateWithDuration(0.25,
+                                   delay: 0.5,
+                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   animations: { 
+                                    self.mainTableView.frame = initialTableViewFrame
+                                    self.mainTableView.alpha = 1
+            }) { (completed) in
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,13 +89,10 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: rowHeight), animated: true)
         input.delegate = self
         self.insertSubview(input, belowSubview: mainHeader)
-        if let context = moc
-        {
-            guard let entityDescription = NSEntityDescription.entityForName("Bag", inManagedObjectContext: context)
-                else { return }
-            let newBag = Bag(entity: entityDescription, insertIntoManagedObjectContext: context)
-            currentNewBag = newBag
-        }
+        guard let entityDescription = NSEntityDescription.entityForName("Bag", inManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+            else { return }
+        let newBag = Bag(entity: entityDescription, insertIntoManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+        currentNewBag = newBag
     }
     
     // MARK: Text View Delegate
@@ -105,7 +112,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         
         do
         {
-            try moc?.save()
+            try MMSession.sharedSession.managedObjectContext.save()
         }
         catch let error as NSError
         {
@@ -120,22 +127,62 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         rowSelected(indexPath)
     }
     
-    private func rowSelected(indexPath : NSIndexPath)
+    func tableViewRowLongPressed(tableView: UITableView, indexPath: NSIndexPath)
     {
-        print("Selected: \(indexPath)")
-        guard let selectedBag = mainTableView.fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
-            else { return }
-        let sbv = MMSingleBagView(frame: self.frame, bag: selectedBag, managedObjectContext: moc!)
-        self.addSubview(sbv)
     }
     
-    // MARK: Single Bag View
+    private func rowSelected(indexPath : NSIndexPath)
+    {
+        guard let selectedBag = mainTableView.fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+            else { return }
+        let sbv = MMSingleBagView(frame: self.frame, bag: selectedBag)
+        sbv.navDelegate = self
+        animateViewOn(sbv)
+    }
+    
+    // MARK: Navigation Delegate
+    func navigationDelegateViewClosed(view: UIView)
+    {
+        animateViewOff(view)
+    }
+    
+    private func animateViewOn(view : UIView)
+    {
+        let initialFrame = view.frame
+        view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
+        self.addSubview(view)
+        UIView.animateWithDuration(0.25,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   animations: {
+                                    self.contentView.transform = CGAffineTransformMakeScale(0.95, 0.95)
+                                    view.frame = initialFrame
+        }) { (completed) in
+        }
+    }
+    
+    private func animateViewOff(view : UIView)
+    {
+        UIView.animateWithDuration(0.25,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   animations: {
+                                    view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
+                                    self.contentView.transform = CGAffineTransformMakeScale(1, 1)
+            }) { (completed) in
+                if completed
+                {
+                    view.removeFromSuperview()
+                }
+        }
+    }
     
 }
 
 protocol MMBagsTableViewDelegate
 {
     func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
+    func tableViewRowLongPressed(tableView: UITableView, indexPath: NSIndexPath)
 }
 
 final class MMBagsTableView: MMDefaultFetchedResultsTableView

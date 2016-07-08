@@ -23,17 +23,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
         set
         {
             headerLabel.text = newValue
-            headerLabel.sizeToFit()
-            if headerLabel.frame.size.width > self.frame.size.width * 0.8
-            {
-                headerLabel.frame = CGRect(x: headerLabel.frame.origin.x, y: headerLabel.frame.origin.y, width: self.frame.size.width * 0.8, height: headerLabel.frame.size.height)
-                headerLabel.adjustsFontSizeToFitWidth = true
-            }
-            else
-            {
-                headerLabel.adjustsFontSizeToFitWidth = false
-            }
-            headerLabel.center = getHeaderLabelCenter()
+            self.resizeHeaderLabel()
         }
         get
         {
@@ -58,6 +48,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
         self.addSubview(blurEffectView)
         
         headerLabel = UITextField(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+        headerLabel.delegate = self
         headerLabel.font = UIFont(name: MM_FONT_MEDIUM, size: 32)
         headerLabel.textColor = MM_COLOR_GREEN_LIGHT
         headerLabel.textAlignment = .Center
@@ -83,12 +74,28 @@ class MMHeaderView: UIView, UITextFieldDelegate
         return CGPoint(x: self.center.x, y: self.center.y + 7)
     }
     
+    private func resizeHeaderLabel()
+    {
+        headerLabel.sizeToFit()
+        if headerLabel.frame.size.width > self.frame.size.width * 0.7
+        {
+            headerLabel.frame = CGRect(x: headerLabel.frame.origin.x, y: headerLabel.frame.origin.y, width: self.frame.size.width * 0.7, height: headerLabel.frame.size.height)
+            headerLabel.adjustsFontSizeToFitWidth = true
+        }
+        else
+        {
+            headerLabel.adjustsFontSizeToFitWidth = false
+        }
+        headerLabel.center = getHeaderLabelCenter()
+    }
+    
     // MARK: Text Field Delegate
     
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         delegate?.headerViewTextChanged(textField.text)
+        self.resizeHeaderLabel()
         return true
     }
 }

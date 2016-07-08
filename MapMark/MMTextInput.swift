@@ -23,10 +23,15 @@ class MMTextInputView: UIView, UITextFieldDelegate
     override init(frame: CGRect)
     {
         super.init(frame: frame)
+    }
+    
+    init(frame: CGRect, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.Light)
+    {
+        super.init(frame: frame)
         
         backgroundColor = UIColor.clearColor()
         
-        let blurEffect = UIBlurEffect(style: .Light)
+        let blurEffect = UIBlurEffect(style: backgroundType)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = CGRect().zeroBoundedRect(self.frame)
         addSubview(blurEffectView)
@@ -36,6 +41,7 @@ class MMTextInputView: UIView, UITextFieldDelegate
         textField.textAlignment = .Left
         textField.textColor = MM_COLOR_BLUE_TEXT
         textField.delegate = self
+        textField.autocapitalizationType = .Words
         textField.returnKeyType = .Done
         textField.keyboardAppearance = .Dark
         textField.userInteractionEnabled = true
@@ -43,9 +49,9 @@ class MMTextInputView: UIView, UITextFieldDelegate
         self.addSubview(textField)
     }
     
-    convenience init(frame: CGRect, animated: Bool)
+    convenience init(frame: CGRect, animated: Bool, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.Light)
     {
-        self.init(frame: frame)
+        self.init(frame: frame, backgroundType: backgroundType)
         
         if animated
         {
