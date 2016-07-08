@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */; };
 		1E6145DB1D2CDEF100B06169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */; };
 		1E6145DD1D2CDEF100B06169 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145DC1D2CDEF100B06169 /* ViewController.swift */; };
 		1E6145E01D2CDEF200B06169 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6145DE1D2CDEF200B06169 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRDataStructures.swift; sourceTree = "<group>"; };
 		1E6145D71D2CDEF100B06169 /* MapMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6145DC1D2CDEF100B06169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				1E6145F01D2CDF0B00B06169 /* Core Data */,
 				1E6146021D2CE7EC00B06169 /* MMConstants.swift */,
 				1E6146221D2D7D6D00B06169 /* MMExtensions.swift */,
+				1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */,
 				1E6146001D2CE77900B06169 /* MMSingleBagView.swift in Sources */,
 				1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */,
+				1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */,
 				1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */,
 				1E6145FA1D2CE62B00B06169 /* Bag+CoreDataProperties.swift in Sources */,
 				1E9B316A1D2E367C0092200D /* MMSession.swift in Sources */,
