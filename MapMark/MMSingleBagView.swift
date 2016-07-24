@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 import MapKit
 
 protocol MMNavigationDelegate
@@ -44,6 +45,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         case StartPinSelection
         case DisplayingRoute
     }
+    private var locationManager = CLLocationManager()
     private var mainViewState = ViewState.None
     private var mainBag : Bag?
     private var currentPin : Pin?
@@ -82,14 +84,20 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             print("Could not fetch items: \(error.localizedDescription)")
         }
         
+        // MARK: User location
+        locationManager.requestWhenInUseAuthorization()
+        
+        // MARK: Header
         mainHeader = MMHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50))
         mainHeader.headerText = mainBag?.name ?? "Tap to name"
         mainHeader.delegate = self
         
+        // MARK: Background
         let mainBackground = UIView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height - mainHeader.frame.size.height))
         mainBackground.backgroundColor = MM_COLOR_BASE
         self.addSubview(mainBackground)
 
+        // MARK: Close button
         let closeButton = UIButton(type: .Custom)
         closeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         closeButton.center = CGPoint(x: 35, y: mainHeader.getHeaderLabelCenter().y)
@@ -97,15 +105,18 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         closeButton.addTarget(self, action: #selector(self.closeViewButtonPressed), forControlEvents: .TouchUpInside)
         mainHeader.addSubview(closeButton)
         
+        // MARK: Map
         let longPressRecog = UILongPressGestureRecognizer(target: self, action: #selector(self.mapViewLongPressed(_:)))
         longPressRecog.minimumPressDuration = 1
         longPressRecog.cancelsTouchesInView = false
         
         mainMap = MKMapView(frame: CGRect(x: 0, y: mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height * 0.58))
         mainMap.delegate = self
+        mainMap.showsUserLocation = true
         mainMap.addGestureRecognizer(longPressRecog)
         self.addSubview(mainMap)
 
+        // MARK: Input scroll-view
         inputScrollView = UIScrollView(frame: CGRect(x: 0, y: mainMap.frame.origin.y + mainMap.frame.size.height, width: self.frame.size.width, height: 70))
         inputScrollView.alwaysBounceHorizontal = true
         inputScrollView.contentSize = CGSize(width: self.frame.size.width * 3, height: inputScrollView.frame.size.height)
@@ -123,6 +134,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         inputScrollView.addSubview(getInputScrollViewItem(atPage: 2))
         inputScrollView.addSubview(getInputScrollViewItem(atPage: 3))
 
+        // MARK: Main table view
         mainTableView = MMSingleBagTableView(frame: CGRect(x: 0, y: inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20, width: self.frame.size.width, height: self.frame.size.height - (inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20)),
                                              fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
                                              managedObjectContext: MMSession.sharedSession.managedObjectContext)
@@ -130,11 +142,13 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         mainTableView.clipsToBounds = true
         mainTableView.selectionDelegate = self
 
+        // MARK: Add subviews
         self.addSubview(inputScrollView)
         self.addSubview(inputPageControl)
         self.addSubview(mainTableView)
         self.addSubview(mainHeader)
 
+        // MARK: Load pins
         annotationIDs = [String : MKAnnotation]()
         pinIDs = [String : Pin]()
         
@@ -159,6 +173,11 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             }
             let bufferRect = MKMapRect(origin: MKMapPoint(x: annotationsRect.origin.x - (annotationsRect.origin.x * 0.02), y: annotationsRect.origin.y - (annotationsRect.origin.y * 0.02)), size: MKMapSize(width: annotationsRect.size.width + ((annotationsRect.origin.x * 0.02) * 2), height: annotationsRect.size.height + ((annotationsRect.origin.y * 0.02) * 2)))
             mainMap.setVisibleMapRect(bufferRect, animated: false)
+        }
+        
+        if annotations.isEmpty
+        {
+            mainMap.setCenterCoordinate(CLLocationCoordinate2D(latitude: 39.8282, longitude: -98.5795), animated: false)
         }
         
         for ann in annotations
@@ -188,11 +207,27 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         switch pageNumber
         {
         case 1:
+            let view = UIView(frame: CGRect().zeroBoundedRect(inputScrollView.frame))
+            let centerLocationButton = configureDefaultButton()
+            centerLocationButton.frame = CGRect(x: (self.frame.size.width - (self.frame.size.width * 0.8)) / 4, y: 0, width: centerLocationButton.frame.size.height + 15, height: centerLocationButton.frame.size.height)
+            centerLocationButton.setImage(UIImage(named: "mm_location_arrow.png")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+            centerLocationButton.imageView?.contentMode = .ScaleAspectFit
+            centerLocationButton.tintColor = MM_COLOR_ORANGE_LIGHT
+            centerLocationButton.addTarget(self, action: #selector(self.centerMapOnUser), forControlEvents: .TouchUpInside)
+            
+            let dropPinOffset = abs(centerLocationButton.frame.size.width - centerLocationButton.frame.origin.x) + 3
+            
             let dropPinButton = configureDefaultButton()
-            dropPinButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber), y: dropPinButton.center.y)
+            dropPinButton.frame = CGRect(x: dropPinButton.frame.origin.x, y: dropPinButton.frame.origin.y, width: dropPinButton.frame.size.width - dropPinOffset, height: dropPinButton.frame.size.height)
+            dropPinButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber) + dropPinOffset, y: dropPinButton.center.y)
             dropPinButton.setTitle("Drop Pin", forState: UIControlState.Normal)
             dropPinButton.addTarget(self, action: #selector(self.pinDropButtonPressed), forControlEvents: .TouchUpInside)
-            return dropPinButton
+            
+            centerLocationButton.center = CGPoint(x: centerLocationButton.center.x, y: dropPinButton.center.y)
+            
+            view.addSubview(centerLocationButton)
+            view.addSubview(dropPinButton)
+            return view
         case 2:
             let coordinateEntryButton = configureDefaultButton()
             coordinateEntryButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber) + (inputScrollView.frame.size.width / 2), y: coordinateEntryButton.center.y)
@@ -353,7 +388,12 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         self.insertSubview(input, belowSubview: mainHeader)
     }
     
-    // MARK: Map View Delegates
+    // MARK: Map View Methods
+    func centerMapOnUser()
+    {
+        mainMap.setCenterCoordinate(mainMap.userLocation.coordinate, animated: true)
+    }
+    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
     {
         if let annotation = annotation as? MMMapPin

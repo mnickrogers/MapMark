@@ -8,10 +8,12 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 class MMSession
 {
     internal static let sharedSession = MMSession()
+    
     internal var managedObjectContext : NSManagedObjectContext!
     
     init()

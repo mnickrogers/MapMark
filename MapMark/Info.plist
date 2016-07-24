@@ -49,5 +49,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Enable location updates to display your location on a map.</string>
 </dict>
 </plist>

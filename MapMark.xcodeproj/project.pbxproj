@@ -43,6 +43,7 @@
 		1E9B316A1D2E367C0092200D /* MMSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9B31691D2E367C0092200D /* MMSession.swift */; };
 		1E9B316D1D2F83650092200D /* close_button_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E9B316C1D2F83650092200D /* close_button_green.png */; };
 		1E9D61431D446FDB004375E0 /* mm_export_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E9D61421D446FDB004375E0 /* mm_export_button.png */; };
+		1E9D61471D454949004375E0 /* mm_location_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E9D61461D454949004375E0 /* mm_location_arrow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		1E9B31691D2E367C0092200D /* MMSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSession.swift; sourceTree = "<group>"; };
 		1E9B316C1D2F83650092200D /* close_button_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button_green.png; sourceTree = "<group>"; };
 		1E9D61421D446FDB004375E0 /* mm_export_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mm_export_button.png; sourceTree = "<group>"; };
+		1E9D61461D454949004375E0 /* mm_location_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mm_location_arrow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +241,7 @@
 		1E9B316B1D2F83540092200D /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1E9D61461D454949004375E0 /* mm_location_arrow.png */,
 				1E9D61421D446FDB004375E0 /* mm_export_button.png */,
 				1E9B316C1D2F83650092200D /* close_button_green.png */,
 			);
@@ -317,6 +320,7 @@
 				1E9D61431D446FDB004375E0 /* mm_export_button.png in Resources */,
 				1E6146141D2CE85700B06169 /* Roboto-BoldItalic.ttf in Resources */,
 				1E6146181D2CE85700B06169 /* Roboto-Medium.ttf in Resources */,
+				1E9D61471D454949004375E0 /* mm_location_arrow.png in Resources */,
 				1E61461A1D2CE85700B06169 /* Roboto-Regular.ttf in Resources */,
 				1E6146111D2CE85700B06169 /* Roboto-Black.ttf in Resources */,
 				1E6146161D2CE85700B06169 /* Roboto-Light.ttf in Resources */,
