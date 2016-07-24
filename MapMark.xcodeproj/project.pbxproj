@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E1DA42B1D430B00000726CB /* MMExporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1DA42A1D430B00000726CB /* MMExporting.swift */; };
 		1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */; };
 		1E2F8FFE1D305CED002626FF /* MMMapMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFD1D305CED002626FF /* MMMapMath.swift */; };
 		1E6145DB1D2CDEF100B06169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */; };
@@ -41,9 +42,11 @@
 		1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9B31671D2DE60B0092200D /* MMBagViewClasses.swift */; };
 		1E9B316A1D2E367C0092200D /* MMSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9B31691D2E367C0092200D /* MMSession.swift */; };
 		1E9B316D1D2F83650092200D /* close_button_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E9B316C1D2F83650092200D /* close_button_green.png */; };
+		1E9D61431D446FDB004375E0 /* mm_export_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E9D61421D446FDB004375E0 /* mm_export_button.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E1DA42A1D430B00000726CB /* MMExporting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMExporting.swift; sourceTree = "<group>"; };
 		1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRDataStructures.swift; sourceTree = "<group>"; };
 		1E2F8FFD1D305CED002626FF /* MMMapMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMMapMath.swift; sourceTree = "<group>"; };
 		1E6145D71D2CDEF100B06169 /* MapMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +83,7 @@
 		1E9B31671D2DE60B0092200D /* MMBagViewClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMBagViewClasses.swift; sourceTree = "<group>"; };
 		1E9B31691D2E367C0092200D /* MMSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSession.swift; sourceTree = "<group>"; };
 		1E9B316C1D2F83650092200D /* close_button_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button_green.png; sourceTree = "<group>"; };
+		1E9D61421D446FDB004375E0 /* mm_export_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mm_export_button.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E1DA4281D430A94000726CB /* Exporting */ = {
+			isa = PBXGroup;
+			children = (
+				1E1DA42A1D430B00000726CB /* MMExporting.swift */,
+			);
+			name = Exporting;
+			sourceTree = "<group>";
+		};
+		1E1DA4291D430A9F000726CB /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				1E1DA4281D430A94000726CB /* Exporting */,
+				1E6146211D2D7D5D00B06169 /* Importing */,
+			);
+			name = IO;
+			sourceTree = "<group>";
+		};
 		1E2F8FFC1D305CD1002626FF /* Routing */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,7 +141,7 @@
 		1E6145D91D2CDEF100B06169 /* MapMark */ = {
 			isa = PBXGroup;
 			children = (
-				1E6146211D2D7D5D00B06169 /* Input */,
+				1E1DA4291D430A9F000726CB /* IO */,
 				1E2F8FFC1D305CD1002626FF /* Routing */,
 				1E6145FC1D2CE74F00B06169 /* Bags */,
 				1E6145F11D2CE43D00B06169 /* Root */,
@@ -207,17 +228,18 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
-		1E6146211D2D7D5D00B06169 /* Input */ = {
+		1E6146211D2D7D5D00B06169 /* Importing */ = {
 			isa = PBXGroup;
 			children = (
 				1E61461F1D2D748300B06169 /* MMTextInput.swift */,
 			);
-			name = Input;
+			name = Importing;
 			sourceTree = "<group>";
 		};
 		1E9B316B1D2F83540092200D /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				1E9D61421D446FDB004375E0 /* mm_export_button.png */,
 				1E9B316C1D2F83650092200D /* close_button_green.png */,
 			);
 			name = Graphics;
@@ -292,6 +314,7 @@
 				1E6145E01D2CDEF200B06169 /* Main.storyboard in Resources */,
 				1E6146151D2CE85700B06169 /* Roboto-Italic.ttf in Resources */,
 				1E9B316D1D2F83650092200D /* close_button_green.png in Resources */,
+				1E9D61431D446FDB004375E0 /* mm_export_button.png in Resources */,
 				1E6146141D2CE85700B06169 /* Roboto-BoldItalic.ttf in Resources */,
 				1E6146181D2CE85700B06169 /* Roboto-Medium.ttf in Resources */,
 				1E61461A1D2CE85700B06169 /* Roboto-Regular.ttf in Resources */,
@@ -314,6 +337,7 @@
 				1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */,
 				1E6146001D2CE77900B06169 /* MMSingleBagView.swift in Sources */,
 				1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */,
+				1E1DA42B1D430B00000726CB /* MMExporting.swift in Sources */,
 				1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */,
 				1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */,
 				1E6145FA1D2CE62B00B06169 /* Bag+CoreDataProperties.swift in Sources */,

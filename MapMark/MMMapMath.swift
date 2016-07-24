@@ -83,12 +83,6 @@ public func findShortestPath(start: Coordinate, points: [Coordinate]) -> [Coordi
     
     // Set initial values.
     visited.insert(start)
-    print(start.hashValue)
-    print(points[2].hashValue)
-    if visited.contains(points[2])
-    {
-        print("It's here")
-    }
     
     while !stack.empty()
     {
@@ -96,7 +90,6 @@ public func findShortestPath(start: Coordinate, points: [Coordinate]) -> [Coordi
         var shortest: Coordinate?
         for point in points
         {
-            print("Here")
             if !visited.contains(point)
             {
                 var deltaTopToPoint: Double

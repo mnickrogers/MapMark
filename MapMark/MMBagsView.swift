@@ -9,8 +9,17 @@
 import UIKit
 import CoreData
 
+protocol MMBagsViewDelegate
+{
+    func presentCustomViewController(controller: UIViewController, animated: Bool, completion:() -> Void)
+}
+
 class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate, MMNavigationDelegate
 {
+    // MARK: Internal Types and Variables
+    
+    internal var delegate : MMBagsViewDelegate?
+    
     // MARK: Private Types and Variables
     
     private var contentView : UIView!
@@ -48,6 +57,14 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         addButton.addTarget(self, action: #selector(self.addNewBag), forControlEvents: .TouchUpInside)
         mainHeader.addSubview(addButton)
         
+        // MARK: Export Button
+        let exportButton = UIButton(type: .Custom)
+        exportButton.frame = CGRect(x: self.frame.size.width - 40, y: self.frame.size.height - 40, width: 30, height: 30)
+        exportButton.center = CGPoint(x: addButton.center.x, y: exportButton.center.y)
+        exportButton.setBackgroundImage(UIImage(named: "mm_export_button.png"), forState: .Normal)
+        exportButton.tintColor = MM_COLOR_BLUE_DARK
+        exportButton.addTarget(self, action: #selector(self.exportCoreDataToCSV), forControlEvents: .TouchUpInside)
+        
         // MARK: Table View
         let fetchRequest = NSFetchRequest(entityName: "Bag")
         let fetchSort = NSSortDescriptor(key: "date_created", ascending: false)
@@ -60,8 +77,9 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
                                         managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView.selectionDelegate = self
         mainTableView.separatorColor = MM_COLOR_BLUE_DIV
-        contentView.addSubview(mainTableView)
         
+        contentView.addSubview(mainTableView)
+        contentView.addSubview(exportButton)
         contentView.addSubview(mainHeader)
         self.addSubview(contentView)
         
@@ -80,6 +98,38 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Export functions
+    
+    func exportCoreDataToCSV()
+    {
+        let exporter = MMExporter()
+        let csvString = exporter.getCoreDataCSVString()
+        let fileName = exporter.getDocumentsDirectory().stringByAppendingPathComponent("mapmark_data.csv")
+        
+        do
+        {
+            try csvString.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding)
+            let fileData = NSURL(fileURLWithPath: fileName)
+            let activityVC = UIActivityViewController(activityItems: [fileData], applicationActivities: nil)
+            delegate?.presentCustomViewController(activityVC, animated: true, completion:
+            {
+//                let fManager = NSFileManager.defaultManager()
+//                do
+//                {
+//                    try fManager.removeItemAtURL(fileData)
+//                }
+//                catch let fileError as NSError
+//                {
+//                    print("Error removing file: \(fileError.localizedDescription)")
+//                }
+            })
+        }
+        catch let error as NSError
+        {
+            print("File exporting error: \(error.localizedDescription)")
+        }
     }
     
     // MARK: Handle New Bags

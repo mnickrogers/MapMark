@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MMBagsViewDelegate {
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle
     {
@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let bagsView = MMBagsView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+        bagsView.delegate = self
         self.view.addSubview(bagsView)
     }
 
@@ -34,7 +35,15 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    // MARK: Bags View Delegate
+    
+    func presentCustomViewController(controller: UIViewController, animated: Bool, completion: () -> Void)
+    {
+        self.presentViewController(controller, animated: animated)
+        {
+            completion()
+        }
+    }
 }
 

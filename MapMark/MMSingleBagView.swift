@@ -41,6 +41,8 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         case None
         case NewItemNaming
         case CoordinateEntry
+        case StartPinSelection
+        case DisplayingRoute
     }
     private var mainViewState = ViewState.None
     private var mainBag : Bag?
@@ -62,6 +64,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     private var mainMap : MKMapView!
     private var annotationIDs : [String : MKAnnotation]?
     private var pinIDs : [String : Pin]?
+    private var defaultHeaderString : String?
     
     init(frame: CGRect, bag: Bag)
     {
@@ -82,6 +85,10 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         mainHeader = MMHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50))
         mainHeader.headerText = mainBag?.name ?? "Tap to name"
         mainHeader.delegate = self
+        
+        let mainBackground = UIView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height - mainHeader.frame.size.height))
+        mainBackground.backgroundColor = MM_COLOR_BASE
+        self.addSubview(mainBackground)
 
         let closeButton = UIButton(type: .Custom)
         closeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -101,19 +108,20 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
 
         inputScrollView = UIScrollView(frame: CGRect(x: 0, y: mainMap.frame.origin.y + mainMap.frame.size.height, width: self.frame.size.width, height: 70))
         inputScrollView.alwaysBounceHorizontal = true
-        inputScrollView.contentSize = CGSize(width: self.frame.size.width * 2, height: inputScrollView.frame.size.height)
+        inputScrollView.contentSize = CGSize(width: self.frame.size.width * 3, height: inputScrollView.frame.size.height)
         inputScrollView.pagingEnabled = true
         inputScrollView.delegate = self
 
         inputPageControl = UIPageControl(frame: CGRect(x: 0, y: inputScrollView.frame.origin.y + inputScrollView.frame.size.height, width: 100, height: 15))
         inputPageControl.center = CGPoint(x: inputScrollView.center.x, y: inputPageControl.center.y)
-        inputPageControl.numberOfPages = 2
+        inputPageControl.numberOfPages = 3
         inputPageControl.pageIndicatorTintColor = UIColor.darkGrayColor()
         inputPageControl.currentPageIndicatorTintColor = MM_COLOR_ORANGE_LIGHT
         inputPageControl.addTarget(self, action: #selector(self.inputPageControlChanged), forControlEvents: .ValueChanged)
 
         inputScrollView.addSubview(getInputScrollViewItem(atPage: 1))
         inputScrollView.addSubview(getInputScrollViewItem(atPage: 2))
+        inputScrollView.addSubview(getInputScrollViewItem(atPage: 3))
 
         mainTableView = MMSingleBagTableView(frame: CGRect(x: 0, y: inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20, width: self.frame.size.width, height: self.frame.size.height - (inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20)),
                                              fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
@@ -180,34 +188,39 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         switch pageNumber
         {
         case 1:
-            let dropPinButton = UIButton(type: .Custom)
-            dropPinButton.frame = CGRect(x: 0, y: 15, width: self.frame.size.width * 0.8, height: 35)
+            let dropPinButton = configureDefaultButton()
             dropPinButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber), y: dropPinButton.center.y)
-            dropPinButton.backgroundColor = MM_COLOR_ORANGE_BACKGROUND
-            dropPinButton.titleLabel?.textAlignment = .Center
-            dropPinButton.titleLabel?.font = UIFont(name: MM_FONT_MEDIUM, size: 24)
-            dropPinButton.setTitleColor(MM_COLOR_ORANGE_TEXT, forState: .Normal)
-            dropPinButton.setTitleColor(MM_COLOR_ORANGE_DARK, forState: .Highlighted)
             dropPinButton.setTitle("Drop Pin", forState: UIControlState.Normal)
-            dropPinButton.layer.cornerRadius = 5
             dropPinButton.addTarget(self, action: #selector(self.pinDropButtonPressed), forControlEvents: .TouchUpInside)
             return dropPinButton
         case 2:
-            let coordinateEntryButton = UIButton(type: .Custom)
-            coordinateEntryButton.frame = CGRect(x: 0, y: 15, width: self.frame.size.width * 0.8, height: 35)
+            let coordinateEntryButton = configureDefaultButton()
             coordinateEntryButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber) + (inputScrollView.frame.size.width / 2), y: coordinateEntryButton.center.y)
-            coordinateEntryButton.backgroundColor = MM_COLOR_ORANGE_BACKGROUND
-            coordinateEntryButton.titleLabel?.textAlignment = .Center
-            coordinateEntryButton.titleLabel?.font = UIFont(name: MM_FONT_MEDIUM, size: 24)
-            coordinateEntryButton.setTitleColor(MM_COLOR_ORANGE_TEXT, forState: .Normal)
-            coordinateEntryButton.setTitleColor(MM_COLOR_ORANGE_DARK, forState: .Highlighted)
             coordinateEntryButton.setTitle("Enter Coordinates", forState: UIControlState.Normal)
-            coordinateEntryButton.layer.cornerRadius = 5
             coordinateEntryButton.addTarget(self, action: #selector(self.enterCoordinateButtonPressed), forControlEvents: .TouchUpInside)
             return coordinateEntryButton
+        case 3:
+            let calculateRouteButton = configureDefaultButton()
+            calculateRouteButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber) + inputScrollView.frame.size.width, y: calculateRouteButton.center.y)
+            calculateRouteButton.setTitle("Get Route through Pins", forState: UIControlState.Normal)
+            calculateRouteButton.addTarget(self, action: #selector(self.calculateRootThroughPinsButtonPressed(_:)), forControlEvents: .TouchUpInside)
+            return calculateRouteButton
         default:
             return UIView()
         }
+    }
+    
+    private func configureDefaultButton() -> UIButton
+    {
+        let button = UIButton(type: .Custom)
+        button.frame = CGRect(x: 0, y: 15, width: self.frame.size.width * 0.8, height: 35)
+        button.backgroundColor = MM_COLOR_ORANGE_BACKGROUND
+        button.titleLabel?.textAlignment = .Center
+        button.titleLabel?.font = UIFont(name: MM_FONT_MEDIUM, size: 24)
+        button.setTitleColor(MM_COLOR_ORANGE_TEXT, forState: .Normal)
+        button.setTitleColor(MM_COLOR_ORANGE_DARK, forState: .Highlighted)
+        button.layer.cornerRadius = 5
+        return button
     }
     
     func inputPageControlChanged()
@@ -393,6 +406,27 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         }
     }
     
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView)
+    {
+        switch mainViewState
+        {
+        case .StartPinSelection:
+            mainHeader.headerText = defaultHeaderString
+            mainViewState = .DisplayingRoute
+            calculateRouteFromStart(view.annotation)
+        default:
+            break
+        }
+    }
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer
+    {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = MM_COLOR_GREEN_DARK
+        renderer.lineWidth = 5
+        return renderer
+    }
+    
     private func bounceAnnotationView(annotationView: MKAnnotationView, completion:() -> Void)
     {
         let initialFrame = annotationView.frame
@@ -417,6 +451,95 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
                                                 completion()
                     })
                 }
+        }
+    }
+    
+    // MARK: Routing
+    func calculateRootThroughPinsButtonPressed(button: UIButton)
+    {
+        switch mainViewState
+        {
+        case .None:
+            defaultHeaderString = mainHeader.headerText
+            mainViewState = .StartPinSelection
+            mainHeader.headerText = "Select Start Pin"
+            button.setTitle("Cancel", forState: UIControlState.Normal)
+        case .StartPinSelection:
+            mainHeader.headerText = defaultHeaderString
+            mainViewState = .None
+            button.setTitle("Get Route through Pins", forState: UIControlState.Normal)
+        case .DisplayingRoute:
+            let overlays = mainMap.overlays
+            mainMap.removeOverlays(overlays)
+            button.setTitle("Get Route through Pins", forState: UIControlState.Normal)
+            mainViewState = .None
+        default:
+            break
+        }
+    }
+    
+    private func calculateRouteFromStart(startPin: MKAnnotation?)
+    {
+        if startPin == nil
+        {
+            return
+        }
+        if annotationIDs == nil
+        {
+            return
+        }
+        
+        var coordinates = [Coordinate]()
+        
+        let _ = annotationIDs!.map { coordinates.append(Coordinate(latitude: $0.1.coordinate.latitude, longitude: $0.1.coordinate.longitude)) }
+        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0))
+        {
+            let path = findShortestPath(Coordinate(latitude: startPin!.coordinate.latitude, longitude: startPin!.coordinate.longitude), points: coordinates)
+            let CLPathArray = path.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
+            
+            if CLPathArray.isEmpty
+            {
+                return
+            }
+            
+            var queue = NRQueue<CLLocationCoordinate2D>()
+            let _ = CLPathArray.map { queue.pushBack($0) }
+            
+            var start = queue.popFront()
+            while !queue.empty()
+            {
+                let end = queue.popFront()
+                
+                let request = MKDirectionsRequest()
+                let startPlace = MKPlacemark(coordinate: start, addressDictionary: nil)
+                let endPlace = MKPlacemark(coordinate: end, addressDictionary: nil)
+                request.source = MKMapItem(placemark: startPlace)
+                request.destination = MKMapItem(placemark: endPlace)
+                request.requestsAlternateRoutes = false
+                request.transportType = .Automobile
+                
+                let directions = MKDirections(request: request)
+                directions.calculateDirectionsWithCompletionHandler { (response, error) in
+                    
+                    dispatch_async(dispatch_get_main_queue(),
+                        {
+                            if error == nil
+                            {
+                                guard let directionResponse = response
+                                    else { return }
+                                
+                                for route in directionResponse.routes
+                                {
+//                                    let distanceMiles = route.distance * 0.00062137
+                                    self.mainMap.addOverlay(route.polyline, level: MKOverlayLevel.AboveRoads)
+//                                    self.mainMap.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 40, left: 10, bottom: 10, right: 15), animated: true)
+                                }
+                            }
+                    })
+                }
+                start = end
+            }
         }
     }
     
@@ -455,6 +578,16 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             else { return }
         annotationView.setDragState(.Starting, animated: true)
         annotationView.setDragState(.Ending, animated: true)
+        
+        switch mainViewState
+        {
+        case .StartPinSelection:
+            mainHeader.headerText = defaultHeaderString
+            mainViewState = .DisplayingRoute
+            calculateRouteFromStart(annotationView.annotation)
+        default:
+            break
+        }
     }
     
     func tableViewRowLongPressed(tableView: UITableView, indexPath: NSIndexPath)
