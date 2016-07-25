@@ -614,17 +614,22 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             else { return }
         guard let annotation = annotationIDs?[record.pin_id!]
             else { return }
-        guard let annotationView = mainMap.viewForAnnotation(annotation)
-            else { return }
-        annotationView.setDragState(.Starting, animated: true)
-        annotationView.setDragState(.Ending, animated: true)
+//        let annotationView = mainMap.viewForAnnotation(annotation)
+        
+//        Bounce annotation
+//        annotationView.setDragState(.Starting, animated: true)
+//        annotationView.setDragState(.Ending, animated: true)
+        
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
+        mainMap.setRegion(region, animated: true)
         
         switch mainViewState
         {
         case .StartPinSelection:
             mainHeader.headerText = defaultHeaderString
             mainViewState = .DisplayingRoute
-            calculateRouteFromStart(annotationView.annotation)
+            calculateRouteFromStart(annotation)
         default:
             break
         }
