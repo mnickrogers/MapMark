@@ -31,7 +31,7 @@ class MMMapPin: NSObject, MKAnnotation
     }
 }
 
-class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDelegate, UIScrollViewDelegate, MMHeaderViewDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate
+class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDelegate, UIScrollViewDelegate, MMHeaderViewDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate, MMNavigationDelegate
 {
     // MARK: Internal Types and Variables
     internal var navDelegate : MMNavigationDelegate?
@@ -215,7 +215,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             centerLocationButton.tintColor = MM_COLOR_ORANGE_LIGHT
             centerLocationButton.addTarget(self, action: #selector(self.centerMapOnUser), forControlEvents: .TouchUpInside)
             
-            let dropPinOffset = abs(centerLocationButton.frame.size.width - centerLocationButton.frame.origin.x) + 3
+            let dropPinOffset = abs(centerLocationButton.frame.size.width - centerLocationButton.frame.origin.x)
             
             let dropPinButton = configureDefaultButton()
             dropPinButton.frame = CGRect(x: dropPinButton.frame.origin.x, y: dropPinButton.frame.origin.y, width: dropPinButton.frame.size.width - dropPinOffset, height: dropPinButton.frame.size.height)
@@ -607,7 +607,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         }
     }
     
-    // MARK: Scroll View Delegates
+    // MARK: Table View Delegates
     func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
     {
         guard let record = mainFetchedResultsController.objectAtIndexPath(indexPath) as? Pin
@@ -651,10 +651,54 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         self.insertSubview(input, belowSubview: mainHeader)
     }
     
+    func tableViewActionViewItemSelected(tableView: UITableView, indexPath: NSIndexPath, actionType: MMTableViewActionTypes)
+    {
+        guard let record = mainFetchedResultsController.objectAtIndexPath(indexPath) as? Pin
+            else { return }
+        
+        switch actionType
+        {
+        case .Move:
+            let qView = MMQuickView(frame: CGRect().frameBeneathFrame(self.frame, beneathFrame: self.frame), chosenPin: record)
+            qView.navDelegate = self
+            qView.alpha = 0
+            self.addSubview(qView)
+            
+            UIView.animateWithDuration(0.2,
+                                       delay: 0,
+                                       options: UIViewAnimationOptions.CurveEaseOut,
+                                       animations: {
+                                        qView.frame = CGRect().zeroBoundedRect(self.frame)
+                                        qView.alpha = 1
+                },
+                                       completion: nil)
+        }
+    }
+    
     // MARK: Navigation
     func closeViewButtonPressed()
     {
         navDelegate?.navigationDelegateViewClosed(self)
+    }
+    
+    func navigationDelegateViewClosed(view: UIView)
+    {
+        if let moveView = view as? MMQuickView
+        {
+            UIView.animateWithDuration(0.25,
+                                       delay: 0,
+                                       options: UIViewAnimationOptions.CurveEaseOut,
+                                       animations: { 
+                                        moveView.frame = CGRect(x: 0, y: self.frame.size.height, width: moveView.frame.size.width, height: moveView.frame.size.height)
+                                        moveView.alpha = 0
+                },
+                                       completion: { (completed) in
+                                        if completed
+                                        {
+                                            moveView.removeFromSuperview()
+                                        }
+            })
+        }
     }
 }
 
@@ -665,16 +709,19 @@ class MMSingleBagTableView: MMDefaultFetchedResultsTableView
     override func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
     {
         super.configureCell(cell, atIndexPath: indexPath)
-        guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Pin
-            else { return }
-        cell.textLabel?.text = record.name
-        cell.textLabel?.textColor = MM_COLOR_ORANGE_TEXT
-        cell.textLabel?.adjustsFontSizeToFitWidth = true
         
         let pressRecognizer = MMRowLongPressGestureRecognizer(target: self, action: #selector(self.rowLongPressed(_:)))
         pressRecognizer.minimumPressDuration = 1
         pressRecognizer.indexPath = indexPath
         cell.addGestureRecognizer(pressRecognizer)
+        
+        cell.textLabel?.textColor = MM_COLOR_ORANGE_TEXT
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
+        
+        if let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Pin
+        {
+            cell.textLabel?.text = record.name
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
@@ -699,6 +746,21 @@ class MMSingleBagTableView: MMDefaultFetchedResultsTableView
         default:
             break
         }
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?
+    {
+        let editAction = UITableViewRowAction(style: .Normal, title: "Move") { (rowAction, indexPath) in
+            self.selectionDelegate?.tableViewActionViewItemSelected(self, indexPath: indexPath, actionType: .Move)
+        }
+        editAction.backgroundColor = MM_COLOR_BLUE_DARK
+        
+        let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction, indexPath) in
+            super.deleteObject(indexPath)
+        }
+        deleteAction.backgroundColor = MM_COLOR_RED_DARK
+        
+        return [deleteAction, editAction]
     }
 }
 

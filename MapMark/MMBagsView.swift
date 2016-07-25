@@ -181,6 +181,10 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     {
     }
     
+    func tableViewActionViewItemSelected(tableView: UITableView, indexPath: NSIndexPath, actionType: MMTableViewActionTypes)
+    {
+    }
+    
     private func rowSelected(indexPath : NSIndexPath)
     {
         guard let selectedBag = mainTableView.fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
@@ -229,10 +233,16 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     
 }
 
+enum MMTableViewActionTypes
+{
+    case Move
+}
+
 protocol MMBagsTableViewDelegate
 {
     func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
     func tableViewRowLongPressed(tableView: UITableView, indexPath: NSIndexPath)
+    func tableViewActionViewItemSelected(tableView: UITableView, indexPath: NSIndexPath, actionType: MMTableViewActionTypes)
 }
 
 final class MMBagsTableView: MMDefaultFetchedResultsTableView

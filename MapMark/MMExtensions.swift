@@ -27,6 +27,11 @@ extension CGRect
     {
         return CGRect(x: 0, y: 0, width: fromFrame.size.width, height: fromFrame.size.height)
     }
+    
+    func frameBeneathFrame(mainFrame: CGRect, beneathFrame: CGRect) -> CGRect
+    {
+        return CGRect(x: beneathFrame.origin.x, y: beneathFrame.origin.y + mainFrame.size.height, width: mainFrame.size.width, height: mainFrame.size.height)
+    }
 }
 
 extension String

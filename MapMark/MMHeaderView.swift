@@ -30,6 +30,17 @@ class MMHeaderView: UIView, UITextFieldDelegate
             return headerLabel.text
         }
     }
+    internal var isTitleEditable: Bool
+    {
+        set
+        {
+            self.headerLabel.userInteractionEnabled = newValue
+        }
+        get
+        {
+            return self.headerLabel.userInteractionEnabled
+        }
+    }
     
     // MARK: Private Types and Variables
     

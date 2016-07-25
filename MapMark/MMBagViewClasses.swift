@@ -91,17 +91,22 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     {
         if editingStyle == .Delete
         {
-            guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? NSManagedObject
-                else { return }
-            MMSession.sharedSession.managedObjectContext.deleteObject(record)
-            do
-            {
-                try MMSession.sharedSession.managedObjectContext.save()
-            }
-            catch let error as NSError
-            {
-                print("Failed to delete record: \(error.localizedDescription)")
-            }
+            deleteObject(indexPath)
+        }
+    }
+    
+    internal func deleteObject(indexPath: NSIndexPath)
+    {
+        guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? NSManagedObject
+            else { return }
+        MMSession.sharedSession.managedObjectContext.deleteObject(record)
+        do
+        {
+            try MMSession.sharedSession.managedObjectContext.save()
+        }
+        catch let error as NSError
+        {
+            print("Failed to delete record: \(error.localizedDescription)")
         }
     }
     
