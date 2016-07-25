@@ -43,6 +43,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         // MARK: Header
         mainHeader = MMHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50))
         mainHeader.headerText = "MapMark"
+        mainHeader.isTitleEditable = false
         
         let addButton = UIButton(type: .Custom)
         addButton.frame = CGRectZero
