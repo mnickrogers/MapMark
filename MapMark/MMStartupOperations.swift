@@ -57,7 +57,7 @@ class MMStartupOperations: NSObject, CLLocationManagerDelegate
             let date = NSDate()
             
             let newPin = Pin(entity: pinEntity, insertIntoManagedObjectContext: MMSession.sharedSession.managedObjectContext)
-            newPin.name = "\(date.month())/\(date.day())/\(date.year() % 20) at \(date.timeTwelveHourString())"
+            newPin.name = "\(date.month())/\(date.day())/\(date.year()) at \(date.timeTwelveHourString())"
             newPin.latitude = locations.last?.coordinate.latitude ?? 0
             newPin.longitude = locations.last?.coordinate.longitude ?? 0
             
