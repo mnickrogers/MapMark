@@ -54,6 +54,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             MMSession.sharedSession.startOps?.addCurrentUserLocationPin()
             completionHandler(true)
         }
+        else if shortcutItem.type == "com.alphabeta.MapMark.addParkingLocation"
+        {
+            MMSession.sharedSession.launchState = MMLaunchState.SaveUserParkingLocation
+            MMSession.sharedSession.startOps?.addCurrentUserLocationPin()
+            completionHandler(true)
+        }
         else
         {
             completionHandler(false)

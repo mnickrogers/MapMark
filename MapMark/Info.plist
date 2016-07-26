@@ -55,6 +55,14 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeLocation</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Save parking spot</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.alphabeta.MapMark.addParkingLocation</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeMarkLocation</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Save this location</string>

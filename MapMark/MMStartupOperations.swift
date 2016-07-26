@@ -25,23 +25,69 @@ class MMStartupOperations: NSObject, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
+        var bagNamePlaceholder: String?
+        var bagIDPlaceholder: String?
+        
         switch MMSession.sharedSession.launchState
         {
+        case .SaveUserLocation:
+            bagNamePlaceholder = "My Saved Locations"
+            bagIDPlaceholder = "1"
+        case .SaveUserParkingLocation:
+            bagNamePlaceholder = "My Parking Spots"
+            bagIDPlaceholder = "2"
+        default:
+            return
+        }
+        
+        switch MMSession.sharedSession.launchState
+        {
+        case .SaveUserParkingLocation:
+            fallthrough
         case .SaveUserLocation:
             guard let bagEntity = NSEntityDescription.entityForName("Bag", inManagedObjectContext: MMSession.sharedSession.managedObjectContext)
                 else { return }
             guard let pinEntity = NSEntityDescription.entityForName("Pin", inManagedObjectContext: MMSession.sharedSession.managedObjectContext)
                 else { return }
+            guard let newBagName = bagNamePlaceholder
+                else { return }
+            guard let newBagID = bagIDPlaceholder
+                else { return }
             
             let date = NSDate()
-            let newBag = Bag(entity: bagEntity, insertIntoManagedObjectContext: MMSession.sharedSession.managedObjectContext)
-            newBag.name = "Saved Locations"
             
             let newPin = Pin(entity: pinEntity, insertIntoManagedObjectContext: MMSession.sharedSession.managedObjectContext)
             newPin.name = "\(date.month())/\(date.day())/\(date.year() % 20) at \(date.timeTwelveHourString())"
-            newPin.bag = newBag
             newPin.latitude = locations.last?.coordinate.latitude ?? 0
             newPin.longitude = locations.last?.coordinate.longitude ?? 0
+            
+            let bagRequest = NSFetchRequest()
+            let bagPredicate = NSPredicate(format: "bag_id = %@", newBagID)
+            bagRequest.predicate = bagPredicate
+            bagRequest.entity = bagEntity
+            bagRequest.fetchLimit = 1
+            
+            do
+            {
+                let existingBag = try MMSession.sharedSession.managedObjectContext.executeFetchRequest(bagRequest) as? [Bag]
+                
+                if let oldBag = existingBag?.first
+                {
+                    newPin.bag = oldBag
+                    oldBag.updateLastEdited()
+                }
+                else
+                {
+                    let newBag = Bag(entity: bagEntity, insertIntoManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+                    newBag.name = newBagName
+                    newBag.bag_id = newBagID
+                    newPin.bag = newBag
+                }
+            }
+            catch let error as NSError
+            {
+                print(error)
+            }
             
             do
             {
