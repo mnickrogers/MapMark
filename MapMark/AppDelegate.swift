@@ -43,6 +43,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    // MARK: - Icon Shortcuts
+    
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void)
+    {
+        if shortcutItem.type == "com.alphabeta.MapMark.addCurrentUserLocation"
+        {
+            MMSession.sharedSession.launchState = MMLaunchState.SaveUserLocation
+            MMSession.sharedSession.startOps?.addCurrentUserLocationPin()
+            completionHandler(true)
+        }
+        else
+        {
+            completionHandler(false)
+        }
+    }
 
     // MARK: - Core Data stack
 

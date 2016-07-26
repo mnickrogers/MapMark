@@ -9,6 +9,46 @@
 import UIKit
 import CoreData
 
+extension NSDate
+{
+    func hour() -> Int
+    {
+        let components = NSCalendar.currentCalendar().components(.Hour, fromDate: self)
+        return components.hour
+    }
+    
+    func minute() -> Int
+    {
+        let components = NSCalendar.currentCalendar().components(.Minute, fromDate: self)
+        return components.minute
+    }
+    
+    func timeTwelveHourString() -> String
+    {
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        return formatter.stringFromDate(self)
+    }
+    
+    func year() -> Int
+    {
+        let components = NSCalendar.currentCalendar().components(.Year, fromDate: self)
+        return components.year
+    }
+    
+    func month() -> Int
+    {
+        let components = NSCalendar.currentCalendar().components(.Month, fromDate: self)
+        return components.month
+    }
+    
+    func day() -> Int
+    {
+        let components = NSCalendar.currentCalendar().components(.Day, fromDate: self)
+        return components.day
+    }
+}
+
 extension NSFetchedResultsController
 {
     func copyWithZone(zone: NSZone) -> AnyObject

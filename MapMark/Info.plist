@@ -51,5 +51,16 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Enable location updates to display your location on a map.</string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeMarkLocation</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Save this location</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.alphabeta.MapMark.addCurrentUserLocation</string>
+		</dict>
+	</array>
 </dict>
 </plist>

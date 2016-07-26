@@ -10,6 +10,7 @@
 		1E1DA42B1D430B00000726CB /* MMExporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1DA42A1D430B00000726CB /* MMExporting.swift */; };
 		1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */; };
 		1E2F8FFE1D305CED002626FF /* MMMapMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFD1D305CED002626FF /* MMMapMath.swift */; };
+		1E42D9DD1D46BA3C004465F9 /* MMStartupOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */; };
 		1E6145DB1D2CDEF100B06169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */; };
 		1E6145DD1D2CDEF100B06169 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145DC1D2CDEF100B06169 /* ViewController.swift */; };
 		1E6145E01D2CDEF200B06169 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6145DE1D2CDEF200B06169 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 		1E1DA42A1D430B00000726CB /* MMExporting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMExporting.swift; sourceTree = "<group>"; };
 		1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRDataStructures.swift; sourceTree = "<group>"; };
 		1E2F8FFD1D305CED002626FF /* MMMapMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMMapMath.swift; sourceTree = "<group>"; };
+		1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMStartupOperations.swift; sourceTree = "<group>"; };
 		1E6145D71D2CDEF100B06169 /* MapMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6145DC1D2CDEF100B06169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				1E6145F21D2CE45500B06169 /* MMRootViewController.swift */,
 				1E61461D1D2CF9E200B06169 /* MMHeaderView.swift */,
 				1E9B31691D2E367C0092200D /* MMSession.swift */,
+				1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */,
 				1E6145FA1D2CE62B00B06169 /* Bag+CoreDataProperties.swift in Sources */,
 				1E9B316A1D2E367C0092200D /* MMSession.swift in Sources */,
+				1E42D9DD1D46BA3C004465F9 /* MMStartupOperations.swift in Sources */,
 				1E6146201D2D748300B06169 /* MMTextInput.swift in Sources */,
 				1E6145F91D2CE62B00B06169 /* Pin.swift in Sources */,
 				1E9D614B1D459F9F004375E0 /* MMQuickView.swift in Sources */,
