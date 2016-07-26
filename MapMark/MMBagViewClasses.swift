@@ -99,6 +99,15 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     {
         guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? NSManagedObject
             else { return }
+        
+        if let deletePin = record as? Pin
+        {
+            if let updateBag = deletePin.bag as? Bag
+            {
+                updateBag.updateLastEdited()
+            }
+        }
+        
         MMSession.sharedSession.managedObjectContext.deleteObject(record)
         do
         {

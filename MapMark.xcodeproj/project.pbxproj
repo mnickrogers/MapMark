@@ -53,6 +53,7 @@
 		1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRDataStructures.swift; sourceTree = "<group>"; };
 		1E2F8FFD1D305CED002626FF /* MMMapMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMMapMath.swift; sourceTree = "<group>"; };
 		1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMStartupOperations.swift; sourceTree = "<group>"; };
+		1E42D9DE1D470679004465F9 /* MapMark 0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MapMark 0.2.xcdatamodel"; sourceTree = "<group>"; };
 		1E6145D71D2CDEF100B06169 /* MapMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6145DC1D2CDEF100B06169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -534,9 +535,10 @@
 		1E6145E11D2CDEF200B06169 /* MapMark.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1E42D9DE1D470679004465F9 /* MapMark 0.2.xcdatamodel */,
 				1E6145E21D2CDEF200B06169 /* MapMark.xcdatamodel */,
 			);
-			currentVersion = 1E6145E21D2CDEF200B06169 /* MapMark.xcdatamodel */;
+			currentVersion = 1E42D9DE1D470679004465F9 /* MapMark 0.2.xcdatamodel */;
 			path = MapMark.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

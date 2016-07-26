@@ -363,6 +363,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         newPin.latitude = location.latitude
         newPin.longitude = location.longitude
         newPin.bag = mainBag
+        mainBag?.updateLastEdited()
         pinIDs![newPin.pin_id!] = newPin
         
         let newAnnotation = MMMapPin(title: newPin.name, ID: newPin.pin_id, coordinate: CLLocationCoordinate2D(latitude: newPin.latitude, longitude: newPin.longitude))

@@ -17,6 +17,7 @@ extension Bag {
     @NSManaged var name:            String?
     @NSManaged var bag_id:          String?
     @NSManaged var date_created:    Int64
+    @NSManaged var last_edited:     Int64
     @NSManaged var pins:            NSSet?
 
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G12a" minimumToolsVersion="Automatic">
+    <entity name="Bag" representedClassName=".Bag" syncable="YES">
+        <attribute name="bag_id" attributeType="String" syncable="YES"/>
+        <attribute name="date_created" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="last_edited" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="pins" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Pin" inverseName="bag" inverseEntity="Pin" syncable="YES"/>
+    </entity>
+    <entity name="Pin" representedClassName=".Pin" syncable="YES">
+        <attribute name="date_created" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="pin_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pin_id" attributeType="String" syncable="YES"/>
+        <relationship name="bag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bag" inverseName="pins" inverseEntity="Bag" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Bag" positionX="-72" positionY="-18" width="128" height="118"/>
+        <element name="Pin" positionX="117" positionY="77" width="128" height="148"/>
+    </elements>
+</model>

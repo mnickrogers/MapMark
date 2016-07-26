@@ -68,7 +68,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         
         // MARK: Table View
         let fetchRequest = NSFetchRequest(entityName: "Bag")
-        let fetchSort = NSSortDescriptor(key: "date_created", ascending: false)
+        let fetchSort = NSSortDescriptor(key: "last_edited", ascending: false)
         fetchRequest.sortDescriptors = [fetchSort]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MMSession.sharedSession.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -143,6 +143,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         guard let entityDescription = NSEntityDescription.entityForName("Bag", inManagedObjectContext: MMSession.sharedSession.managedObjectContext)
             else { return }
         let newBag = Bag(entity: entityDescription, insertIntoManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+        newBag.updateLastEdited()
         currentNewBag = newBag
     }
     
