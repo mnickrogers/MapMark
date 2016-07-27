@@ -15,6 +15,7 @@ class MMStartupOperations: NSObject, CLLocationManagerDelegate
     private let locationManager = CLLocationManager()
     internal func addCurrentUserLocationPin()
     {
+        NSNotificationCenter.defaultCenter().postNotificationName(MM_NOTIFICATION_OPEN_LOADING_VIEW, object: nil)
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
@@ -97,6 +98,8 @@ class MMStartupOperations: NSObject, CLLocationManagerDelegate
             {
                 print("Failed to save new temporary data: \(error.localizedDescription)")
             }
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(MM_NOTIFICATION_CLOSE_LOADING_VIEW, object: nil)
             
         default:
             break

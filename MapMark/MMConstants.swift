@@ -35,3 +35,7 @@ let MM_COLOR_RED_DARK = UIColor(red: 213/255.0, green: 62/255.0, blue: 62/255.0,
 let MM_COLOR_RED_DIV = UIColor(red: 62/255.0, green: 37/255.0, blue: 34/255.0, alpha: 1)
 let MM_COLOR_RED_TEXT = UIColor(red: 213/255.0, green: 62/255.0, blue: 62/255.0, alpha: 1)
 let MM_COLOR_RED_BACKGROUND = UIColor(red: 54/255.0, green: 16/255.0, blue: 16/255.0, alpha: 1)
+
+// MARK: Notifications
+let MM_NOTIFICATION_OPEN_LOADING_VIEW = "mm_notification_open_loading_view"
+let MM_NOTIFICATION_CLOSE_LOADING_VIEW = "mm_notification_close_loading_view"

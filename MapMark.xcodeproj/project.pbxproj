@@ -11,6 +11,14 @@
 		1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */; };
 		1E2F8FFE1D305CED002626FF /* MMMapMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFD1D305CED002626FF /* MMMapMath.swift */; };
 		1E42D9DD1D46BA3C004465F9 /* MMStartupOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */; };
+		1E42D9E11D4845B4004465F9 /* MMActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E42D9E01D4845B4004465F9 /* MMActivity.swift */; };
+		1E42D9E81D484B01004465F9 /* concentric_circle_grid_outer_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E42D9E21D484B01004465F9 /* concentric_circle_grid_outer_light.png */; };
+		1E42D9E91D484B01004465F9 /* concentric_circle_grid_middle_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E42D9E31D484B01004465F9 /* concentric_circle_grid_middle_light.png */; };
+		1E42D9EA1D484B01004465F9 /* concentric_circle_grid_center_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E42D9E41D484B01004465F9 /* concentric_circle_grid_center_light.png */; };
+		1E42D9EB1D484B01004465F9 /* concentric_circle_grid_center_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E42D9E51D484B01004465F9 /* concentric_circle_grid_center_dark.png */; };
+		1E42D9EC1D484B01004465F9 /* concentric_circle_grid_outer_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E42D9E61D484B01004465F9 /* concentric_circle_grid_outer_dark.png */; };
+		1E42D9ED1D484B01004465F9 /* concentric_circle_grid_middle_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E42D9E71D484B01004465F9 /* concentric_circle_grid_middle_dark.png */; };
+		1E42D9EF1D484B14004465F9 /* NRGridCircleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E42D9EE1D484B14004465F9 /* NRGridCircleAnimation.swift */; };
 		1E6145DB1D2CDEF100B06169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */; };
 		1E6145DD1D2CDEF100B06169 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145DC1D2CDEF100B06169 /* ViewController.swift */; };
 		1E6145E01D2CDEF200B06169 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6145DE1D2CDEF200B06169 /* Main.storyboard */; };
@@ -54,6 +62,14 @@
 		1E2F8FFD1D305CED002626FF /* MMMapMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMMapMath.swift; sourceTree = "<group>"; };
 		1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMStartupOperations.swift; sourceTree = "<group>"; };
 		1E42D9DE1D470679004465F9 /* MapMark 0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MapMark 0.2.xcdatamodel"; sourceTree = "<group>"; };
+		1E42D9E01D4845B4004465F9 /* MMActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMActivity.swift; sourceTree = "<group>"; };
+		1E42D9E21D484B01004465F9 /* concentric_circle_grid_outer_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = concentric_circle_grid_outer_light.png; sourceTree = "<group>"; };
+		1E42D9E31D484B01004465F9 /* concentric_circle_grid_middle_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = concentric_circle_grid_middle_light.png; sourceTree = "<group>"; };
+		1E42D9E41D484B01004465F9 /* concentric_circle_grid_center_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = concentric_circle_grid_center_light.png; sourceTree = "<group>"; };
+		1E42D9E51D484B01004465F9 /* concentric_circle_grid_center_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = concentric_circle_grid_center_dark.png; sourceTree = "<group>"; };
+		1E42D9E61D484B01004465F9 /* concentric_circle_grid_outer_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = concentric_circle_grid_outer_dark.png; sourceTree = "<group>"; };
+		1E42D9E71D484B01004465F9 /* concentric_circle_grid_middle_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = concentric_circle_grid_middle_dark.png; sourceTree = "<group>"; };
+		1E42D9EE1D484B14004465F9 /* NRGridCircleAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRGridCircleAnimation.swift; sourceTree = "<group>"; };
 		1E6145D71D2CDEF100B06169 /* MapMark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapMark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6145DC1D2CDEF100B06169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +145,16 @@
 			name = Routing;
 			sourceTree = "<group>";
 		};
+		1E42D9DF1D48456E004465F9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				1E61461D1D2CF9E200B06169 /* MMHeaderView.swift */,
+				1E42D9E01D4845B4004465F9 /* MMActivity.swift */,
+				1E42D9EE1D484B14004465F9 /* NRGridCircleAnimation.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		1E6145CE1D2CDEF100B06169 = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +178,7 @@
 				1E2F8FFC1D305CD1002626FF /* Routing */,
 				1E6145FC1D2CE74F00B06169 /* Bags */,
 				1E6145F11D2CE43D00B06169 /* Root */,
+				1E42D9DF1D48456E004465F9 /* Components */,
 				1E6146011D2CE7D900B06169 /* Utilities */,
 				1E6145EF1D2CDF0100B06169 /* Resources */,
 			);
@@ -189,7 +216,6 @@
 				1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */,
 				1E6145DC1D2CDEF100B06169 /* ViewController.swift */,
 				1E6145F21D2CE45500B06169 /* MMRootViewController.swift */,
-				1E61461D1D2CF9E200B06169 /* MMHeaderView.swift */,
 				1E9B31691D2E367C0092200D /* MMSession.swift */,
 				1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */,
 			);
@@ -250,6 +276,12 @@
 				1E9D61461D454949004375E0 /* mm_location_arrow.png */,
 				1E9D61421D446FDB004375E0 /* mm_export_button.png */,
 				1E9B316C1D2F83650092200D /* close_button_green.png */,
+				1E42D9E21D484B01004465F9 /* concentric_circle_grid_outer_light.png */,
+				1E42D9E31D484B01004465F9 /* concentric_circle_grid_middle_light.png */,
+				1E42D9E41D484B01004465F9 /* concentric_circle_grid_center_light.png */,
+				1E42D9E51D484B01004465F9 /* concentric_circle_grid_center_dark.png */,
+				1E42D9E61D484B01004465F9 /* concentric_circle_grid_outer_dark.png */,
+				1E42D9E71D484B01004465F9 /* concentric_circle_grid_middle_dark.png */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -337,16 +369,22 @@
 				1E6146131D2CE85700B06169 /* Roboto-Bold.ttf in Resources */,
 				1E6146191D2CE85700B06169 /* Roboto-MediumItalic.ttf in Resources */,
 				1E6146121D2CE85700B06169 /* Roboto-BlackItalic.ttf in Resources */,
+				1E42D9EB1D484B01004465F9 /* concentric_circle_grid_center_dark.png in Resources */,
 				1E6145E01D2CDEF200B06169 /* Main.storyboard in Resources */,
+				1E42D9E91D484B01004465F9 /* concentric_circle_grid_middle_light.png in Resources */,
 				1E6146151D2CE85700B06169 /* Roboto-Italic.ttf in Resources */,
 				1E9B316D1D2F83650092200D /* close_button_green.png in Resources */,
+				1E42D9EC1D484B01004465F9 /* concentric_circle_grid_outer_dark.png in Resources */,
+				1E42D9ED1D484B01004465F9 /* concentric_circle_grid_middle_dark.png in Resources */,
 				1E9D61431D446FDB004375E0 /* mm_export_button.png in Resources */,
+				1E42D9EA1D484B01004465F9 /* concentric_circle_grid_center_light.png in Resources */,
 				1E6146141D2CE85700B06169 /* Roboto-BoldItalic.ttf in Resources */,
 				1E6146181D2CE85700B06169 /* Roboto-Medium.ttf in Resources */,
 				1E9D61471D454949004375E0 /* mm_location_arrow.png in Resources */,
 				1E61461A1D2CE85700B06169 /* Roboto-Regular.ttf in Resources */,
 				1E6146111D2CE85700B06169 /* Roboto-Black.ttf in Resources */,
 				1E6146161D2CE85700B06169 /* Roboto-Light.ttf in Resources */,
+				1E42D9E81D484B01004465F9 /* concentric_circle_grid_outer_light.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +398,9 @@
 				1E6145DD1D2CDEF100B06169 /* ViewController.swift in Sources */,
 				1E6145E31D2CDEF200B06169 /* MapMark.xcdatamodeld in Sources */,
 				1E2F8FFE1D305CED002626FF /* MMMapMath.swift in Sources */,
+				1E42D9EF1D484B14004465F9 /* NRGridCircleAnimation.swift in Sources */,
 				1E6145FE1D2CE75C00B06169 /* MMBagsView.swift in Sources */,
+				1E42D9E11D4845B4004465F9 /* MMActivity.swift in Sources */,
 				1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */,
 				1E6146001D2CE77900B06169 /* MMSingleBagView.swift in Sources */,
 				1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */,
