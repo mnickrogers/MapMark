@@ -76,12 +76,12 @@ class MMActivityIndicatorView: UIView
     internal func open()
     {
         self.alpha = 0
-        self.transform = CGAffineTransformMakeScale(0.9, 0.9)
+//        self.transform = CGAffineTransformMakeScale(0.9, 0.9)
         UIView.animateWithDuration(0.2,
                                    delay: 0,
                                    options: UIViewAnimationOptions.CurveEaseOut,
                                    animations: {
-                                    self.transform = CGAffineTransformMakeScale(1, 1)
+//                                    self.transform = CGAffineTransformMakeScale(1, 1)
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
                                     self.alpha = 1
             }) { (completed) in
@@ -96,9 +96,8 @@ class MMActivityIndicatorView: UIView
                                    delay: 1,
                                    options: UIViewAnimationOptions.CurveEaseOut,
                                    animations: {
-                                    self.transform = CGAffineTransformMakeScale(1, 1)
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y + self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
-                                    self.transform = CGAffineTransformMakeScale(0.8, 0.8)
+//                                    self.transform = CGAffineTransformMakeScale(0.8, 0.8)
                                     self.alpha = 0
         }) { (completed) in
             if completed && shouldDelete
