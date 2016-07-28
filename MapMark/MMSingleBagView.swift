@@ -16,21 +16,6 @@ protocol MMNavigationDelegate
     func navigationDelegateViewClosed(view : UIView)
 }
 
-class MMMapPin: NSObject, MKAnnotation
-{
-    internal var pinID : String?
-    internal var title: String?
-    dynamic var coordinate: CLLocationCoordinate2D
-    
-    init(title: String?, ID: String?, coordinate: CLLocationCoordinate2D)
-    {
-        self.coordinate = coordinate
-        self.title = title
-        self.pinID = ID
-        super.init()
-    }
-}
-
 class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDelegate, UIScrollViewDelegate, MMHeaderViewDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate, MMNavigationDelegate
 {
     // MARK: Internal Types and Variables
@@ -412,6 +397,9 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: ID)
                 view.canShowCallout = true
                 view.draggable = true
+                
+                let infoButton = UIButton(type: .DetailDisclosure)
+                view.rightCalloutAccessoryView = infoButton
             }
             view.animatesDrop = true
             view.draggable = true
@@ -445,6 +433,11 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         default:
             break
         }
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)
+    {
+        
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView)
