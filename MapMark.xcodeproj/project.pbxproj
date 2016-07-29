@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E05F0B11D4AA197004B0AE8 /* MMCustomPins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E05F0B01D4AA197004B0AE8 /* MMCustomPins.swift */; };
+		1E05F0B31D4AEA4F004B0AE8 /* MMSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E05F0B21D4AEA4F004B0AE8 /* MMSearch.swift */; };
 		1E1DA42B1D430B00000726CB /* MMExporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1DA42A1D430B00000726CB /* MMExporting.swift */; };
 		1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */; };
 		1E2F8FFE1D305CED002626FF /* MMMapMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFD1D305CED002626FF /* MMMapMath.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		1E05F0B01D4AA197004B0AE8 /* MMCustomPins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMCustomPins.swift; sourceTree = "<group>"; };
+		1E05F0B21D4AEA4F004B0AE8 /* MMSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSearch.swift; sourceTree = "<group>"; };
 		1E1DA42A1D430B00000726CB /* MMExporting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMExporting.swift; sourceTree = "<group>"; };
 		1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRDataStructures.swift; sourceTree = "<group>"; };
 		1E2F8FFD1D305CED002626FF /* MMMapMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMMapMath.swift; sourceTree = "<group>"; };
@@ -147,12 +149,13 @@
 			name = IO;
 			sourceTree = "<group>";
 		};
-		1E2F8FFC1D305CD1002626FF /* Routing */ = {
+		1E2F8FFC1D305CD1002626FF /* Mapping */ = {
 			isa = PBXGroup;
 			children = (
 				1E2F8FFD1D305CED002626FF /* MMMapMath.swift */,
+				1E05F0B21D4AEA4F004B0AE8 /* MMSearch.swift */,
 			);
-			name = Routing;
+			name = Mapping;
 			sourceTree = "<group>";
 		};
 		1E42D9DF1D48456E004465F9 /* Components */ = {
@@ -186,7 +189,7 @@
 			children = (
 				1E05F0AF1D4AA161004B0AE8 /* Pins */,
 				1E1DA4291D430A9F000726CB /* IO */,
-				1E2F8FFC1D305CD1002626FF /* Routing */,
+				1E2F8FFC1D305CD1002626FF /* Mapping */,
 				1E6145FC1D2CE74F00B06169 /* Bags */,
 				1E6145F11D2CE43D00B06169 /* Root */,
 				1E42D9DF1D48456E004465F9 /* Components */,
@@ -428,6 +431,7 @@
 				1E6145F81D2CE62B00B06169 /* Pin+CoreDataProperties.swift in Sources */,
 				1E6145FB1D2CE62B00B06169 /* Bag.swift in Sources */,
 				1E6146031D2CE7EC00B06169 /* MMConstants.swift in Sources */,
+				1E05F0B31D4AEA4F004B0AE8 /* MMSearch.swift in Sources */,
 				1E6145DB1D2CDEF100B06169 /* AppDelegate.swift in Sources */,
 				1E61461E1D2CF9E200B06169 /* MMHeaderView.swift in Sources */,
 			);

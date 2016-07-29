@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController, MMBagsViewDelegate {
     
@@ -32,6 +33,13 @@ class ViewController: UIViewController, MMBagsViewDelegate {
         let bagsView = MMBagsView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
         bagsView.delegate = self
         self.view.addSubview(bagsView)
+        
+//        let pins = fetchPinsNearLocation(CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437), radius: 150)
+//        
+//        for item in pins!
+//        {
+//            print(item)
+//        }
     }
 
     override func didReceiveMemoryWarning() {
