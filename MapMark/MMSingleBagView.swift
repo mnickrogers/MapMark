@@ -375,6 +375,18 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     }
     
     // MARK: Map View Methods
+    
+    private func pinEntityFromAnnotationView(annotationView: MKAnnotationView) -> Pin?
+    {
+        guard let annotation = annotationView.annotation as? MMMapPin
+            else { return nil }
+        guard let pinID = annotation.pinID
+            else { return nil }
+        guard let pin = pinIDs?[pinID]
+            else { return nil }
+        return pin
+    }
+    
     func centerMapOnUser()
     {
         mainMap.setCenterCoordinate(mainMap.userLocation.coordinate, animated: true)
@@ -399,6 +411,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
                 view.draggable = true
                 
                 let infoButton = UIButton(type: .DetailDisclosure)
+                infoButton.tintColor = MM_COLOR_BLUE_DARK
                 view.rightCalloutAccessoryView = infoButton
             }
             view.animatesDrop = true
@@ -437,7 +450,21 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)
     {
+        guard let pinEntity = pinEntityFromAnnotationView(view)
+            else { return }
         
+        let descriptionView = MMPinDescriptionView(frame: CGRect().zeroBoundedRect(self.frame), pinEntity: pinEntity)
+        descriptionView.navDelegate = self
+        self.addSubview(descriptionView)
+        
+        descriptionView.frame = CGRect().frameBeneathFrame(CGRect().zeroBoundedRect(self.frame), beneathFrame: self.frame)
+        UIView.animateWithDuration(0.2,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   animations: { 
+                                    descriptionView.frame = CGRect().zeroBoundedRect(self.frame)
+            },
+                                   completion: nil)
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView)
@@ -677,22 +704,23 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     
     func navigationDelegateViewClosed(view: UIView)
     {
-        if let moveView = view as? MMQuickView
-        {
-            UIView.animateWithDuration(0.25,
-                                       delay: 0,
-                                       options: UIViewAnimationOptions.CurveEaseOut,
-                                       animations: { 
-                                        moveView.frame = CGRect(x: 0, y: self.frame.size.height, width: moveView.frame.size.width, height: moveView.frame.size.height)
-                                        moveView.alpha = 0
-                },
-                                       completion: { (completed) in
-                                        if completed
-                                        {
-                                            moveView.removeFromSuperview()
-                                        }
-            })
-        }
+//        if let moveView = view as? MMQuickView
+//        {
+//        }
+        
+        UIView.animateWithDuration(0.25,
+                                   delay: 0,
+                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   animations: {
+                                    view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
+                                    view.alpha = 0
+            },
+                                   completion: { (completed) in
+                                    if completed
+                                    {
+                                        view.removeFromSuperview()
+                                    }
+        })
     }
 }
 
