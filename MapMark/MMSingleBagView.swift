@@ -524,7 +524,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             defaultHeaderString = mainHeader.headerText
             mainViewState = .StartPinSelection
             mainHeader.headerText = "Select Start Pin"
-            button.setTitle("Cancel", forState: UIControlState.Normal)
+            button.setTitle("Clear", forState: UIControlState.Normal)
         case .StartPinSelection:
             mainHeader.headerText = defaultHeaderString
             mainViewState = .None
