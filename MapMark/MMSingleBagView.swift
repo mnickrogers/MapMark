@@ -645,6 +645,8 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
         mainMap.setRegion(region, animated: true)
         
+        mainMap.selectAnnotation(annotation, animated: true)
+        
         switch mainViewState
         {
         case .StartPinSelection:
