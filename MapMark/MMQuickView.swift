@@ -68,10 +68,6 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
         mainHeader.addSubview(closeButton)
         
         // MARK: Table view
-        
-//        mainTableView = MMQuickViewTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height),
-//                                             fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
-//                                             managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView = MMQuickViewTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height),
                                              fetchedResultsController: mainFetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>,
                                              managedObjectContext: MMSession.sharedSession.managedObjectContext)
