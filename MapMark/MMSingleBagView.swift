@@ -120,9 +120,6 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         inputScrollView.addSubview(getInputScrollViewItem(atPage: 3))
 
         // MARK: Main table view
-//        mainTableView = MMSingleBagTableView(frame: CGRect(x: 0, y: inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20, width: self.frame.size.width, height: self.frame.size.height - (inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20)),
-//                                             fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
-//                                             managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView = MMSingleBagTableView(frame: CGRect(x: 0, y: inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20, width: self.frame.size.width, height: self.frame.size.height - (inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20)),
                                              fetchedResultsController: mainFetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>,
                                              managedObjectContext: MMSession.sharedSession.managedObjectContext)
