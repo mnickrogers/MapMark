@@ -10,13 +10,13 @@ import Foundation
 
 public struct NRStack<T>
 {
-    private var items = [T]()
+    fileprivate var items = [T]()
     
     public init()
     {
     }
     
-    public mutating func push(item : T)
+    public mutating func push(_ item : T)
     {
         items.append(item)
     }
@@ -32,11 +32,11 @@ public struct NRStack<T>
 
 public struct NRQueue<T>
 {
-    private var items = [T]()
+    fileprivate var items = [T]()
     
-    public mutating func pushBack(item : T)
+    public mutating func pushBack(_ item : T)
     {
-        items.insert(item, atIndex: 0)
+        items.insert(item, at: 0)
     }
     
     public mutating func popFront() -> T

@@ -10,7 +10,7 @@ import UIKit
 
 protocol MMHeaderViewDelegate
 {
-    func headerViewTextChanged(string : String?)
+    func headerViewTextChanged(_ string : String?)
 }
 
 class MMHeaderView: UIView, UITextFieldDelegate
@@ -34,17 +34,17 @@ class MMHeaderView: UIView, UITextFieldDelegate
     {
         set
         {
-            self.headerLabel.userInteractionEnabled = newValue
+            self.headerLabel.isUserInteractionEnabled = newValue
         }
         get
         {
-            return self.headerLabel.userInteractionEnabled
+            return self.headerLabel.isUserInteractionEnabled
         }
     }
     
     // MARK: Private Types and Variables
     
-    private var headerLabel : UITextField!
+    fileprivate var headerLabel : UITextField!
     
     // MARK: Initialization
     
@@ -52,8 +52,8 @@ class MMHeaderView: UIView, UITextFieldDelegate
     {
         super.init(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 75))
         
-        backgroundColor = UIColor.clearColor()
-        let blurEffect = UIBlurEffect(style: .Dark)
+        backgroundColor = UIColor.clear
+        let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.frame
         self.addSubview(blurEffectView)
@@ -62,17 +62,17 @@ class MMHeaderView: UIView, UITextFieldDelegate
         headerLabel.delegate = self
         headerLabel.font = UIFont(name: MM_FONT_MEDIUM, size: 32)
         headerLabel.textColor = MM_COLOR_GREEN_LIGHT
-        headerLabel.textAlignment = .Center
+        headerLabel.textAlignment = .center
         headerLabel.sizeToFit()
-        headerLabel.userInteractionEnabled = true
-        headerLabel.keyboardType = .Default
-        headerLabel.keyboardAppearance = .Dark
-        headerLabel.returnKeyType = .Done
+        headerLabel.isUserInteractionEnabled = true
+        headerLabel.keyboardType = .default
+        headerLabel.keyboardAppearance = .dark
+        headerLabel.returnKeyType = .done
         self.addSubview(headerLabel)
         
         let bottomDiv = CALayer()
         bottomDiv.frame = CGRect(x: 0, y: self.frame.size.height - 0.5, width: self.frame.size.width, height: 0.5)
-        bottomDiv.backgroundColor = MM_COLOR_GREEN_DIV.CGColor
+        bottomDiv.backgroundColor = MM_COLOR_GREEN_DIV.cgColor
         self.layer.addSublayer(bottomDiv)
     }
     
@@ -85,7 +85,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
         return CGPoint(x: self.center.x, y: self.center.y + 7)
     }
     
-    private func resizeHeaderLabel()
+    fileprivate func resizeHeaderLabel()
     {
         headerLabel.sizeToFit()
         if headerLabel.frame.size.width > self.frame.size.width * 0.7
@@ -102,7 +102,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
     
     // MARK: Text Field Delegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         delegate?.headerViewTextChanged(textField.text)

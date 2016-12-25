@@ -10,9 +10,9 @@ import UIKit
 
 enum NRGridCircleAnimationColor
 {
-    case Default
-    case Light
-    case Dark
+    case `default`
+    case light
+    case dark
 }
 
 class NRGridCircleAnimationView: UIView
@@ -20,17 +20,17 @@ class NRGridCircleAnimationView: UIView
     //MARK: Types
     
     //MARK: Internal Variables
-    internal var animationColorType : NRGridCircleAnimationColor = .Light { didSet { reloadImages() } }
+    internal var animationColorType : NRGridCircleAnimationColor = .light { didSet { reloadImages() } }
     internal(set) var isAnimating = false
     
     //MARK: Private Variables
-    private var outterView : UIImageView!
-    private var middleView : UIImageView!
-    private var innerView : UIImageView!
-    private var shouldAnimate = false
+    fileprivate var outterView : UIImageView!
+    fileprivate var middleView : UIImageView!
+    fileprivate var innerView : UIImageView!
+    fileprivate var shouldAnimate = false
     
-    private var currentOutterRotation : CGFloat = 0.0
-    private var currentMiddleRotation : CGFloat = 0.0
+    fileprivate var currentOutterRotation : CGFloat = 0.0
+    fileprivate var currentMiddleRotation : CGFloat = 0.0
     
     //MARK: Initialization
     override init(frame: CGRect)
@@ -58,40 +58,40 @@ class NRGridCircleAnimationView: UIView
     }
     
     //MARK: Private Functions
-    private func reloadImages()
+    fileprivate func reloadImages()
     {
         var type : String
         switch animationColorType
         {
-        case .Default:
+        case .default:
             fallthrough
-        case .Light:
+        case .light:
             type = "light"
-        case .Dark:
+        case .dark:
             type = "dark"
         }
         outterView.image = UIImage(named: "concentric_circle_grid_outer_\(type).png")
         middleView.image = UIImage(named: "concentric_circle_grid_middle_\(type).png")
         innerView.image = UIImage(named: "concentric_circle_grid_center_\(type).png")
         
-        if animationColorType == .Default
+        if animationColorType == .default
         {
-            outterView.image = outterView.image?.imageWithRenderingMode(.AlwaysTemplate)
-            middleView.image = middleView.image?.imageWithRenderingMode(.AlwaysTemplate)
-            innerView.image = innerView.image?.imageWithRenderingMode(.AlwaysTemplate)
+            outterView.image = outterView.image?.withRenderingMode(.alwaysTemplate)
+            middleView.image = middleView.image?.withRenderingMode(.alwaysTemplate)
+            innerView.image = innerView.image?.withRenderingMode(.alwaysTemplate)
         }
     }
     
-    private func rotateViews()
+    fileprivate func rotateViews()
     {
         currentOutterRotation += CGFloat(M_PI_2)
         currentMiddleRotation -= CGFloat(M_2_PI)
-        UIView.animateWithDuration(0.4,
+        UIView.animate(withDuration: 0.4,
                                    animations: {
-                                    self.outterView.transform = CGAffineTransformMakeRotation(self.currentOutterRotation)
-                                    self.middleView.transform = CGAffineTransformMakeRotation(self.currentMiddleRotation)
+                                    self.outterView.transform = CGAffineTransform(rotationAngle: self.currentOutterRotation)
+                                    self.middleView.transform = CGAffineTransform(rotationAngle: self.currentMiddleRotation)
                                     self.alpha = 1.0
-            }) { (let done) in
+            }, completion: { (done) in
                 if self.shouldAnimate
                 {
                     self.rotateViews()
@@ -100,16 +100,16 @@ class NRGridCircleAnimationView: UIView
                 {
                     self.resetRotations()
                 }
-        }
+        }) 
     }
     
-    private func resetRotations()
+    fileprivate func resetRotations()
     {
-        UIView.animateWithDuration(0.4)
-        {
-            self.outterView.transform = CGAffineTransformMakeRotation(0.0)
-            self.middleView.transform = CGAffineTransformMakeRotation(0.0)
-        }
+        UIView.animate(withDuration: 0.4, animations: {
+            self.outterView.transform = CGAffineTransform(rotationAngle: 0.0)
+            self.middleView.transform = CGAffineTransform(rotationAngle: 0.0)
+        })
+        
         currentOutterRotation = 0.0
         currentMiddleRotation = 0.0
     }
@@ -129,35 +129,35 @@ class NRGridCircleAnimationView: UIView
         isAnimating = false
     }
     
-    internal func shrinkOff(completion:() -> Void)
+    internal func shrinkOff(_ completion:@escaping () -> Void)
     {
         shouldAnimate = false
         isAnimating = false
         resetRotations()
-        UIView.animateWithDuration(0.1,
+        UIView.animate(withDuration: 0.1,
                                    delay: 0.4,
-                                   options: UIViewAnimationOptions.CurveLinear,
+                                   options: UIViewAnimationOptions.curveLinear,
                                    animations: {
-                                    self.transform = CGAffineTransformMakeScale(0.3, 0.3)
+                                    self.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                                     self.alpha = 0.2
-            }) { (let done) in
+            }) { (done) in
                 completion()
         }
     }
     
-    internal func popOff(completion:() -> Void)
+    internal func popOff(_ completion:@escaping () -> Void)
     {
         shouldAnimate = false
         isAnimating = false
         resetRotations()
-        UIView.animateWithDuration(0.1,
+        UIView.animate(withDuration: 0.1,
                                    delay: 0.4,
-                                   options: UIViewAnimationOptions.CurveLinear,
+                                   options: UIViewAnimationOptions.curveLinear,
                                    animations: {
-                                    self.outterView.transform = CGAffineTransformMakeScale(1.2, 1.2)
-                                    self.middleView.transform = CGAffineTransformMakeScale(0.3, 0.3)
+                                    self.outterView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                                    self.middleView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                                     self.alpha = 0.0
-        }) { (let done) in
+        }) { (done) in
             completion()
         }
     }

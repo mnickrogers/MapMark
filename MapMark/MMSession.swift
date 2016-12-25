@@ -12,9 +12,9 @@ import CoreLocation
 
 enum MMLaunchState
 {
-    case Normal
-    case SaveUserLocation
-    case SaveUserParkingLocation
+    case normal
+    case saveUserLocation
+    case saveUserParkingLocation
 }
 
 class MMSession
@@ -26,11 +26,11 @@ class MMSession
     }()
     
     internal var managedObjectContext: NSManagedObjectContext!
-    internal var launchState: MMLaunchState = .Normal
+    internal var launchState: MMLaunchState = .normal
     
     init()
     {
-        guard let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate
             else { return }
         managedObjectContext = delegate.managedObjectContext
     }

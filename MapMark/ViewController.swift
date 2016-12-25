@@ -9,14 +9,14 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, MMBagsViewDelegate {
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle
+class ViewController: UIViewController, MMBagsViewDelegate
+{
+    override var preferredStatusBarStyle : UIStatusBarStyle
     {
-        return .LightContent
+        return .lightContent
     }
     
-    override func viewDidAppear(animated: Bool)
+    override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
 //        let vc = MMRootViewController()
@@ -27,8 +27,8 @@ class ViewController: UIViewController, MMBagsViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.openLoadingView), name: MM_NOTIFICATION_OPEN_LOADING_VIEW, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.closeLoadingView), name: MM_NOTIFICATION_CLOSE_LOADING_VIEW, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.openLoadingView), name: NSNotification.Name(rawValue: MM_NOTIFICATION_OPEN_LOADING_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.closeLoadingView), name: NSNotification.Name(rawValue: MM_NOTIFICATION_CLOSE_LOADING_VIEW), object: nil)
         
         let bagsView = MMBagsView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
         bagsView.delegate = self
@@ -49,7 +49,7 @@ class ViewController: UIViewController, MMBagsViewDelegate {
     
     deinit
     {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func openLoadingView()
@@ -68,9 +68,9 @@ class ViewController: UIViewController, MMBagsViewDelegate {
     
     // MARK: Bags View Delegate
     
-    func presentCustomViewController(controller: UIViewController, animated: Bool, completion: () -> Void)
+    func presentCustomViewController(_ controller: UIViewController, animated: Bool, completion: @escaping () -> Void)
     {
-        self.presentViewController(controller, animated: animated)
+        self.present(controller, animated: animated)
         {
             completion()
         }

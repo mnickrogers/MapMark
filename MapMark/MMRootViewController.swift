@@ -12,9 +12,9 @@ class MMRootViewController: ViewController
 {
     // MARK: Initialization
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle
+    override var preferredStatusBarStyle : UIStatusBarStyle
     {
-        return .LightContent
+        return .lightContent
     }
     
     override func viewDidLoad()

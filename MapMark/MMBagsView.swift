@@ -11,7 +11,7 @@ import CoreData
 
 protocol MMBagsViewDelegate
 {
-    func presentCustomViewController(controller: UIViewController, animated: Bool, completion:() -> Void)
+    func presentCustomViewController(_ controller: UIViewController, animated: Bool, completion: @escaping () -> Void)
 }
 
 class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextInputViewDelegate, MMNavigationDelegate
@@ -22,13 +22,13 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     
     // MARK: Private Types and Variables
     
-    private var contentView : UIView!
-    private var bags : [Bag]?
-    private var mainHeader : MMHeaderView!
-    private var mainTableView : MMBagsTableView!
-    private var currentNewBag : Bag?
+    fileprivate var contentView : UIView!
+    fileprivate var bags : [Bag]?
+    fileprivate var mainHeader : MMHeaderView!
+    fileprivate var mainTableView : MMBagsTableView!
+    fileprivate var currentNewBag : Bag?
     
-    private let rowHeight : CGFloat = 100
+    fileprivate let rowHeight : CGFloat = 100
     
     // MARK: Initialization
     
@@ -45,29 +45,29 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         mainHeader.headerText = "MapMark"
         mainHeader.isTitleEditable = false
         
-        let addButton = UIButton(type: .Custom)
-        addButton.frame = CGRectZero
+        let addButton = UIButton(type: .custom)
+        addButton.frame = CGRect.zero
         addButton.titleLabel?.font = UIFont(name: MM_FONT_LIGHT, size: 45)
-        addButton.titleLabel?.textAlignment = .Center
-        addButton.setTitleColor(MM_COLOR_GREEN_LIGHT, forState: .Normal)
-        addButton.setTitleColor(MM_COLOR_GREEN_DARK, forState: .Highlighted)
-        addButton.setTitle("+", forState: .Normal)
+        addButton.titleLabel?.textAlignment = .center
+        addButton.setTitleColor(MM_COLOR_GREEN_LIGHT, for: UIControlState())
+        addButton.setTitleColor(MM_COLOR_GREEN_DARK, for: .highlighted)
+        addButton.setTitle("+", for: UIControlState())
         addButton.sizeToFit()
         let addCenter = mainHeader.getHeaderLabelCenter()
         addButton.center = CGPoint(x: mainHeader.frame.size.width - 35, y: addCenter.y)
-        addButton.addTarget(self, action: #selector(self.addNewBag), forControlEvents: .TouchUpInside)
+        addButton.addTarget(self, action: #selector(self.addNewBag), for: .touchUpInside)
         mainHeader.addSubview(addButton)
         
         // MARK: Export Button
-        let exportButton = UIButton(type: .Custom)
+        let exportButton = UIButton(type: .custom)
         exportButton.frame = CGRect(x: self.frame.size.width - 40, y: self.frame.size.height - 40, width: 30, height: 30)
         exportButton.center = CGPoint(x: addButton.center.x, y: exportButton.center.y)
-        exportButton.setBackgroundImage(UIImage(named: "mm_export_button.png"), forState: .Normal)
+        exportButton.setBackgroundImage(UIImage(named: "mm_export_button.png"), for: UIControlState())
         exportButton.tintColor = MM_COLOR_BLUE_DARK
-        exportButton.addTarget(self, action: #selector(self.exportCoreDataToCSV), forControlEvents: .TouchUpInside)
+        exportButton.addTarget(self, action: #selector(self.exportCoreDataToCSV), for: .touchUpInside)
         
         // MARK: Table View
-        let fetchRequest = NSFetchRequest(entityName: "Bag")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Bag")
         let fetchSort = NSSortDescriptor(key: "last_edited", ascending: false)
         fetchRequest.sortDescriptors = [fetchSort]
         
@@ -87,9 +87,9 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         let initialTableViewFrame = mainTableView.frame
         mainTableView.frame = CGRect(x: 0, y: mainTableView.frame.origin.y + 40, width: mainTableView.frame.size.width, height: mainTableView.frame.size.height)
         mainTableView.alpha = 0
-        UIView.animateWithDuration(0.25,
+        UIView.animate(withDuration: 0.25,
                                    delay: 0.5,
-                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   options: UIViewAnimationOptions.curveEaseOut,
                                    animations: { 
                                     self.mainTableView.frame = initialTableViewFrame
                                     self.mainTableView.alpha = 1
@@ -107,12 +107,12 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     {
         let exporter = MMExporter()
         let csvString = exporter.getCoreDataCSVString()
-        let fileName = exporter.getDocumentsDirectory().stringByAppendingPathComponent("mapmark_data.csv")
+        let fileName = exporter.getDocumentsDirectory().appendingPathComponent("mapmark_data.csv")
         
         do
         {
-            try csvString.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding)
-            let fileData = NSURL(fileURLWithPath: fileName)
+            try csvString.write(toFile: fileName, atomically: true, encoding: String.Encoding.utf8)
+            let fileData = URL(fileURLWithPath: fileName)
             let activityVC = UIActivityViewController(activityItems: [fileData], applicationActivities: nil)
             delegate?.presentCustomViewController(activityVC, animated: true, completion:
             {
@@ -140,15 +140,15 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: rowHeight), animated: true)
         input.delegate = self
         self.insertSubview(input, belowSubview: mainHeader)
-        guard let entityDescription = NSEntityDescription.entityForName("Bag", inManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+        guard let entityDescription = NSEntityDescription.entity(forEntityName: "Bag", in: MMSession.sharedSession.managedObjectContext)
             else { return }
-        let newBag = Bag(entity: entityDescription, insertIntoManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+        let newBag = Bag(entity: entityDescription, insertInto: MMSession.sharedSession.managedObjectContext)
         newBag.updateLastEdited()
         currentNewBag = newBag
     }
     
     // MARK: Text View Delegate
-    func textInputViewReturned(inputView: MMTextInputView, field: UITextField, string: String?)
+    func textInputViewReturned(_ inputView: MMTextInputView, field: UITextField, string: String?)
     {
         inputView.animateViewOff { (completed, view) in
             if completed
@@ -174,22 +174,22 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     }
     
     // MARK: Table View Methods
-    func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
+    func tableViewRowSelected(_ tableView: UITableView, indexPath: IndexPath)
     {
         rowSelected(indexPath)
     }
     
-    func tableViewRowLongPressed(tableView: UITableView, indexPath: NSIndexPath)
+    func tableViewRowLongPressed(_ tableView: UITableView, indexPath: IndexPath)
     {
     }
     
-    func tableViewActionViewItemSelected(tableView: UITableView, indexPath: NSIndexPath, actionType: MMTableViewActionTypes)
+    func tableViewActionViewItemSelected(_ tableView: UITableView, indexPath: IndexPath, actionType: MMTableViewActionTypes)
     {
     }
     
-    private func rowSelected(indexPath : NSIndexPath)
+    fileprivate func rowSelected(_ indexPath : IndexPath)
     {
-        guard let selectedBag = mainTableView.fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+        guard let selectedBag = mainTableView.fetchedResultsController.object(at: indexPath) as? Bag
             else { return }
         let sbv = MMSingleBagView(frame: self.frame, bag: selectedBag)
         sbv.navDelegate = self
@@ -197,34 +197,34 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     }
     
     // MARK: Navigation Delegate
-    func navigationDelegateViewClosed(view: UIView)
+    func navigationDelegateViewClosed(_ view: UIView)
     {
         animateViewOff(view)
     }
     
-    private func animateViewOn(view : UIView)
+    fileprivate func animateViewOn(_ view : UIView)
     {
         let initialFrame = view.frame
         view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
         self.addSubview(view)
-        UIView.animateWithDuration(0.25,
+        UIView.animate(withDuration: 0.25,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   options: UIViewAnimationOptions.curveEaseOut,
                                    animations: {
-                                    self.contentView.transform = CGAffineTransformMakeScale(0.95, 0.95)
+                                    self.contentView.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
                                     view.frame = initialFrame
         }) { (completed) in
         }
     }
     
-    private func animateViewOff(view : UIView)
+    fileprivate func animateViewOff(_ view : UIView)
     {
-        UIView.animateWithDuration(0.25,
+        UIView.animate(withDuration: 0.25,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   options: UIViewAnimationOptions.curveEaseOut,
                                    animations: {
                                     view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
-                                    self.contentView.transform = CGAffineTransformMakeScale(1, 1)
+                                    self.contentView.transform = CGAffineTransform(scaleX: 1, y: 1)
             }) { (completed) in
                 if completed
                 {
@@ -237,36 +237,36 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
 
 enum MMTableViewActionTypes
 {
-    case Move
+    case move
 }
 
 protocol MMBagsTableViewDelegate
 {
-    func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
-    func tableViewRowLongPressed(tableView: UITableView, indexPath: NSIndexPath)
-    func tableViewActionViewItemSelected(tableView: UITableView, indexPath: NSIndexPath, actionType: MMTableViewActionTypes)
+    func tableViewRowSelected(_ tableView: UITableView, indexPath: IndexPath)
+    func tableViewRowLongPressed(_ tableView: UITableView, indexPath: IndexPath)
+    func tableViewActionViewItemSelected(_ tableView: UITableView, indexPath: IndexPath, actionType: MMTableViewActionTypes)
 }
 
 final class MMBagsTableView: MMDefaultFetchedResultsTableView
 {
     internal var selectionDelegate : MMBagsTableViewDelegate?
     
-    override func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
+    override func configureCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     {
         super.configureCell(cell, atIndexPath: indexPath)
-        guard let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+        guard let record = fetchedResultsController.object(at: indexPath) as? Bag
             else { return }
         cell.textLabel?.text = record.name
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    override func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
     {
         return 100
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+        super.tableView(tableView, didSelectRowAt: indexPath)
         selectionDelegate?.tableViewRowSelected(self, indexPath: indexPath)
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol MMTextInputViewDelegate
 {
-    func textInputViewReturned(inputView : MMTextInputView, field : UITextField, string : String?)
+    func textInputViewReturned(_ inputView : MMTextInputView, field : UITextField, string : String?)
 }
 
 class MMTextInputView: UIView, UITextFieldDelegate
@@ -25,11 +25,11 @@ class MMTextInputView: UIView, UITextFieldDelegate
         super.init(frame: frame)
     }
     
-    init(frame: CGRect, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.Light)
+    init(frame: CGRect, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.light)
     {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         
         let blurEffect = UIBlurEffect(style: backgroundType)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -38,18 +38,18 @@ class MMTextInputView: UIView, UITextFieldDelegate
         let height : CGFloat = self.frame.size.height == 0 ? 35 : self.frame.size.height
         textField = UITextField(frame: CGRect(x: 15, y: self.frame.size.height - height, width: self.frame.size.width - 15, height: height))
         textField.font = UIFont(name: MM_FONT_REGULAR, size: 22)
-        textField.textAlignment = .Left
+        textField.textAlignment = .left
         textField.textColor = MM_COLOR_BLUE_TEXT
         textField.delegate = self
-        textField.autocapitalizationType = .Words
-        textField.returnKeyType = .Done
-        textField.keyboardAppearance = .Dark
-        textField.userInteractionEnabled = true
+        textField.autocapitalizationType = .words
+        textField.returnKeyType = .done
+        textField.keyboardAppearance = .dark
+        textField.isUserInteractionEnabled = true
         textField.becomeFirstResponder()
         self.addSubview(textField)
     }
     
-    convenience init(frame: CGRect, animated: Bool, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.Light)
+    convenience init(frame: CGRect, animated: Bool, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.light)
     {
         self.init(frame: frame, backgroundType: backgroundType)
         
@@ -58,9 +58,9 @@ class MMTextInputView: UIView, UITextFieldDelegate
             let startFrame = self.frame
             self.alpha = 0
             self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
-            UIView.animateWithDuration(0.25,
+            UIView.animate(withDuration: 0.25,
                                        delay: 0,
-                                       options: UIViewAnimationOptions.CurveEaseOut,
+                                       options: UIViewAnimationOptions.curveEaseOut,
                                        animations: {
                                         self.alpha = 1
                                         self.frame = startFrame
@@ -74,22 +74,22 @@ class MMTextInputView: UIView, UITextFieldDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal func animateViewOff(completion:(completed: Bool, view : UIView) -> Void)
+    internal func animateViewOff(_ completion:@escaping (_ completed: Bool, _ view : UIView) -> Void)
     {
-        UIView.animateWithDuration(0.25,
+        UIView.animate(withDuration: 0.25,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   options: UIViewAnimationOptions.curveEaseOut,
                                    animations: {
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
                                     self.alpha = 0
                                     
             }) { (completed) in
-                completion(completed: completed, view: self)
+                completion(completed, self)
         }
     }
     
     // MARK: Text Field Delegates
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         delegate?.textInputViewReturned(self, field: textField, string: textField.text)

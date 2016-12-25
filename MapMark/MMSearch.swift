@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreData
 
-internal func fetchPinsNearLocation(location: CLLocationCoordinate2D, radius: Double, sortedByDistance: Bool = false) -> [Pin]?
+internal func fetchPinsNearLocation(_ location: CLLocationCoordinate2D, radius: Double, sortedByDistance: Bool = false) -> [Pin]?
 {
     let distUnit = 69.0 // Use 111.045 for km
     let lat = location.latitude
@@ -21,8 +21,8 @@ internal func fetchPinsNearLocation(location: CLLocationCoordinate2D, radius: Do
     let lonMin = lon - (radius / (distUnit * cos(degreesToRadians(lat))))
     let lonMax = lon + (radius / (distUnit * cos(degreesToRadians(lat))))
     
-    let fetchRequest = NSFetchRequest()
-    let entityDescription = NSEntityDescription.entityForName("Pin", inManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+    let entityDescription = NSEntityDescription.entity(forEntityName: "Pin", in: MMSession.sharedSession.managedObjectContext)
     let predicate = NSPredicate(format: "(latitude > %f AND latitude < %f) AND (longitude > %f AND longitude < %f)", latMin, latMax, lonMin, lonMax)
     
     fetchRequest.entity = entityDescription
@@ -32,7 +32,7 @@ internal func fetchPinsNearLocation(location: CLLocationCoordinate2D, radius: Do
     
     do
     {
-        pins = try MMSession.sharedSession.managedObjectContext.executeFetchRequest(fetchRequest) as? [Pin]
+        pins = try MMSession.sharedSession.managedObjectContext.fetch(fetchRequest) as? [Pin]
     }
     catch let error as NSError
     {

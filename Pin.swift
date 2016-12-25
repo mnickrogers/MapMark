@@ -12,13 +12,13 @@ import CoreData
 
 class Pin: NSManagedObject
 {
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?)
     {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        super.init(entity: entity, insertInto: context)
         
         if date_created == 0
         {
-            date_created = Int64(NSDate().timeIntervalSince1970)
+            date_created = Int64(Date().timeIntervalSince1970)
         }
         
         if pin_id == nil

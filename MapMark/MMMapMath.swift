@@ -38,19 +38,19 @@ public func ==(lhs: Coordinate, rhs: Coordinate) -> Bool
 // MARK: Distance Calculations
 
 /// Calculate the greater circle distance between two points.
-public func haversine(coordinate1: CLLocationCoordinate2D, coordinate2: CLLocationCoordinate2D) -> Double
+public func haversine(_ coordinate1: CLLocationCoordinate2D, coordinate2: CLLocationCoordinate2D) -> Double
 {
     return haversine(coordinate1.latitude, longitude1: coordinate1.longitude, latitude2: coordinate2.latitude, longitude2: coordinate2.longitude)
 }
 
 /// Calculate the greater circle distance between two points.
-public func haversine(coordinate1: Coordinate, coordinate2: Coordinate) -> Double
+public func haversine(_ coordinate1: Coordinate, coordinate2: Coordinate) -> Double
 {
     return haversine(coordinate1.latitude, longitude1: coordinate1.longitude, latitude2: coordinate2.latitude, longitude2: coordinate2.longitude)
 }
 
 /// Calculate the greater circle distance between two points.
-public func haversine(latitude1: Double, longitude1: Double, latitude2: Double, longitude2: Double) -> Double
+public func haversine(_ latitude1: Double, longitude1: Double, latitude2: Double, longitude2: Double) -> Double
 {
     let coords = [latitude1, longitude1, latitude2, longitude2]
     let radianCoords = coords.map {degreesToRadians($0)}
@@ -65,7 +65,7 @@ public func haversine(latitude1: Double, longitude1: Double, latitude2: Double, 
 }
 
 /// Convert degrees to radians.
-public func degreesToRadians(degrees: Double) -> Double
+public func degreesToRadians(_ degrees: Double) -> Double
 {
     return degrees * (M_PI / 180.0)
 }
@@ -73,7 +73,7 @@ public func degreesToRadians(degrees: Double) -> Double
 // MARK: Routing
 
 /// Find the shortest path given a start and a set of coordinates.
-public func findShortestPath(start: Coordinate, points: [Coordinate]) -> [Coordinate]
+public func findShortestPath(_ start: Coordinate, points: [Coordinate]) -> [Coordinate]
 {
     var path = [Coordinate]()
     var visited = Set<Coordinate>()

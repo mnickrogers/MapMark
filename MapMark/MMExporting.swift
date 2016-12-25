@@ -13,14 +13,14 @@ class MMExporter
 {
     internal func getCoreDataCSVString() -> String
     {
-        let request = NSFetchRequest()
-        let entity = NSEntityDescription.entityForName("Pin", inManagedObjectContext: MMSession.sharedSession.managedObjectContext)
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        let entity = NSEntityDescription.entity(forEntityName: "Pin", in: MMSession.sharedSession.managedObjectContext)
         let bagSort = NSSortDescriptor(key: "bag.name", ascending: true)
         let nameSort = NSSortDescriptor(key: "name", ascending: true)
         request.entity = entity
         request.sortDescriptors = [bagSort, nameSort]
         
-        guard let results = try? MMSession.sharedSession.managedObjectContext.executeFetchRequest(request) as? [Pin]
+        guard let results = try? MMSession.sharedSession.managedObjectContext.fetch(request) as? [Pin]
             else { print("Error executing CoreData fetch request for CSV conversion"); return "" }
         
         if results == nil
@@ -50,16 +50,16 @@ class MMExporter
         return csvStr
     }
     
-    internal func getCoreDataCSVData() -> NSData?
+    internal func getCoreDataCSVData() -> Data?
     {
         let string = getCoreDataCSVString()
-        let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: false)
         return data
     }
     
     internal func getDocumentsDirectory() -> NSString
     {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        return paths[0]
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        return paths[0] as NSString
     }
 }

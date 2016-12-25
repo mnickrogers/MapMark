@@ -17,17 +17,17 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
     
     // MARK: Private Types and Variables
     
-    private lazy var mainFetchedResultsController : NSFetchedResultsController =
+    fileprivate lazy var mainFetchedResultsController : NSFetchedResultsController<Bag> =
         {
-            let fetchRequest = NSFetchRequest(entityName: "Bag")
+            let fetchRequest = NSFetchRequest<Bag>(entityName: "Bag")
             let fetchSort = NSSortDescriptor(key: "name", ascending: true)
             fetchRequest.sortDescriptors = [fetchSort]
-            let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MMSession.sharedSession.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+            let controller = NSFetchedResultsController<Bag>(fetchRequest: fetchRequest, managedObjectContext: MMSession.sharedSession.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             return controller
     }()
-    private var mainTableView: MMQuickViewTableView!
-    private var mainPin: Pin?
-    private var mainHeader : MMHeaderView!
+    fileprivate var mainTableView: MMQuickViewTableView!
+    fileprivate var mainPin: Pin?
+    fileprivate var mainHeader : MMHeaderView!
     
     // MARK: Initialization
     
@@ -48,7 +48,7 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
         
         // MARK: Background
         
-        let bgEffect = UIBlurEffect(style: .Dark)
+        let bgEffect = UIBlurEffect(style: .dark)
         let effectView = UIVisualEffectView(effect: bgEffect)
         effectView.frame = CGRect().zeroBoundedRect(self.frame)
         self.addSubview(effectView)
@@ -60,11 +60,11 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
         self.addSubview(mainHeader)
         
         // MARK: Close button
-        let closeButton = UIButton(type: .Custom)
+        let closeButton = UIButton(type: .custom)
         closeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         closeButton.center = CGPoint(x: 35, y: mainHeader.getHeaderLabelCenter().y)
-        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), forState: .Normal)
-        closeButton.addTarget(self, action: #selector(self.closeViewButtonPressed), forControlEvents: .TouchUpInside)
+        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControlState())
+        closeButton.addTarget(self, action: #selector(self.closeViewButtonPressed), for: .touchUpInside)
         mainHeader.addSubview(closeButton)
         
         // MARK: Table view
@@ -103,10 +103,9 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
     
     // MARK: Bags table view delegate
     
-    func tableViewRowSelected(tableView: UITableView, indexPath: NSIndexPath)
+    func tableViewRowSelected(_ tableView: UITableView, indexPath: IndexPath)
     {
-        guard let selectedBag = mainFetchedResultsController.objectAtIndexPath(indexPath) as? Bag
-            else { return }
+        let selectedBag = mainFetchedResultsController.object(at: indexPath)
         mainPin?.bag = selectedBag
         
         do
@@ -121,28 +120,28 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
         navDelegate?.navigationDelegateViewClosed(self)
     }
     
-    func tableViewRowLongPressed(tableView: UITableView, indexPath: NSIndexPath)
+    func tableViewRowLongPressed(_ tableView: UITableView, indexPath: IndexPath)
     {
     }
     
-    func tableViewActionViewItemSelected(tableView: UITableView, indexPath: NSIndexPath, actionType: MMTableViewActionTypes)
+    func tableViewActionViewItemSelected(_ tableView: UITableView, indexPath: IndexPath, actionType: MMTableViewActionTypes)
     {
     }
 }
 
 final class MMQuickViewTableView: MMSingleBagTableView
 {
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    override func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
     {
         return 75
     }
     
-    override func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
+    override func configureCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     {
         super.configureCell(cell, atIndexPath: indexPath)
         cell.textLabel?.textColor = MM_COLOR_BLUE_TEXT
         
-        if let record = fetchedResultsController.objectAtIndexPath(indexPath) as? Bag
+        if let record = fetchedResultsController.object(at: indexPath) as? Bag
         {
             cell.textLabel?.text = record.name
         }

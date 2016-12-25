@@ -32,20 +32,20 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
     
     // MARK: - Private Types and Variables
     
-    private enum EditingState
+    fileprivate enum EditingState
     {
-        case None
-        case Title
-        case Description
+        case none
+        case title
+        case description
     }
     
-    private let titleFieldTag = 2036
-    private let descriptionFieldTag = 2035
-    private var pinEntity: Pin?
-    private var header: MMHeaderView!
-    private var titleField: UITextField?
-    private var descriptionField: UITextView?
-    private var defaultDescriptionString = "Enter description..."
+    fileprivate let titleFieldTag = 2036
+    fileprivate let descriptionFieldTag = 2035
+    fileprivate var pinEntity: Pin?
+    fileprivate var header: MMHeaderView!
+    fileprivate var titleField: UITextField?
+    fileprivate var descriptionField: UITextView?
+    fileprivate var defaultDescriptionString = "Enter description..."
     
     // MARK: - Initialization
     
@@ -57,7 +57,7 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
         
         // MARK: - Background
         
-        let blurEffect = UIBlurEffect(style: .Dark)
+        let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = CGRect().zeroBoundedRect(self.frame)
         self.addSubview(blurEffectView)
@@ -70,11 +70,11 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
         
         // MARK: - Close button
         
-        let closeButton = UIButton(type: .Custom)
+        let closeButton = UIButton(type: .custom)
         closeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         closeButton.center = CGPoint(x: 35, y: header.getHeaderLabelCenter().y)
-        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), forState: .Normal)
-        closeButton.addTarget(self, action: #selector(self.closeButtonPressed), forControlEvents: .TouchUpInside)
+        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControlState())
+        closeButton.addTarget(self, action: #selector(self.closeButtonPressed), for: .touchUpInside)
         header.addSubview(closeButton)
         
         // MARK: - Title field
@@ -85,16 +85,16 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
         titleField?.font = UIFont(name: MM_FONT_MEDIUM, size: 22)
         titleField?.textColor = MM_COLOR_ORANGE_TEXT
         titleField?.placeholder = "Title"
-        titleField?.backgroundColor = UIColor.clearColor()
-        titleField?.keyboardAppearance = .Dark
+        titleField?.backgroundColor = UIColor.clear
+        titleField?.keyboardAppearance = .dark
         titleField?.text = self.pinEntity?.name
-        titleField?.autocapitalizationType = .Words
+        titleField?.autocapitalizationType = .words
         
         // MARK: - Divider
         
         let topDiv = CALayer()
         topDiv.frame = CGRect(x: 0, y: titleField!.frame.origin.y + titleField!.frame.size.height + 10, width: frame.size.width, height: 0.4)
-        topDiv.backgroundColor = UIColor.lightGrayColor().CGColor
+        topDiv.backgroundColor = UIColor.lightGray.cgColor
         topDiv.opacity = 0.5
         
         // MARK: - Description field
@@ -105,8 +105,8 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
         descriptionField?.font = UIFont(name: MM_FONT_REGULAR, size: 17)
         descriptionField?.textColor = MM_COLOR_ORANGE_TEXT
         descriptionField?.text = self.pinEntity?.pin_description
-        descriptionField?.backgroundColor = UIColor.clearColor()
-        descriptionField?.keyboardAppearance = .Dark
+        descriptionField?.backgroundColor = UIColor.clear
+        descriptionField?.keyboardAppearance = .dark
         descriptionField?.text = self.pinEntity?.pin_description ?? defaultDescriptionString
         
         self.layer.addSublayer(topDiv)

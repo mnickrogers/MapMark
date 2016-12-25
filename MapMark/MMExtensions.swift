@@ -9,49 +9,49 @@
 import UIKit
 import CoreData
 
-extension NSDate
+extension Date
 {
     func hour() -> Int
     {
-        let components = NSCalendar.currentCalendar().components(.Hour, fromDate: self)
-        return components.hour
+        let components = (Calendar.current as NSCalendar).components(.hour, from: self)
+        return components.hour!
     }
     
     func minute() -> Int
     {
-        let components = NSCalendar.currentCalendar().components(.Minute, fromDate: self)
-        return components.minute
+        let components = (Calendar.current as NSCalendar).components(.minute, from: self)
+        return components.minute!
     }
     
     func timeTwelveHourString() -> String
     {
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
-        return formatter.stringFromDate(self)
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter.string(from: self)
     }
     
     func year() -> Int
     {
-        let components = NSCalendar.currentCalendar().components(.Year, fromDate: self)
-        return components.year
+        let components = (Calendar.current as NSCalendar).components(.year, from: self)
+        return components.year!
     }
     
     func month() -> Int
     {
-        let components = NSCalendar.currentCalendar().components(.Month, fromDate: self)
-        return components.month
+        let components = (Calendar.current as NSCalendar).components(.month, from: self)
+        return components.month!
     }
     
     func day() -> Int
     {
-        let components = NSCalendar.currentCalendar().components(.Day, fromDate: self)
-        return components.day
+        let components = (Calendar.current as NSCalendar).components(.day, from: self)
+        return components.day!
     }
 }
 
 extension NSFetchedResultsController
 {
-    func copyWithZone(zone: NSZone) -> AnyObject
+    func copyWithZone(_ zone: NSZone?) -> NSFetchedRequestResult
     {
         let copy = NSFetchedResultsController(fetchRequest: self.fetchRequest,
                                               managedObjectContext: self.managedObjectContext,
@@ -63,12 +63,12 @@ extension NSFetchedResultsController
 
 extension CGRect
 {
-    func zeroBoundedRect(fromFrame: CGRect) -> CGRect
+    func zeroBoundedRect(_ fromFrame: CGRect) -> CGRect
     {
         return CGRect(x: 0, y: 0, width: fromFrame.size.width, height: fromFrame.size.height)
     }
     
-    func frameBeneathFrame(mainFrame: CGRect, beneathFrame: CGRect) -> CGRect
+    func frameBeneathFrame(_ mainFrame: CGRect, beneathFrame: CGRect) -> CGRect
     {
         return CGRect(x: beneathFrame.origin.x, y: beneathFrame.origin.y + mainFrame.size.height, width: mainFrame.size.width, height: mainFrame.size.height)
     }
@@ -81,21 +81,21 @@ extension String
         var result : (longitude: Double, latitude: Double)?
         
         var mutatingString = self
-        if mutatingString.containsString(",") // Needs conversion to degrees.
+        if mutatingString.contains(",") // Needs conversion to degrees.
         {
-            func getDegreesMinutesSeconds(string : String) -> (direction: String, degrees: Double, minutes: Double, seconds: Double)?
+            func getDegreesMinutesSeconds(_ string : String) -> (direction: String, degrees: Double, minutes: Double, seconds: Double)?
             {
-                let direction = string.substringWithRange(string.startIndex..<string.startIndex.advancedBy(1))
-                let radians = string.substringWithRange(string.startIndex.advancedBy(1)..<string.endIndex)
+                let direction = string.substring(with: string.startIndex..<string.characters.index(string.startIndex, offsetBy: 1))
+                let radians = string.substring(with: string.characters.index(string.startIndex, offsetBy: 1)..<string.endIndex)
                 
-                guard let commaPos = radians.rangeOfString(",")
+                guard let commaPos = radians.range(of: ",")
                     else { return nil }
-                guard let decimalPos = radians.rangeOfString(".")
+                guard let decimalPos = radians.range(of: ".")
                     else { return nil }
                 
-                let degString = radians.substringWithRange(radians.startIndex..<commaPos.startIndex)
-                let minString = radians.substringWithRange(commaPos.endIndex..<decimalPos.startIndex)
-                let secString = radians.substringWithRange(decimalPos.endIndex..<radians.endIndex)
+                let degString = radians.substring(with: radians.startIndex..<commaPos.lowerBound)
+                let minString = radians.substring(with: commaPos.upperBound..<decimalPos.lowerBound)
+                let secString = radians.substring(with: decimalPos.upperBound..<radians.endIndex)
                 
                 guard let degrees = Double(degString)
                     else { return nil }
@@ -106,7 +106,7 @@ extension String
                 
                 return (direction: direction, degrees: degrees, minutes: minutes, seconds: seconds)
             }
-            func convertDegreesToDecimal(degrees: (direction: String, degrees: Double, minutes: Double, seconds: Double)) -> Double
+            func convertDegreesToDecimal(_ degrees: (direction: String, degrees: Double, minutes: Double, seconds: Double)) -> Double
             {
                 var decimal = degrees.degrees + (degrees.minutes / 60.0) + (degrees.seconds / 3600.0)
                 
@@ -118,10 +118,10 @@ extension String
                 return decimal
             }
             
-            guard let spacePos = mutatingString.rangeOfString(" ")
+            guard let spacePos = mutatingString.range(of: " ")
                 else { return nil }
-            let latString = mutatingString.substringWithRange(mutatingString.startIndex..<spacePos.startIndex)
-            let lonString = mutatingString.substringWithRange(spacePos.endIndex..<mutatingString.endIndex)
+            let latString = mutatingString.substring(with: mutatingString.startIndex..<spacePos.lowerBound)
+            let lonString = mutatingString.substring(with: spacePos.upperBound..<mutatingString.endIndex)
             
             guard let latDMS = getDegreesMinutesSeconds(latString)
                 else { return nil }
@@ -135,11 +135,11 @@ extension String
         }
         else // Is expressed in degrees.
         {
-            guard let spacePos = mutatingString.rangeOfString(" ")
+            guard let spacePos = mutatingString.range(of: " ")
                 else { return nil }
             
-            let latString = mutatingString.substringWithRange(mutatingString.startIndex..<spacePos.startIndex)
-            let lonString = mutatingString.substringWithRange(spacePos.startIndex.advancedBy(1)..<mutatingString.endIndex)
+            let latString = mutatingString.substring(with: mutatingString.startIndex..<spacePos.lowerBound)
+            let lonString = mutatingString.substring(with: mutatingString.index(spacePos.lowerBound, offsetBy: 1)..<mutatingString.endIndex)
             
             guard let lat = Double(latString)
                 else { return nil }
@@ -158,9 +158,9 @@ extension String
         return 8
     }
     
-    func randomString(length : Int, strong : Bool, restrictLowercase lowercase : Bool, permitSpaces : Bool) -> String
+    func randomString(_ length : Int, strong : Bool, restrictLowercase lowercase : Bool, permitSpaces : Bool) -> String
     {
-        func miniRandomString(miniLength : Int) -> String
+        func miniRandomString(_ miniLength : Int) -> String
         {
             var miniText = ""
             
@@ -192,9 +192,9 @@ extension String
                     }
                 }
                 
-                let char = String(UnicodeScalar(numVal))
+                let char = String(describing: UnicodeScalar(numVal))
                 miniText += char
-                miniText = miniText.stringByReplacingOccurrencesOfString("  ", withString: " ")
+                miniText = miniText.replacingOccurrences(of: "  ", with: " ")
             }
             
             return miniText
@@ -207,8 +207,8 @@ extension String
             let baseStringLength = minimumRandomStringStrongLength
             assert(length >= minimumRandomStringStrongLength, "String strength set to strong, but minimum length is below strong minimum requirement.")
             
-            let unixTime : String = String(Int((NSDate().timeIntervalSince1970)))
-            let baseString = unixTime.substringWithRange(unixTime.endIndex.advancedBy(-baseStringLength)..<unixTime.endIndex)
+            let unixTime : String = String(Int((Date().timeIntervalSince1970)))
+            let baseString = unixTime.substring(with: unixTime.characters.index(unixTime.endIndex, offsetBy: -baseStringLength)..<unixTime.endIndex)
             
             let front = miniRandomString((length - baseStringLength) / 2)
             let end = miniRandomString((length - baseStringLength) / 2)
@@ -218,5 +218,20 @@ extension String
         }
         
         return miniRandomString(length)
+    }
+}
+
+extension Bool
+{
+    init(_ i: Int)
+    {
+        if i > 0
+        {
+            self = true
+        }
+        else
+        {
+            self = false
+        }
     }
 }

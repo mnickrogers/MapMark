@@ -16,7 +16,7 @@ class MMActivityIndicatorView: UIView
     
     // MARK: - Private Types and Variables
     
-    private var titleFrame: CGRect
+    fileprivate var titleFrame: CGRect
     {
         set
         {
@@ -27,7 +27,7 @@ class MMActivityIndicatorView: UIView
             return CGRect(x: 0, y: 5, width: 200, height: 25)
         }
     }
-    private var loadingAnimator: NRGridCircleAnimationView!
+    fileprivate var loadingAnimator: NRGridCircleAnimationView!
     
     // MARK: - Initialization
     
@@ -35,26 +35,26 @@ class MMActivityIndicatorView: UIView
     {
         super.init(frame: frame)
         
-        let bgViewEffect = UIBlurEffect(style: .Dark)
+        let bgViewEffect = UIBlurEffect(style: .dark)
         let bgEffectView = UIVisualEffectView(effect: bgViewEffect)
         bgEffectView.frame = CGRect().zeroBoundedRect(self.frame)
         self.addSubview(bgEffectView)
         
         let topDiv = CALayer()
         topDiv.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: 0.5)
-        topDiv.backgroundColor = UIColor.lightGrayColor().CGColor
+        topDiv.backgroundColor = UIColor.lightGray.cgColor
         topDiv.opacity = 0.4
         
         titleLabel = UILabel(frame: titleFrame)
         titleLabel.center = CGPoint(x: frame.size.width / 2, y: titleLabel.center.y)
         titleLabel.font = UIFont(name: MM_FONT_MEDIUM, size: 22)
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.textColor = MM_COLOR_GREEN_DARK
         titleLabel.adjustsFontSizeToFitWidth = true
         
-        loadingAnimator = NRGridCircleAnimationView(frame: CGRectZero)
+        loadingAnimator = NRGridCircleAnimationView(frame: CGRect.zero)
         loadingAnimator.center = CGPoint(x: frame.size.width / 2, y: (frame.size.height / 2) + 13)
-        loadingAnimator.animationColorType = .Default
+        loadingAnimator.animationColorType = .default
         loadingAnimator.tintColor = MM_COLOR_GREEN_DARK
         
         self.layer.addSublayer(topDiv)
@@ -77,9 +77,9 @@ class MMActivityIndicatorView: UIView
     {
         self.alpha = 0
 //        self.transform = CGAffineTransformMakeScale(0.9, 0.9)
-        UIView.animateWithDuration(0.2,
+        UIView.animate(withDuration: 0.2,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   options: UIViewAnimationOptions.curveEaseOut,
                                    animations: {
 //                                    self.transform = CGAffineTransformMakeScale(1, 1)
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
@@ -89,12 +89,12 @@ class MMActivityIndicatorView: UIView
         loadingAnimator.startAnimating()
     }
     
-    internal func close(shouldDelete: Bool = true)
+    internal func close(_ shouldDelete: Bool = true)
     {
         loadingAnimator.stopAnimating()
-        UIView.animateWithDuration(0.2,
+        UIView.animate(withDuration: 0.2,
                                    delay: 1,
-                                   options: UIViewAnimationOptions.CurveEaseOut,
+                                   options: UIViewAnimationOptions.curveEaseOut,
                                    animations: {
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y + self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
 //                                    self.transform = CGAffineTransformMakeScale(0.8, 0.8)
