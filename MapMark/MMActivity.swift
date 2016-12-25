@@ -16,7 +16,7 @@ class MMActivityIndicatorView: UIView
     
     // MARK: - Private Types and Variables
     
-    fileprivate var titleFrame: CGRect
+    private var titleFrame: CGRect
     {
         set
         {
@@ -27,7 +27,7 @@ class MMActivityIndicatorView: UIView
             return CGRect(x: 0, y: 5, width: 200, height: 25)
         }
     }
-    fileprivate var loadingAnimator: NRGridCircleAnimationView!
+    private var loadingAnimator: NRGridCircleAnimationView!
     
     // MARK: - Initialization
     

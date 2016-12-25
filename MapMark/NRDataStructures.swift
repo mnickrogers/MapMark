@@ -10,7 +10,7 @@ import Foundation
 
 public struct NRStack<T>
 {
-    fileprivate var items = [T]()
+    private var items = [T]()
     
     public init()
     {
@@ -32,7 +32,7 @@ public struct NRStack<T>
 
 public struct NRQueue<T>
 {
-    fileprivate var items = [T]()
+    private var items = [T]()
     
     public mutating func pushBack(_ item : T)
     {

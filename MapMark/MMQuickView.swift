@@ -17,7 +17,7 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
     
     // MARK: Private Types and Variables
     
-    fileprivate lazy var mainFetchedResultsController : NSFetchedResultsController<Bag> =
+    private lazy var mainFetchedResultsController : NSFetchedResultsController<Bag> =
         {
             let fetchRequest = NSFetchRequest<Bag>(entityName: "Bag")
             let fetchSort = NSSortDescriptor(key: "name", ascending: true)
@@ -25,9 +25,9 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
             let controller = NSFetchedResultsController<Bag>(fetchRequest: fetchRequest, managedObjectContext: MMSession.sharedSession.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             return controller
     }()
-    fileprivate var mainTableView: MMQuickViewTableView!
-    fileprivate var mainPin: Pin?
-    fileprivate var mainHeader : MMHeaderView!
+    private var mainTableView: MMQuickViewTableView!
+    private var mainPin: Pin?
+    private var mainHeader : MMHeaderView!
     
     // MARK: Initialization
     
@@ -69,8 +69,11 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
         
         // MARK: Table view
         
+//        mainTableView = MMQuickViewTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height),
+//                                             fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
+//                                             managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView = MMQuickViewTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height),
-                                             fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
+                                             fetchedResultsController: mainFetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>,
                                              managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView.separatorColor = MM_COLOR_BLUE_DIV
         mainTableView.clipsToBounds = true

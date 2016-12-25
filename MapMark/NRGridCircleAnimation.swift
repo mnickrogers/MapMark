@@ -24,13 +24,13 @@ class NRGridCircleAnimationView: UIView
     internal(set) var isAnimating = false
     
     //MARK: Private Variables
-    fileprivate var outterView : UIImageView!
-    fileprivate var middleView : UIImageView!
-    fileprivate var innerView : UIImageView!
-    fileprivate var shouldAnimate = false
+    private var outterView : UIImageView!
+    private var middleView : UIImageView!
+    private var innerView : UIImageView!
+    private var shouldAnimate = false
     
-    fileprivate var currentOutterRotation : CGFloat = 0.0
-    fileprivate var currentMiddleRotation : CGFloat = 0.0
+    private var currentOutterRotation : CGFloat = 0.0
+    private var currentMiddleRotation : CGFloat = 0.0
     
     //MARK: Initialization
     override init(frame: CGRect)
@@ -58,7 +58,7 @@ class NRGridCircleAnimationView: UIView
     }
     
     //MARK: Private Functions
-    fileprivate func reloadImages()
+    private func reloadImages()
     {
         var type : String
         switch animationColorType
@@ -82,7 +82,7 @@ class NRGridCircleAnimationView: UIView
         }
     }
     
-    fileprivate func rotateViews()
+    private func rotateViews()
     {
         currentOutterRotation += CGFloat(M_PI_2)
         currentMiddleRotation -= CGFloat(M_2_PI)
@@ -103,7 +103,7 @@ class NRGridCircleAnimationView: UIView
         }) 
     }
     
-    fileprivate func resetRotations()
+    private func resetRotations()
     {
         UIView.animate(withDuration: 0.4, animations: {
             self.outterView.transform = CGAffineTransform(rotationAngle: 0.0)

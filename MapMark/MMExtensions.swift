@@ -49,17 +49,17 @@ extension Date
     }
 }
 
-extension NSFetchedResultsController
-{
-    func copyWithZone(_ zone: NSZone?) -> NSFetchedRequestResult
-    {
-        let copy = NSFetchedResultsController(fetchRequest: self.fetchRequest,
-                                              managedObjectContext: self.managedObjectContext,
-                                              sectionNameKeyPath: self.sectionNameKeyPath,
-                                              cacheName: self.cacheName)
-        return copy
-    }
-}
+//extension NSFetchedResultsController
+//{
+//    func copyWithZone(_ zone: NSZone?) -> NSFetchRequest<NSFetchRequestResult>
+//    {
+//        let copy = NSFetchedResultsController(fetchRequest: self.fetchRequest,
+//                                              managedObjectContext: self.managedObjectContext,
+//                                              sectionNameKeyPath: self.sectionNameKeyPath,
+//                                              cacheName: self.cacheName)
+//        return copy
+//    }
+//}
 
 extension CGRect
 {

@@ -22,7 +22,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     internal var navDelegate : MMNavigationDelegate?
     
     // MARK: Private Types and Variables
-    fileprivate enum ViewState
+    private enum ViewState
     {
         case none
         case newItemNaming
@@ -30,11 +30,11 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         case startPinSelection
         case displayingRoute
     }
-    fileprivate var locationManager = CLLocationManager()
-    fileprivate var mainViewState = ViewState.none
-    fileprivate var mainBag : Bag?
-    fileprivate var currentPin : Pin?
-    fileprivate lazy var mainFetchedResultsController : NSFetchedResultsController<Pin> =
+    private var locationManager = CLLocationManager()
+    private var mainViewState = ViewState.none
+    private var mainBag : Bag?
+    private var currentPin : Pin?
+    private lazy var mainFetchedResultsController : NSFetchedResultsController<Pin> =
     {
         let fetchRequest = NSFetchRequest<Pin>(entityName: "Pin")
         let predicate = NSPredicate(format: "bag = %@", self.mainBag!)
@@ -44,14 +44,14 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         let controller = NSFetchedResultsController<Pin>(fetchRequest: fetchRequest, managedObjectContext: MMSession.sharedSession.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         return controller
     }()
-    fileprivate var mainTableView : MMSingleBagTableView!
-    fileprivate var mainHeader : MMHeaderView!
-    fileprivate var inputScrollView : UIScrollView!
-    fileprivate var inputPageControl : UIPageControl!
-    fileprivate var mainMap : MKMapView!
-    fileprivate var annotationIDs : [String : MKAnnotation]?
-    fileprivate var pinIDs : [String : Pin]?
-    fileprivate var defaultHeaderString : String?
+    private var mainTableView : MMSingleBagTableView!
+    private var mainHeader : MMHeaderView!
+    private var inputScrollView : UIScrollView!
+    private var inputPageControl : UIPageControl!
+    private var mainMap : MKMapView!
+    private var annotationIDs : [String : MKAnnotation]?
+    private var pinIDs : [String : Pin]?
+    private var defaultHeaderString : String?
     
     init(frame: CGRect, bag: Bag)
     {
@@ -120,8 +120,11 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         inputScrollView.addSubview(getInputScrollViewItem(atPage: 3))
 
         // MARK: Main table view
+//        mainTableView = MMSingleBagTableView(frame: CGRect(x: 0, y: inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20, width: self.frame.size.width, height: self.frame.size.height - (inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20)),
+//                                             fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
+//                                             managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView = MMSingleBagTableView(frame: CGRect(x: 0, y: inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20, width: self.frame.size.width, height: self.frame.size.height - (inputScrollView.frame.origin.y + inputScrollView.frame.size.height + 20)),
-                                             fetchedResultsController: mainFetchedResultsController.copy() as! NSFetchedResultsController,
+                                             fetchedResultsController: mainFetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>,
                                              managedObjectContext: MMSession.sharedSession.managedObjectContext)
         mainTableView.separatorColor = MM_COLOR_ORANGE_DIV
         mainTableView.clipsToBounds = true
@@ -188,7 +191,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     }
     
     // MARK: Scroll View and Page Control
-    fileprivate func getInputScrollViewItem(atPage pageNumber : Int) -> UIView
+    private func getInputScrollViewItem(atPage pageNumber : Int) -> UIView
     {
         switch pageNumber
         {
@@ -231,7 +234,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         }
     }
     
-    fileprivate func configureDefaultButton() -> UIButton
+    private func configureDefaultButton() -> UIButton
     {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 15, width: self.frame.size.width * 0.8, height: 35)
@@ -341,7 +344,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         }
     }
     
-    fileprivate func dropPinAtLocation(_ location : CLLocationCoordinate2D)
+    private func dropPinAtLocation(_ location : CLLocationCoordinate2D)
     {
         let entityDescription = NSEntityDescription.entity(forEntityName: "Pin", in: MMSession.sharedSession.managedObjectContext)
         let newPin = Pin(entity: entityDescription!, insertInto: MMSession.sharedSession.managedObjectContext)
@@ -377,7 +380,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     
     // MARK: Map View Methods
     
-    fileprivate func pinEntityFromAnnotationView(_ annotationView: MKAnnotationView) -> Pin?
+    private func pinEntityFromAnnotationView(_ annotationView: MKAnnotationView) -> Pin?
     {
         guard let annotation = annotationView.annotation as? MMMapPin
             else { return nil }
@@ -489,7 +492,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         return renderer
     }
     
-    fileprivate func bounceAnnotationView(_ annotationView: MKAnnotationView, completion:@escaping () -> Void)
+    private func bounceAnnotationView(_ annotationView: MKAnnotationView, completion:@escaping () -> Void)
     {
         let initialFrame = annotationView.frame
         let midFrame = CGRect(x: annotationView.frame.origin.x, y: annotationView.frame.origin.y - 30, width: annotationView.frame.size.width, height: annotationView.frame.size.height)
@@ -540,7 +543,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         }
     }
     
-    fileprivate func calculateRouteFromStart(_ startPin: MKAnnotation?)
+    private func calculateRouteFromStart(_ startPin: MKAnnotation?)
     {
         if startPin == nil
         {

@@ -22,13 +22,13 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     
     // MARK: Private Types and Variables
     
-    fileprivate var contentView : UIView!
-    fileprivate var bags : [Bag]?
-    fileprivate var mainHeader : MMHeaderView!
-    fileprivate var mainTableView : MMBagsTableView!
-    fileprivate var currentNewBag : Bag?
+    private var contentView : UIView!
+    private var bags : [Bag]?
+    private var mainHeader : MMHeaderView!
+    private var mainTableView : MMBagsTableView!
+    private var currentNewBag : Bag?
     
-    fileprivate let rowHeight : CGFloat = 100
+    private let rowHeight : CGFloat = 100
     
     // MARK: Initialization
     
@@ -187,7 +187,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     {
     }
     
-    fileprivate func rowSelected(_ indexPath : IndexPath)
+    private func rowSelected(_ indexPath : IndexPath)
     {
         guard let selectedBag = mainTableView.fetchedResultsController.object(at: indexPath) as? Bag
             else { return }
@@ -202,7 +202,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         animateViewOff(view)
     }
     
-    fileprivate func animateViewOn(_ view : UIView)
+    private func animateViewOn(_ view : UIView)
     {
         let initialFrame = view.frame
         view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
@@ -217,7 +217,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         }
     }
     
-    fileprivate func animateViewOff(_ view : UIView)
+    private func animateViewOff(_ view : UIView)
     {
         UIView.animate(withDuration: 0.25,
                                    delay: 0,

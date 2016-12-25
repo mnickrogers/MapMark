@@ -12,7 +12,7 @@ import CoreData
 
 class MMStartupOperations: NSObject, CLLocationManagerDelegate
 {
-    fileprivate let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     internal func addCurrentUserLocationPin()
     {
         NotificationCenter.default.post(name: Notification.Name(rawValue: MM_NOTIFICATION_OPEN_LOADING_VIEW), object: nil)

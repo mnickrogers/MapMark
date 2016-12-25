@@ -32,20 +32,20 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
     
     // MARK: - Private Types and Variables
     
-    fileprivate enum EditingState
+    private enum EditingState
     {
         case none
         case title
         case description
     }
     
-    fileprivate let titleFieldTag = 2036
-    fileprivate let descriptionFieldTag = 2035
-    fileprivate var pinEntity: Pin?
-    fileprivate var header: MMHeaderView!
-    fileprivate var titleField: UITextField?
-    fileprivate var descriptionField: UITextView?
-    fileprivate var defaultDescriptionString = "Enter description..."
+    private let titleFieldTag = 2036
+    private let descriptionFieldTag = 2035
+    private var pinEntity: Pin?
+    private var header: MMHeaderView!
+    private var titleField: UITextField?
+    private var descriptionField: UITextView?
+    private var defaultDescriptionString = "Enter description..."
     
     // MARK: - Initialization
     

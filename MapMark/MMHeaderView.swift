@@ -44,7 +44,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
     
     // MARK: Private Types and Variables
     
-    fileprivate var headerLabel : UITextField!
+    private var headerLabel : UITextField!
     
     // MARK: Initialization
     
@@ -85,7 +85,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
         return CGPoint(x: self.center.x, y: self.center.y + 7)
     }
     
-    fileprivate func resizeHeaderLabel()
+    private func resizeHeaderLabel()
     {
         headerLabel.sizeToFit()
         if headerLabel.frame.size.width > self.frame.size.width * 0.7
