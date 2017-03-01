@@ -27,7 +27,6 @@
 		1E6145E31D2CDEF200B06169 /* MapMark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145E11D2CDEF200B06169 /* MapMark.xcdatamodeld */; };
 		1E6145E51D2CDEF200B06169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6145E41D2CDEF200B06169 /* Assets.xcassets */; };
 		1E6145E81D2CDEF200B06169 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6145E61D2CDEF200B06169 /* LaunchScreen.storyboard */; };
-		1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F21D2CE45500B06169 /* MMRootViewController.swift */; };
 		1E6145F81D2CE62B00B06169 /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F41D2CE62B00B06169 /* Pin+CoreDataProperties.swift */; };
 		1E6145F91D2CE62B00B06169 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F51D2CE62B00B06169 /* Pin.swift */; };
 		1E6145FA1D2CE62B00B06169 /* Bag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6145F61D2CE62B00B06169 /* Bag+CoreDataProperties.swift */; };
@@ -82,7 +81,6 @@
 		1E6145E41D2CDEF200B06169 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E6145E71D2CDEF200B06169 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E6145E91D2CDEF200B06169 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E6145F21D2CE45500B06169 /* MMRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMRootViewController.swift; sourceTree = "<group>"; };
 		1E6145F41D2CE62B00B06169 /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Pin+CoreDataProperties.swift"; path = "../Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1E6145F51D2CE62B00B06169 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pin.swift; path = ../Pin.swift; sourceTree = "<group>"; };
 		1E6145F61D2CE62B00B06169 /* Bag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Bag+CoreDataProperties.swift"; path = "../Bag+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 			children = (
 				1E6145DA1D2CDEF100B06169 /* AppDelegate.swift */,
 				1E6145DC1D2CDEF100B06169 /* ViewController.swift */,
-				1E6145F21D2CE45500B06169 /* MMRootViewController.swift */,
 				1E9B31691D2E367C0092200D /* MMSession.swift */,
 				1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */,
 			);
@@ -418,7 +415,6 @@
 				1E42D9E11D4845B4004465F9 /* MMActivity.swift in Sources */,
 				1E9B31681D2DE60B0092200D /* MMBagViewClasses.swift in Sources */,
 				1E6146001D2CE77900B06169 /* MMSingleBagView.swift in Sources */,
-				1E6145F31D2CE45500B06169 /* MMRootViewController.swift in Sources */,
 				1E1DA42B1D430B00000726CB /* MMExporting.swift in Sources */,
 				1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */,
 				1E6146231D2D7D6D00B06169 /* MMExtensions.swift in Sources */,

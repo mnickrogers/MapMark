@@ -9,10 +9,13 @@
 import UIKit
 import CoreData
 
+/// A class for handling exporting this application's CoreData model.
 class MMExporter
 {
+    /// Convert this application's CoreData model into a string representing CSV data.
     internal func getCoreDataCSVString() -> String
     {
+        // Create the request for fetching pins.
         let request = NSFetchRequest<NSFetchRequestResult>()
         let entity = NSEntityDescription.entity(forEntityName: "Pin", in: MMSession.sharedSession.managedObjectContext)
         let bagSort = NSSortDescriptor(key: "bag.name", ascending: true)
@@ -20,6 +23,7 @@ class MMExporter
         request.entity = entity
         request.sortDescriptors = [bagSort, nameSort]
         
+        // Execute the fetch for all pins this user has saved.
         guard let results = try? MMSession.sharedSession.managedObjectContext.fetch(request) as? [Pin]
             else { print("Error executing CoreData fetch request for CSV conversion"); return "" }
         
@@ -28,6 +32,7 @@ class MMExporter
             return ""
         }
         
+        // The string that will represent a CSV file.
         var csvStr = "BAG_NAME,PIN_NAME,LATITUDE,LONGITUDE,DATE_ADDED,DESCRIPTION\n"
         
         let _ = results!.map
@@ -44,12 +49,14 @@ class MMExporter
                 }
             }
             
+            // Append each new pin's data to the CSV string.
             csvStr += "\(bagName),\(name),\(item.latitude),\(item.longitude),\(item.date_created),\(description)\n"
         }
         
         return csvStr
     }
     
+    /// Convert this application's CoreData model into data holding a CSV string.
     internal func getCoreDataCSVData() -> Data?
     {
         let string = getCoreDataCSVString()
@@ -57,6 +64,7 @@ class MMExporter
         return data
     }
     
+    /// Get the document directory for this user's application.
     internal func getDocumentsDirectory() -> NSString
     {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)

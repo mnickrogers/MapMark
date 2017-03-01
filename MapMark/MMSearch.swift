@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreData
 
+/// Load pins that this user has saved near a given location.
 internal func fetchPinsNearLocation(_ location: CLLocationCoordinate2D, radius: Double, sortedByDistance: Bool = false) -> [Pin]?
 {
     let distUnit = 69.0 // Use 111.045 for km
@@ -40,5 +41,4 @@ internal func fetchPinsNearLocation(_ location: CLLocationCoordinate2D, radius: 
     }
     
     return pins
-    
 }

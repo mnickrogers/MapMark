@@ -8,14 +8,17 @@
 
 import UIKit
 
+/// A view for indicating active activity.
 class MMActivityIndicatorView: UIView
 {
     // MARK: - Internal Types and Variables
     
+    /// The indicator view's activity label.
     internal var titleLabel: UILabel!
     
     // MARK: - Private Types and Variables
     
+    /// The frame for the view's activity label.
     private var titleFrame: CGRect
     {
         set
@@ -27,6 +30,7 @@ class MMActivityIndicatorView: UIView
             return CGRect(x: 0, y: 5, width: 200, height: 25)
         }
     }
+    /// A gear for displaying progress and current activity.
     private var loadingAnimator: NRGridCircleAnimationView!
     
     // MARK: - Initialization
@@ -73,6 +77,7 @@ class MMActivityIndicatorView: UIView
     
     // MARK: - Loading and unloading
     
+    /// Open the view and start the gear animation indicator.
     internal func open()
     {
         self.alpha = 0
@@ -89,8 +94,10 @@ class MMActivityIndicatorView: UIView
         loadingAnimator.startAnimating()
     }
     
+    /// Close the view and stop the activity indicator gear.
     internal func close(_ shouldDelete: Bool = true)
     {
+        // Stop the animating view.
         loadingAnimator.stopAnimating()
         UIView.animate(withDuration: 0.2,
                                    delay: 1,

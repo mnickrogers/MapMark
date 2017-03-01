@@ -48,9 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void)
     {
+        // Handle shortcuts from the home screen.
         if shortcutItem.type == "com.alphabeta.MapMark.addCurrentUserLocation"
         {
+            // Notify this application's shared session of the user's quick action selection.
             MMSession.sharedSession.launchState = MMLaunchState.saveUserLocation
+            
+            // Set the start up operations specified by the user's shortcut selection.
             MMSession.sharedSession.startOps?.addCurrentUserLocationPin()
             completionHandler(true)
         }

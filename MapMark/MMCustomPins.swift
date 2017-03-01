@@ -9,10 +9,16 @@
 import UIKit
 import MapKit
 
+/// A custom map pin for this application. Use this when creating new annotations to represent pins within a bag.
 class MMMapPin: NSObject, MKAnnotation
 {
+    /// The ID for this pin
     internal var pinID : String?
+    
+    /// The title for this pin.
     internal var title: String?
+    
+    /// The coordinates for this pin.
     dynamic var coordinate: CLLocationCoordinate2D
     
     init(title: String?, ID: String?, coordinate: CLLocationCoordinate2D)
@@ -24,6 +30,7 @@ class MMMapPin: NSObject, MKAnnotation
     }
 }
 
+/// A view for displaying a pin's description. Create an instance of this object when a pin is selected within a map.
 class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
 {
     // MARK: - Internal Types and Variables
@@ -32,6 +39,7 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
     
     // MARK: - Private Types and Variables
     
+    /// An enumerated type representing possible states for this view's editing.
     private enum EditingState
     {
         case none
@@ -39,12 +47,25 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
         case description
     }
     
+    /// The tag for the title field of this view.
     private let titleFieldTag = 2036
+    
+    /// The tag for the description field of this view.
     private let descriptionFieldTag = 2035
+    
+    /// The pin entity for this description view.
     private var pinEntity: Pin?
+    
+    /// The navigation header for this description view.
     private var header: MMHeaderView!
+    
+    /// The title for the pin entity in this description view.
     private var titleField: UITextField?
+    
+    /// The description text view for this description view.
     private var descriptionField: UITextView?
+    
+    /// The default string for an empty description text field in this description view.
     private var defaultDescriptionString = "Enter description..."
     
     // MARK: - Initialization
@@ -121,12 +142,17 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
     
     // MARK: - Close button
     
+    /// Handle the user requesting to close this view.
     func closeButtonPressed()
     {
+        // Resign all first responders from this view.
         titleField?.resignFirstResponder()
         descriptionField?.resignFirstResponder()
+        
+        // Update the name of this view's pin.
         pinEntity?.name = titleField?.text
         
+        // If the description for this pin is unchanged from the default text, do not assign that default text to the pin. Else, update the pin's description to equal the description the user created.
         if pinEntity?.pin_description == defaultDescriptionString
         {
             pinEntity?.pin_description = nil
@@ -136,6 +162,7 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
             pinEntity?.pin_description = descriptionField?.text
         }
         
+        // Save these changes to the CoreData model.
         do
         {
             try MMSession.sharedSession.managedObjectContext.save()
@@ -144,6 +171,8 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
         {
             print("Error saving changes from description view: \(error.localizedDescription)")
         }
+        
+        // Request the delegate to close this view.
         navDelegate?.navigationDelegateViewClosed(self)
     }
 }

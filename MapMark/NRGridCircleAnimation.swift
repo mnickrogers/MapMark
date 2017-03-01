@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Animation style.
 enum NRGridCircleAnimationColor
 {
     case `default`
@@ -15,21 +16,32 @@ enum NRGridCircleAnimationColor
     case dark
 }
 
+/// A gear animation used to display activity.
 class NRGridCircleAnimationView: UIView
 {
     //MARK: Types
     
     //MARK: Internal Variables
+    
+    /// The gear animation's color style.
     internal var animationColorType : NRGridCircleAnimationColor = .light { didSet { reloadImages() } }
+    /// A boolean indicating whether the gear is animating or not.
     internal(set) var isAnimating = false
     
     //MARK: Private Variables
+    
+    /// The outer sections of the gear.
     private var outterView : UIImageView!
+    // The middle sections of the gear.
     private var middleView : UIImageView!
+    /// The center sections of the gear.
     private var innerView : UIImageView!
+    /// A boolean indicating if the gear should animate.
     private var shouldAnimate = false
     
+    /// The current rotation of the outer sections of the gear.
     private var currentOutterRotation : CGFloat = 0.0
+    /// The current rotation of the middle sections of the gear.
     private var currentMiddleRotation : CGFloat = 0.0
     
     //MARK: Initialization
@@ -58,6 +70,8 @@ class NRGridCircleAnimationView: UIView
     }
     
     //MARK: Private Functions
+    
+    /// Reload images when display settings are updated.
     private func reloadImages()
     {
         var type : String
@@ -82,6 +96,7 @@ class NRGridCircleAnimationView: UIView
         }
     }
     
+    /// Rotate the gear. Call this view to drive the animation.
     private func rotateViews()
     {
         currentOutterRotation += CGFloat(M_PI_2)
@@ -103,6 +118,7 @@ class NRGridCircleAnimationView: UIView
         }) 
     }
     
+    /// Reset the gear to its start position. Call this when the animation has ended.
     private func resetRotations()
     {
         UIView.animate(withDuration: 0.4, animations: {
@@ -116,6 +132,7 @@ class NRGridCircleAnimationView: UIView
     
     //MARK: Internal Functions
     
+    /// Begin animating the gear.
     internal func startAnimating()
     {
         shouldAnimate = true
@@ -123,12 +140,14 @@ class NRGridCircleAnimationView: UIView
         rotateViews()
     }
     
+    /// Stop animating the gear.
     internal func stopAnimating()
     {
         shouldAnimate = false
         isAnimating = false
     }
     
+    /// Cause the gear to stop, shrink and disappear.
     internal func shrinkOff(_ completion:@escaping () -> Void)
     {
         shouldAnimate = false
@@ -145,6 +164,7 @@ class NRGridCircleAnimationView: UIView
         }
     }
     
+    /// Cause the gear to stop, pop off and disappear.
     internal func popOff(_ completion:@escaping () -> Void)
     {
         shouldAnimate = false
@@ -161,7 +181,4 @@ class NRGridCircleAnimationView: UIView
             completion()
         }
     }
-    
-    //MARK: Misc.
-    
 }

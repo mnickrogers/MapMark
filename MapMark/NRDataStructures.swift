@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A stack.
 public struct NRStack<T>
 {
     private var items = [T]()
@@ -30,6 +31,7 @@ public struct NRStack<T>
     public func size() -> Int { return items.count }
 }
 
+/// A queue.
 public struct NRQueue<T>
 {
     private var items = [T]()

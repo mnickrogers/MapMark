@@ -8,16 +8,22 @@
 
 import UIKit
 
+/// The protocol for communication between an MMTextInputView and its superview.
 protocol MMTextInputViewDelegate
 {
+    /// Called when a user has selected return on an MMTextInputView.
     func textInputViewReturned(_ inputView : MMTextInputView, field : UITextField, string : String?)
 }
 
 class MMTextInputView: UIView, UITextFieldDelegate
 {
     // MARK: Internal Variables
+    
+    /// The text input delegate for this MMTextInputView.
     internal var delegate : MMTextInputViewDelegate?
-    internal(set) var textField : UITextField!
+    
+    /// The text field for this MMTextInputView.
+    internal private(set) var textField : UITextField!
     
     // MARK: Initialization
     override init(frame: CGRect)
@@ -31,11 +37,15 @@ class MMTextInputView: UIView, UITextFieldDelegate
         
         backgroundColor = UIColor.clear
         
+        // Create a blur effect for the background of this MMTextInputView.
         let blurEffect = UIBlurEffect(style: backgroundType)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = CGRect().zeroBoundedRect(self.frame)
         addSubview(blurEffectView)
+        
         let height : CGFloat = self.frame.size.height == 0 ? 35 : self.frame.size.height
+        
+        // Create the text field for this MMTextInputView.
         textField = UITextField(frame: CGRect(x: 15, y: self.frame.size.height - height, width: self.frame.size.width - 15, height: height))
         textField.font = UIFont(name: MM_FONT_REGULAR, size: 22)
         textField.textAlignment = .left
@@ -49,6 +59,7 @@ class MMTextInputView: UIView, UITextFieldDelegate
         self.addSubview(textField)
     }
     
+    /// Initialize a MMTextInputView with an animation and background blur type.
     convenience init(frame: CGRect, animated: Bool, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.light)
     {
         self.init(frame: frame, backgroundType: backgroundType)
@@ -74,6 +85,7 @@ class MMTextInputView: UIView, UITextFieldDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Animate this MMTextInputView off of the screen.
     internal func animateViewOff(_ completion:@escaping (_ completed: Bool, _ view : UIView) -> Void)
     {
         UIView.animate(withDuration: 0.25,
