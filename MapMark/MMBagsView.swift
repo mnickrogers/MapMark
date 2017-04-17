@@ -96,7 +96,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MMSession.sharedSession.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
         // Create the main table view for displaying bags.
-        mainTableView = MMBagsTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height),
+        mainTableView = MMBagsTableView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: self.frame.size.height - (mainHeader.frame.origin.y + mainHeader.frame.size.height)),
                                         fetchedResultsController: fetchedResultsController,
                                         managedObjectContext: MMSession.sharedSession.managedObjectContext)
         // This view will handle the selection from this table view.
