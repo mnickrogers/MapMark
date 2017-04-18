@@ -99,7 +99,7 @@ class NRGridCircleAnimationView: UIView
     /// Rotate the gear. Call this view to drive the animation.
     private func rotateViews()
     {
-        currentOutterRotation += CGFloat(M_PI_2)
+        currentOutterRotation += CGFloat(Double.pi / 2)
         currentMiddleRotation -= CGFloat(M_2_PI)
         UIView.animate(withDuration: 0.4,
                                    animations: {

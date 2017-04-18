@@ -67,7 +67,7 @@ public func haversine(_ latitude1: Double, longitude1: Double, latitude2: Double
 /// Convert degrees to radians.
 public func degreesToRadians(_ degrees: Double) -> Double
 {
-    return degrees * (M_PI / 180.0)
+    return degrees * (Double.pi / 180.0)
 }
 
 // MARK: Routing
