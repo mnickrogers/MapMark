@@ -1,13 +1,13 @@
 # MapMark
 Location bookmarking — an iOS app written in Swift for saving and organizing locations.
 
-##About
+## About
 
 Check out [MapMark](https://itunes.apple.com/bt/app/mapmark/id1131505775?mt=8) on the App Store!
 
 This app organizes locations by saving them as *pins* within *bags*. Users can create as many bags as they want and place in them as many pins as they want. Every pin is associated with only one bag; pins can also be moved between bags.
 
-##Features
+## Features
 - Permanently save locations as pins for later reference.
 - Add a description along with location pins.
 - Group location pins into bags.
