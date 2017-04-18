@@ -346,6 +346,7 @@
 				TargetAttributes = {
 					1E6145D61D2CDEF100B06169 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 625TS2W23V;
 						LastSwiftMigration = 0810;
 					};
 				};
@@ -548,6 +549,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 625TS2W23V;
 				INFOPLIST_FILE = MapMark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nicholas-Rogers.MapMark";
@@ -560,6 +562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 625TS2W23V;
 				INFOPLIST_FILE = MapMark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nicholas-Rogers.MapMark";
