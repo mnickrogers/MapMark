@@ -138,7 +138,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         let closeButton = UIButton(type: .custom)
         closeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         closeButton.center = CGPoint(x: 35, y: mainHeader.getHeaderLabelCenter().y)
-        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControlState())
+        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControl.State())
         closeButton.addTarget(self, action: #selector(self.closeViewButtonPressed), for: .touchUpInside)
         mainHeader.addSubview(closeButton)
         
@@ -261,7 +261,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             // This button will allow the user to center this view's "mainMap" on the user's current location.
             let centerLocationButton = configureDefaultButton()
             centerLocationButton.frame = CGRect(x: (self.frame.size.width - (self.frame.size.width * 0.8)) / 4, y: 0, width: centerLocationButton.frame.size.height + 15, height: centerLocationButton.frame.size.height)
-            centerLocationButton.setImage(UIImage(named: "mm_location_arrow.png")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+            centerLocationButton.setImage(UIImage(named: "mm_location_arrow.png")?.withRenderingMode(.alwaysTemplate), for: UIControl.State())
             centerLocationButton.imageView?.contentMode = .scaleAspectFit
             centerLocationButton.tintColor = MM_COLOR_ORANGE_LIGHT
             centerLocationButton.addTarget(self, action: #selector(self.centerMapOnUser), for: .touchUpInside)
@@ -273,7 +273,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             let dropPinButton = configureDefaultButton()
             dropPinButton.frame = CGRect(x: dropPinButton.frame.origin.x, y: dropPinButton.frame.origin.y, width: dropPinButton.frame.size.width - dropPinOffset, height: dropPinButton.frame.size.height)
             dropPinButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber) + dropPinOffset, y: dropPinButton.center.y)
-            dropPinButton.setTitle("Drop Pin", for: UIControlState())
+            dropPinButton.setTitle("Drop Pin", for: UIControl.State())
             dropPinButton.addTarget(self, action: #selector(self.pinDropButtonPressed), for: .touchUpInside)
             
             centerLocationButton.center = CGPoint(x: centerLocationButton.center.x, y: dropPinButton.center.y)
@@ -286,7 +286,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             
             let coordinateEntryButton = configureDefaultButton()
             coordinateEntryButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber) + (inputScrollView.frame.size.width / 2), y: coordinateEntryButton.center.y)
-            coordinateEntryButton.setTitle("Enter Coordinates", for: UIControlState())
+            coordinateEntryButton.setTitle("Enter Coordinates", for: UIControl.State())
             coordinateEntryButton.addTarget(self, action: #selector(self.enterCoordinateButtonPressed), for: .touchUpInside)
             return coordinateEntryButton
         case 3:
@@ -294,7 +294,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             // This view will contain a button that allows the user to calculate a route through all the pins in this bag. This route will be displayed in this view's "mainMap" view.
             let calculateRouteButton = configureDefaultButton()
             calculateRouteButton.center = CGPoint(x: self.center.x * CGFloat(pageNumber) + inputScrollView.frame.size.width, y: calculateRouteButton.center.y)
-            calculateRouteButton.setTitle("Get Route through Pins", for: UIControlState())
+            calculateRouteButton.setTitle("Get Route through Pins", for: UIControl.State())
             calculateRouteButton.addTarget(self, action: #selector(self.calculateRootThroughPinsButtonPressed(_:)), for: .touchUpInside)
             return calculateRouteButton
         default:
@@ -310,14 +310,14 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         button.backgroundColor = MM_COLOR_ORANGE_BACKGROUND
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.font = UIFont(name: MM_FONT_MEDIUM, size: 24)
-        button.setTitleColor(MM_COLOR_ORANGE_TEXT, for: UIControlState())
+        button.setTitleColor(MM_COLOR_ORANGE_TEXT, for: UIControl.State())
         button.setTitleColor(MM_COLOR_ORANGE_DARK, for: .highlighted)
         button.layer.cornerRadius = 5
         return button
     }
     
     /// Call this function when the inputPageControll view recieves an update (a tap from the user) to move this view's "inputScrollView" to the new position requested by the user.
-    func inputPageControlChanged()
+    @objc func inputPageControlChanged()
     {
         let newX = CGFloat(inputPageControl.currentPage) * inputScrollView.frame.size.width
         inputScrollView.setContentOffset(CGPoint(x: newX, y: inputScrollView.contentOffset.y), animated: true)
@@ -352,10 +352,10 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     // MARK: Coordinate Entry
     
     /// Handle a user requesting to create a new pin for this view's bag by specifying coordinates.
-    func enterCoordinateButtonPressed()
+    @objc func enterCoordinateButtonPressed()
     {
         // Load an input text view at the top of this view.
-        let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: 50), animated: true, backgroundType: UIBlurEffectStyle.dark)
+        let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: 50), animated: true, backgroundType: UIBlurEffect.Style.dark)
         input.delegate = self
         input.textField.textAlignment = .center
         input.textField.placeholder = "34.1 -118.2 OR N34,3.8 W118,14.37"
@@ -426,13 +426,13 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     // MARK: Adding Pins
     
     /// Handle the drop pin button being pressed.
-    func pinDropButtonPressed()
+    @objc func pinDropButtonPressed()
     {
         dropPinAtLocation(mainMap.centerCoordinate)
     }
     
     /// If the map view is long-pressed, add a new pin at the location of the touch.
-    func mapViewLongPressed(_ pressRecog: UILongPressGestureRecognizer)
+    @objc func mapViewLongPressed(_ pressRecog: UILongPressGestureRecognizer)
     {
         switch pressRecog.state
         {
@@ -491,7 +491,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         currentPin = newPin
         
         // Create a text input view to get the name for this new pin.
-        let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: 50), animated: true, backgroundType: UIBlurEffectStyle.dark)
+        let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: 50), animated: true, backgroundType: UIBlurEffect.Style.dark)
         input.delegate = self
         input.textField.textAlignment = .center
         input.textField.placeholder = "Enter name for location"
@@ -515,7 +515,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     }
     
     /// Center this view's "mainMap" view on the user.
-    func centerMapOnUser()
+    @objc func centerMapOnUser()
     {
         mainMap.setCenter(mainMap.userLocation.coordinate, animated: true)
     }
@@ -554,7 +554,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     }
     
     /// Allows annotations to be dragged around this view's "mainMap" view by the user.
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState)
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState)
     {
         switch newState
         {
@@ -598,7 +598,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         descriptionView.frame = CGRect().frameBeneathFrame(CGRect().zeroBoundedRect(self.frame), beneathFrame: self.frame)
         UIView.animate(withDuration: 0.2,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: { 
                                     descriptionView.frame = CGRect().zeroBoundedRect(self.frame)
             },
@@ -638,7 +638,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         // Move the annotation view up.
         UIView.animate(withDuration: 0.2,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.curveLinear,
+                                   options: UIView.AnimationOptions.curveLinear,
                                    animations: {
                                     annotationView.frame = midFrame
             }) { (completed) in
@@ -649,7 +649,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
                                                delay: 0,
                                                usingSpringWithDamping: 0.7,
                                                initialSpringVelocity: 0.8,
-                                               options: UIViewAnimationOptions.curveLinear,
+                                               options: UIView.AnimationOptions.curveLinear,
                                                animations: {
                                                 annotationView.frame = initialFrame
                         },
@@ -663,7 +663,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     // MARK: Routing
     
     /// Handle when the user selects to calculate a route through all of the pins in this view's bag.
-    func calculateRootThroughPinsButtonPressed(_ button: UIButton)
+    @objc func calculateRootThroughPinsButtonPressed(_ button: UIButton)
     {
         switch mainViewState
         {
@@ -676,20 +676,20 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             mainHeader.headerText = "Select Start Pin"
             
             // Update the button to match the new state for this view so that when it is tapped next, it will clear the route from this view's "mainMap" view and restore the rest of the view to its default state.
-            button.setTitle("Clear", for: UIControlState())
+            button.setTitle("Clear", for: UIControl.State())
             
         case .startPinSelection:
             // Afer the user has selected a pin from this view's "mainMap" as the start pin, reset this view's navigation header and reset the button's title. Then, return this view's "viewState" to normal.
             
             mainHeader.headerText = defaultHeaderString
             mainViewState = .none
-            button.setTitle("Get Route through Pins", for: UIControlState())
+            button.setTitle("Get Route through Pins", for: UIControl.State())
         case .displayingRoute:
             // If this view is currently displaying a route, clear the route and reset this view to its default state.
             
             let overlays = mainMap.overlays
             mainMap.removeOverlays(overlays)
-            button.setTitle("Get Route through Pins", for: UIControlState())
+            button.setTitle("Get Route through Pins", for: UIControl.State())
             mainViewState = .none
         default:
             break
@@ -735,7 +735,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             {
                 let end = queue.popFront()
                 
-                let request = MKDirectionsRequest()
+                let request = MKDirections.Request()
                 let startPlace = MKPlacemark(coordinate: start, addressDictionary: nil)
                 let endPlace = MKPlacemark(coordinate: end, addressDictionary: nil)
                 request.source = MKMapItem(placemark: startPlace)
@@ -755,7 +755,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
                                 for route in directionResponse.routes
                                 {
 //                                    let distanceMiles = route.distance * 0.00062137
-                                    self.mainMap.add(route.polyline, level: MKOverlayLevel.aboveRoads)
+                                    self.mainMap.addOverlay(route.polyline, level: MKOverlayLevel.aboveRoads)
 //                                    self.mainMap.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 40, left: 10, bottom: 10, right: 15), animated: true)
                                 }
                             }
@@ -851,7 +851,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         mainViewState = .newItemNaming
         
         // Create a text-input view for renaming the long-pressed pin.
-        let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: 50), animated: true, backgroundType: UIBlurEffectStyle.dark)
+        let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: 50), animated: true, backgroundType: UIBlurEffect.Style.dark)
         input.delegate = self
         input.textField.textAlignment = .center
         input.textField.text = record.name
@@ -879,7 +879,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
             // Animate the MMQuickView over this view.
             UIView.animate(withDuration: 0.2,
                                        delay: 0,
-                                       options: UIViewAnimationOptions.curveEaseOut,
+                                       options: UIView.AnimationOptions.curveEaseOut,
                                        animations: {
                                         qView.frame = CGRect().zeroBoundedRect(self.frame)
                                         qView.alpha = 1
@@ -891,7 +891,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
     // MARK: Navigation
     
     /// Handle the user requesting to close this view.
-    func closeViewButtonPressed()
+    @objc func closeViewButtonPressed()
     {
         navDelegate?.navigationDelegateViewClosed(self)
     }
@@ -902,7 +902,7 @@ class MMSingleBagView : UIView, NSFetchedResultsControllerDelegate, MKMapViewDel
         // Animate the view off.
         UIView.animate(withDuration: 0.25,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: {
                                     view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
                                     view.alpha = 0
@@ -959,7 +959,7 @@ class MMSingleBagTableView: MMDefaultFetchedResultsTableView
     }
     
     /// Handle a row being long-pressed.
-    func rowLongPressed(_ pressRecog: MMRowLongPressGestureRecognizer)
+    @objc func rowLongPressed(_ pressRecog: MMRowLongPressGestureRecognizer)
     {
         switch pressRecog.state
         {

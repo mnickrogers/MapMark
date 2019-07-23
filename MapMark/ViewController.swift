@@ -67,7 +67,7 @@ class ViewController: UIViewController, MMBagsViewDelegate
     }
     
     /// Open the loading view at the screen's bottom.
-    func openLoadingView()
+    @objc func openLoadingView()
     {
         // Load the activity indicator if there are start-up operations to perform.
         activityView = MMActivityIndicatorView(inFrame: self.view.frame)
@@ -77,7 +77,7 @@ class ViewController: UIViewController, MMBagsViewDelegate
     }
     
     /// Close the loading view at the screen's bottom.
-    func closeLoadingView()
+    @objc func closeLoadingView()
     {
         activityView?.close()
         activityView = nil

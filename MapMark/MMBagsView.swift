@@ -66,9 +66,9 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         addButton.frame = CGRect.zero
         addButton.titleLabel?.font = UIFont(name: MM_FONT_LIGHT, size: 45)
         addButton.titleLabel?.textAlignment = .center
-        addButton.setTitleColor(MM_COLOR_GREEN_LIGHT, for: UIControlState())
+        addButton.setTitleColor(MM_COLOR_GREEN_LIGHT, for: UIControl.State())
         addButton.setTitleColor(MM_COLOR_GREEN_DARK, for: .highlighted)
-        addButton.setTitle("+", for: UIControlState())
+        addButton.setTitle("+", for: UIControl.State())
         addButton.sizeToFit()
         let addCenter = mainHeader.getHeaderLabelCenter()
         addButton.center = CGPoint(x: mainHeader.frame.size.width - 35, y: addCenter.y)
@@ -81,7 +81,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         let exportButton = UIButton(type: .custom)
         exportButton.frame = CGRect(x: self.frame.size.width - 40, y: self.frame.size.height - 40, width: 30, height: 30)
         exportButton.center = CGPoint(x: addButton.center.x, y: exportButton.center.y)
-        exportButton.setBackgroundImage(UIImage(named: "mm_export_button.png"), for: UIControlState())
+        exportButton.setBackgroundImage(UIImage(named: "mm_export_button.png"), for: UIControl.State())
         exportButton.tintColor = MM_COLOR_BLUE_DARK
         exportButton.addTarget(self, action: #selector(self.exportCoreDataToCSV), for: .touchUpInside)
         
@@ -115,7 +115,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         mainTableView.alpha = 0
         UIView.animate(withDuration: 0.25,
                                    delay: 0.5,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: { 
                                     self.mainTableView.frame = initialTableViewFrame
                                     self.mainTableView.alpha = 1
@@ -130,7 +130,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     // MARK: Export functions
     
     /// Export all of the saved data (bags and pins) to a CSV file.
-    func exportCoreDataToCSV()
+    @objc func exportCoreDataToCSV()
     {
         // Create a new instance of the MMExporter class which is used to prepare CoreData entities for exporting.
         let exporter = MMExporter()
@@ -169,7 +169,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     // MARK: Handle New Bags
     
     /// Create and save a new bag to this view.
-    func addNewBag()
+    @objc func addNewBag()
     {
         // Create a text input view to allow the user to enter a name for the new bag.
         let input = MMTextInputView(frame: CGRect(x: 0, y: mainHeader.frame.origin.y + mainHeader.frame.size.height, width: self.frame.size.width, height: rowHeight), animated: true)
@@ -251,7 +251,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
         self.addSubview(view)
         UIView.animate(withDuration: 0.25,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: {
                                     self.contentView.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
                                     view.frame = initialFrame
@@ -264,7 +264,7 @@ class MMBagsView: UIView, UITextFieldDelegate, MMBagsTableViewDelegate, MMTextIn
     {
         UIView.animate(withDuration: 0.25,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: {
                                     view.frame = CGRect(x: 0, y: self.frame.size.height, width: view.frame.size.width, height: view.frame.size.height)
                                     self.contentView.transform = CGAffineTransform(scaleX: 1, y: 1)

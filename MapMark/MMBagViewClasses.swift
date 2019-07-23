@@ -104,7 +104,7 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     // MARK: Table View
     
     /// Handle a preconfigured action from an editing style.
-    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath)
+    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: IndexPath)
     {
         // If the editing option selected is "delete", then remove the cell and its corresponding CoreData entity.
         if editingStyle == .delete
@@ -183,7 +183,7 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
 /// A class for representing a UITableView with a consistent style across the app. Subclass this class for specific UITableView functionality.
 class MMDefaultTableView: UITableView, UITableViewDelegate, UITableViewDataSource
 {
-    override init(frame: CGRect, style: UITableViewStyle)
+    override init(frame: CGRect, style: UITableView.Style)
     {
         super.init(frame: frame, style: style)
         

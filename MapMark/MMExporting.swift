@@ -35,7 +35,7 @@ class MMExporter
         // The string that will represent a CSV file.
         var csvStr = "BAG_NAME,PIN_NAME,LATITUDE,LONGITUDE,DATE_ADDED,DESCRIPTION\n"
         
-        let _ = results!.map
+        let _ = results.map
         {
             item in
             let name = item.name ?? "untitled"

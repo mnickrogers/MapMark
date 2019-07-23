@@ -85,17 +85,23 @@ extension String
         {
             func getDegreesMinutesSeconds(_ string : String) -> (direction: String, degrees: Double, minutes: Double, seconds: Double)?
             {
-                let direction = string.substring(with: string.startIndex..<string.characters.index(string.startIndex, offsetBy: 1))
-                let radians = string.substring(with: string.characters.index(string.startIndex, offsetBy: 1)..<string.endIndex)
+//                let direction = string.substring(with: string.startIndex..<string.characters.index(string.startIndex, offsetBy: 1))
+                let direction = string[string.startIndex..<string.index(string.startIndex, offsetBy: 1)]
+//                let radians = string.substring(with: string.characters.index(string.startIndex, offsetBy: 1)..<string.endIndex)
+                let radians = string[string.index(string.startIndex, offsetBy: 1)..<string.endIndex]
                 
                 guard let commaPos = radians.range(of: ",")
                     else { return nil }
                 guard let decimalPos = radians.range(of: ".")
                     else { return nil }
                 
-                let degString = radians.substring(with: radians.startIndex..<commaPos.lowerBound)
-                let minString = radians.substring(with: commaPos.upperBound..<decimalPos.lowerBound)
-                let secString = radians.substring(with: decimalPos.upperBound..<radians.endIndex)
+//                let degString = radians.substring(with: radians.startIndex..<commaPos.lowerBound)
+//                let minString = radians.substring(with: commaPos.upperBound..<decimalPos.lowerBound)
+//                let secString = radians.substring(with: decimalPos.upperBound..<radians.endIndex)
+//                let degString = radians.substring(with: radians.startIndex..<commaPos.lowerBound)
+                let degString = radians[radians.startIndex..<commaPos.lowerBound]
+                let minString = radians[commaPos.upperBound..<decimalPos.lowerBound]
+                let secString = radians[decimalPos.upperBound..<radians.endIndex]
                 
                 guard let degrees = Double(degString)
                     else { return nil }
@@ -104,7 +110,7 @@ extension String
                 guard let seconds = Double(secString)
                     else { return nil }
                 
-                return (direction: direction, degrees: degrees, minutes: minutes, seconds: seconds)
+                return (direction: String(direction), degrees: degrees, minutes: minutes, seconds: seconds)
             }
             func convertDegreesToDecimal(_ degrees: (direction: String, degrees: Double, minutes: Double, seconds: Double)) -> Double
             {
@@ -208,7 +214,7 @@ extension String
             assert(length >= minimumRandomStringStrongLength, "String strength set to strong, but minimum length is below strong minimum requirement.")
             
             let unixTime : String = String(Int((Date().timeIntervalSince1970)))
-            let baseString = unixTime.substring(with: unixTime.characters.index(unixTime.endIndex, offsetBy: -baseStringLength)..<unixTime.endIndex)
+            let baseString = unixTime.substring(with: unixTime.index(unixTime.endIndex, offsetBy: -baseStringLength)..<unixTime.endIndex)
             
             let front = miniRandomString((length - baseStringLength) / 2)
             let end = miniRandomString((length - baseStringLength) / 2)

@@ -155,7 +155,7 @@ class NRGridCircleAnimationView: UIView
         resetRotations()
         UIView.animate(withDuration: 0.1,
                                    delay: 0.4,
-                                   options: UIViewAnimationOptions.curveLinear,
+                                   options: UIView.AnimationOptions.curveLinear,
                                    animations: {
                                     self.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                                     self.alpha = 0.2
@@ -172,7 +172,7 @@ class NRGridCircleAnimationView: UIView
         resetRotations()
         UIView.animate(withDuration: 0.1,
                                    delay: 0.4,
-                                   options: UIViewAnimationOptions.curveLinear,
+                                   options: UIView.AnimationOptions.curveLinear,
                                    animations: {
                                     self.outterView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                                     self.middleView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)

@@ -84,7 +84,7 @@ class MMActivityIndicatorView: UIView
 //        self.transform = CGAffineTransformMakeScale(0.9, 0.9)
         UIView.animate(withDuration: 0.2,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: {
 //                                    self.transform = CGAffineTransformMakeScale(1, 1)
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
@@ -101,7 +101,7 @@ class MMActivityIndicatorView: UIView
         loadingAnimator.stopAnimating()
         UIView.animate(withDuration: 0.2,
                                    delay: 1,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: {
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y + self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
 //                                    self.transform = CGAffineTransformMakeScale(0.8, 0.8)

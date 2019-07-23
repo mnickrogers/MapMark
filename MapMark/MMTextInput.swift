@@ -31,7 +31,7 @@ class MMTextInputView: UIView, UITextFieldDelegate
         super.init(frame: frame)
     }
     
-    init(frame: CGRect, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.light)
+    init(frame: CGRect, backgroundType: UIBlurEffect.Style = UIBlurEffect.Style.light)
     {
         super.init(frame: frame)
         
@@ -60,7 +60,7 @@ class MMTextInputView: UIView, UITextFieldDelegate
     }
     
     /// Initialize a MMTextInputView with an animation and background blur type.
-    convenience init(frame: CGRect, animated: Bool, backgroundType: UIBlurEffectStyle = UIBlurEffectStyle.light)
+    convenience init(frame: CGRect, animated: Bool, backgroundType: UIBlurEffect.Style = UIBlurEffect.Style.light)
     {
         self.init(frame: frame, backgroundType: backgroundType)
         
@@ -71,7 +71,7 @@ class MMTextInputView: UIView, UITextFieldDelegate
             self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
             UIView.animate(withDuration: 0.25,
                                        delay: 0,
-                                       options: UIViewAnimationOptions.curveEaseOut,
+                                       options: UIView.AnimationOptions.curveEaseOut,
                                        animations: {
                                         self.alpha = 1
                                         self.frame = startFrame
@@ -90,7 +90,7 @@ class MMTextInputView: UIView, UITextFieldDelegate
     {
         UIView.animate(withDuration: 0.25,
                                    delay: 0,
-                                   options: UIViewAnimationOptions.curveEaseOut,
+                                   options: UIView.AnimationOptions.curveEaseOut,
                                    animations: {
                                     self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
                                     self.alpha = 0

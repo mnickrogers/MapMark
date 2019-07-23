@@ -94,7 +94,7 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
         let closeButton = UIButton(type: .custom)
         closeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         closeButton.center = CGPoint(x: 35, y: header.getHeaderLabelCenter().y)
-        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControlState())
+        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControl.State())
         closeButton.addTarget(self, action: #selector(self.closeButtonPressed), for: .touchUpInside)
         header.addSubview(closeButton)
         
@@ -143,7 +143,7 @@ class MMPinDescriptionView: UIView, UITextFieldDelegate, UITextViewDelegate
     // MARK: - Close button
     
     /// Handle the user requesting to close this view.
-    func closeButtonPressed()
+    @objc func closeButtonPressed()
     {
         // Resign all first responders from this view.
         titleField?.resignFirstResponder()

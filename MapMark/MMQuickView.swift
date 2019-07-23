@@ -75,7 +75,7 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
         let closeButton = UIButton(type: .custom)
         closeButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         closeButton.center = CGPoint(x: 35, y: mainHeader.getHeaderLabelCenter().y)
-        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControlState())
+        closeButton.setBackgroundImage(UIImage(named: "close_button_green.png"), for: UIControl.State())
         closeButton.addTarget(self, action: #selector(self.closeViewButtonPressed), for: .touchUpInside)
         mainHeader.addSubview(closeButton)
         
@@ -109,7 +109,7 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
     }
     
     /// Handle close operations to remove this view from its superview by calling the close method on this view's navigation delegate.
-    func closeViewButtonPressed()
+    @objc func closeViewButtonPressed()
     {
         navDelegate?.navigationDelegateViewClosed(self)
     }
