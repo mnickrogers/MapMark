@@ -161,7 +161,11 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     }
     
     /// Get the row height for this UITableView's cells.
-    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
+//    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
+//    {
+//        return rowHeight
+//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return rowHeight
     }

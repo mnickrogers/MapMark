@@ -944,7 +944,7 @@ class MMSingleBagTableView: MMDefaultFetchedResultsTableView
     }
     
     /// Set the row height for this table view's cells.
-    override func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return 45
     }

@@ -148,8 +148,7 @@ class MMQuickView: UIView, MMBagsTableViewDelegate
 /// The table view used to display bags in a quick table view (used for moving pins to new bags).
 final class MMQuickViewTableView: MMSingleBagTableView
 {
-    override func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
-    {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
     
