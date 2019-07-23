@@ -37,6 +37,9 @@ class MMSession
     /// State at launch - used to capture information from the home screen's Quick Actions. Mainly used by the MMStartupOperations class.
     internal var launchState: MMLaunchState = .normal
     
+    /// Object representing the safe areas of this device (fixed at launch because rotation is disallowed).
+    internal var safeAreaInsets = UIEdgeInsets()
+    
     init()
     {
         guard let delegate = UIApplication.shared.delegate as? AppDelegate

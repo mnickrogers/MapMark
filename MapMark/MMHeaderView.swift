@@ -56,7 +56,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
     
     override init(frame: CGRect)
     {
-        super.init(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 75))
+        super.init(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 75 + MMSession.sharedSession.safeAreaInsets.top))
         
         // Add a blur effect to the header.
         backgroundColor = UIColor.clear
@@ -64,6 +64,9 @@ class MMHeaderView: UIView, UITextFieldDelegate
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.frame
         self.addSubview(blurEffectView)
+        
+//        let safeInsets = MMSession.sharedSession.safeAreaInsets
+//        let headerLabelY = safeInsets.top > 0 ? (safeInsets.top / 2) + 10 : 0
         
         // Set up the header label.
         headerLabel = UITextField(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
@@ -92,7 +95,7 @@ class MMHeaderView: UIView, UITextFieldDelegate
     /// Get the center for this header's label.
     internal func getHeaderLabelCenter() -> CGPoint
     {
-        return CGPoint(x: self.center.x, y: self.center.y + 7)
+        return CGPoint(x: self.center.x, y: self.center.y + 7 + (MMSession.sharedSession.safeAreaInsets.top / 4))
     }
     
     /// Keeps the label's font size and the label's frame adjusted to the text.

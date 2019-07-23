@@ -12,6 +12,7 @@
 		1E1DA42B1D430B00000726CB /* MMExporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1DA42A1D430B00000726CB /* MMExporting.swift */; };
 		1E2F8FFB1D305CB3002626FF /* NRDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */; };
 		1E2F8FFE1D305CED002626FF /* MMMapMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F8FFD1D305CED002626FF /* MMMapMath.swift */; };
+		1E3AEDB322E69EAE00A73179 /* MMStartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3AEDB222E69EAE00A73179 /* MMStartScreenViewController.swift */; };
 		1E42D9DD1D46BA3C004465F9 /* MMStartupOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */; };
 		1E42D9E11D4845B4004465F9 /* MMActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E42D9E01D4845B4004465F9 /* MMActivity.swift */; };
 		1E42D9E81D484B01004465F9 /* concentric_circle_grid_outer_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E42D9E21D484B01004465F9 /* concentric_circle_grid_outer_light.png */; };
@@ -63,6 +64,7 @@
 		1E1DA42A1D430B00000726CB /* MMExporting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMExporting.swift; sourceTree = "<group>"; };
 		1E2F8FFA1D305CB3002626FF /* NRDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRDataStructures.swift; sourceTree = "<group>"; };
 		1E2F8FFD1D305CED002626FF /* MMMapMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMMapMath.swift; sourceTree = "<group>"; };
+		1E3AEDB222E69EAE00A73179 /* MMStartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMStartScreenViewController.swift; sourceTree = "<group>"; };
 		1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMStartupOperations.swift; sourceTree = "<group>"; };
 		1E42D9DE1D470679004465F9 /* MapMark 0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MapMark 0.2.xcdatamodel"; sourceTree = "<group>"; };
 		1E42D9E01D4845B4004465F9 /* MMActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMActivity.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				1E6145DC1D2CDEF100B06169 /* ViewController.swift */,
 				1E9B31691D2E367C0092200D /* MMSession.swift */,
 				1E42D9DC1D46BA3C004465F9 /* MMStartupOperations.swift */,
+				1E3AEDB222E69EAE00A73179 /* MMStartScreenViewController.swift */,
 			);
 			name = Root;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				1E6145FB1D2CE62B00B06169 /* Bag.swift in Sources */,
 				1E6146031D2CE7EC00B06169 /* MMConstants.swift in Sources */,
 				1E05F0B31D4AEA4F004B0AE8 /* MMSearch.swift in Sources */,
+				1E3AEDB322E69EAE00A73179 /* MMStartScreenViewController.swift in Sources */,
 				1E6145DB1D2CDEF100B06169 /* AppDelegate.swift in Sources */,
 				1E61461E1D2CF9E200B06169 /* MMHeaderView.swift in Sources */,
 			);
@@ -552,6 +556,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 625TS2W23V;
 				INFOPLIST_FILE = MapMark/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nicholas-Rogers.MapMark";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -565,6 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 625TS2W23V;
 				INFOPLIST_FILE = MapMark/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Nicholas-Rogers.MapMark";
 				PRODUCT_NAME = "$(TARGET_NAME)";
