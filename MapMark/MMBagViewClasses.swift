@@ -104,7 +104,7 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     // MARK: Table View
     
     /// Handle a preconfigured action from an editing style.
-    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: IndexPath)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
         // If the editing option selected is "delete", then remove the cell and its corresponding CoreData entity.
         if editingStyle == .delete
@@ -144,7 +144,7 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     }
     
     /// Enable cell editing so that a user can swipe to reveal action views.
-    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
     {
         return true
     }
@@ -161,10 +161,6 @@ class MMDefaultFetchedResultsTableView: MMDefaultTableView, NSFetchedResultsCont
     }
     
     /// Get the row height for this UITableView's cells.
-//    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
-//    {
-//        return rowHeight
-//    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return rowHeight
